@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+:root {
+  /* KaderOS Design Tokens — Apple-inspired */
+  --color-primary: #3739C1;
+  --color-primary-light: #3739C115;
+  --color-secondary: #7C3AED;
+  --color-accent-cyan: #0891B2;
+  --color-accent-green: #059669;
+
+  --color-bg-primary: #FFFFFF;
+  --color-bg-secondary: #F5F5F7;
+  --color-bg-tertiary: #E5E5EA;
+
+  --color-text-primary: #1D1D1F;
+  --color-text-secondary: #6E6E73;
+  --color-text-tertiary: #86868B;
+
+  --color-border: #D2D2D7;
+  --color-border-light: #E5E5EA;
+
+  --color-success: #059669;
+  --color-warning: #D97706;
+  --color-danger: #DC2626;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+}
+
+@theme {
+  --color-primary: #3739C1;
+  --color-primary-light: #3739C115;
+  --color-shark: #1D1D1F;
+  --color-athens: #F5F5F7;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+}

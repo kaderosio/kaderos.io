@@ -1,0 +1,14 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "kaderos-web",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "@kaderos/web", "dev"],
+      "port": 3000,
+      "env": {
+        "PATH": "/Users/thesh/.nvm/versions/node/v24.4.1/bin:/opt/homebrew/bin:/usr/bin:/bin"
+      }
+    }
+  ]
+}
