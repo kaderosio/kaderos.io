@@ -7,7 +7,7 @@ const CHANGELOG = [
     version: "v0.1.0",
     date: "2. April 2026",
     tag: "BETA",
-    tagColor: "#3739C1",
+    tagColor: "#000088",
     title: "KaderOS ist geboren",
     changes: [
       { type: "new", text: "Monorepo mit Turborepo + pnpm aufgesetzt" },
@@ -49,7 +49,7 @@ export default function ChangelogPage() {
       <div className="max-w-3xl mx-auto">
         {/* Hero */}
         <div className="text-center mb-16">
-          <div className="text-[12px] font-semibold text-[#3739C1] uppercase tracking-widest mb-4">Changelog</div>
+          <div className="text-[12px] font-semibold text-[#000088] uppercase tracking-widest mb-4">Changelog</div>
           <h1 className="text-[48px] font-extrabold tracking-tight mb-4">
             Was sich tut.
           </h1>

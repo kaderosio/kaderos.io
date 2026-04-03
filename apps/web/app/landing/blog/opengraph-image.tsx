@@ -29,7 +29,7 @@ export default async function Image() {
             left: 0,
             right: 0,
             height: 6,
-            background: "linear-gradient(90deg, #3739C1, #000088, #0891B2)",
+            background: "linear-gradient(90deg, #000088, #000088, #0891B2)",
           }}
         />
 
@@ -38,7 +38,7 @@ export default async function Image() {
           style={{
             fontSize: 14,
             fontWeight: 700,
-            color: "#3739C1",
+            color: "#000088",
             textTransform: "uppercase",
             letterSpacing: 3,
             marginBottom: 20,
@@ -88,7 +88,7 @@ export default async function Image() {
               width: 32,
               height: 32,
               borderRadius: 10,
-              background: "#3739C1",
+              background: "#000088",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",

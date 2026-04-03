@@ -2,8 +2,8 @@
 
 :root {
   /* KaderOS Design Tokens — Apple-inspired */
-  --color-primary: #3739C1;
-  --color-primary-light: #3739C115;
+  --color-primary: #000088;
+  --color-primary-light: #00008815;
   --color-secondary: #000088;
   --color-accent-cyan: #0891B2;
   --color-accent-green: #059669;
@@ -30,8 +30,8 @@
 }
 
 @theme {
-  --color-primary: #3739C1;
-  --color-primary-light: #3739C115;
+  --color-primary: #000088;
+  --color-primary-light: #00008815;
   --color-shark: #1D1D1F;
   --color-athens: #F5F5F7;
 }

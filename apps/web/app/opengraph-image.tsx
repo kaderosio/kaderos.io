@@ -29,7 +29,7 @@ export default async function Image() {
             left: 0,
             right: 0,
             height: 6,
-            background: "linear-gradient(90deg, #3739C1, #000088, #0891B2)",
+            background: "linear-gradient(90deg, #000088, #000088, #0891B2)",
           }}
         />
 
@@ -47,7 +47,7 @@ export default async function Image() {
               width: 56,
               height: 56,
               borderRadius: 16,
-              background: "#3739C1",
+              background: "#000088",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -80,7 +80,7 @@ export default async function Image() {
             textAlign: "center",
             lineHeight: 1.1,
             letterSpacing: "-1px",
-            background: "linear-gradient(135deg, #3739C1, #000088, #0891B2)",
+            background: "linear-gradient(135deg, #000088, #000088, #0891B2)",
             backgroundClip: "text",
             color: "transparent",
           }}

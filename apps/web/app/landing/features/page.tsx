@@ -11,7 +11,7 @@ const FEATURES = [
   {
     category: "Dein Team",
     items: [
-      { icon: Users, title: "Org Chart", desc: "Hierarchien, Rollen, Reporting Lines. Wer reportet an wen — auf einen Blick, nicht in deinem Kopf. Swiss Company Roles (GF, VR) inklusive.", color: "#3739C1" },
+      { icon: Users, title: "Org Chart", desc: "Hierarchien, Rollen, Reporting Lines. Wer reportet an wen — auf einen Blick, nicht in deinem Kopf. Swiss Company Roles (GF, VR) inklusive.", color: "#000088" },
       { icon: MessageSquare, title: "Meeting Room", desc: "Sprich mit deinem CTO. Gib dem CMO neue Richtung. Oder ruf das ganze Team zusammen — wie ein echtes Standup. Nur schneller.", color: "#000088" },
       { icon: Sliders, title: "Agent Config", desc: "Jeder Agent bekommt: LLM-Auswahl, System Prompt, Tools, Skills, Budget, Heartbeat-Schedule. Alles an einem Ort konfigurierbar.", color: "#0891B2" },
     ],
@@ -19,7 +19,7 @@ const FEATURES = [
   {
     category: "Dein Business",
     items: [
-      { icon: Target, title: "Goal Alignment", desc: "Company Mission → Projekte → Agent Goals → Tasks. Alles kaskadiert. Dein CTO weiss, warum er diese API baut.", color: "#3739C1" },
+      { icon: Target, title: "Goal Alignment", desc: "Company Mission → Projekte → Agent Goals → Tasks. Alles kaskadiert. Dein CTO weiss, warum er diese API baut.", color: "#000088" },
       { icon: GitBranch, title: "Sprint Planning", desc: "Montag: Sprint planen. Freitag: Ergebnisse reviewen. Dein Kader arbeitet dazwischen autonom. Scrum ohne Meetings.", color: "#000088" },
       { icon: BarChart3, title: "Sales Pipeline", desc: "Deals tracken, Agents zuweisen, Probability scoren. Dein CMO-Agent füllt die Pipeline. Du entscheidest, was Priorität hat.", color: "#059669" },
     ],
@@ -44,7 +44,7 @@ const FEATURES = [
     category: "Swiss DNA",
     items: [
       { icon: Lock, title: "100% Lokal", desc: "Deine Daten verlassen deine Maschine nicht. Kein Cloud-Zwang. Kein Vendor Lock-in. PostgreSQL embedded, Docker ready.", color: "#1D1D1F" },
-      { icon: Shield, title: "nDSG-konform", desc: "Schweizer Datenschutzgesetz ab Tag 1. Retention Policies, Consent Management, DPIA-Templates. Nicht nachgerüstet.", color: "#3739C1" },
+      { icon: Shield, title: "nDSG-konform", desc: "Schweizer Datenschutzgesetz ab Tag 1. Retention Policies, Consent Management, DPIA-Templates. Nicht nachgerüstet.", color: "#000088" },
       { icon: Globe, title: "Mehrsprachig", desc: "Dashboard auf Deutsch, Français, Italiano, English. Dein Kader spricht die Sprache deiner Kunden.", color: "#0891B2" },
     ],
   },
@@ -55,7 +55,7 @@ export default function FeaturesPage() {
     <div className="py-20 px-6">
       {/* Hero */}
       <div className="max-w-4xl mx-auto text-center mb-20">
-        <div className="text-[12px] font-semibold text-[#3739C1] uppercase tracking-widest mb-4">Features</div>
+        <div className="text-[12px] font-semibold text-[#000088] uppercase tracking-widest mb-4">Features</div>
         <h1 className="text-[48px] font-extrabold tracking-tight mb-5">
           Kein Feature-Bloat.<br /><span className="gradient-text">Nur was zählt.</span>
         </h1>
@@ -70,12 +70,12 @@ export default function FeaturesPage() {
         {FEATURES.map((cat, ci) => (
           <div key={cat.category}>
             <div className="flex items-center gap-3 mb-8">
-              <div className="w-1 h-8 rounded-full bg-[#3739C1]" />
+              <div className="w-1 h-8 rounded-full bg-[#000088]" />
               <h2 className="text-[24px] font-bold">{cat.category}</h2>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
               {cat.items.map((f, i) => (
-                <div key={f.title} className="group p-7 rounded-2xl border border-[#E5E5EA] bg-white hover:border-[#3739C1]/30 hover:shadow-xl transition-all duration-300">
+                <div key={f.title} className="group p-7 rounded-2xl border border-[#E5E5EA] bg-white hover:border-[#000088]/30 hover:shadow-xl transition-all duration-300">
                   <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform" style={{ background: f.color + "10" }}>
                     <f.icon size={22} style={{ color: f.color }} />
                   </div>
@@ -92,7 +92,7 @@ export default function FeaturesPage() {
       <div className="max-w-2xl mx-auto text-center mt-24">
         <h2 className="text-[30px] font-bold mb-4">Überzeug dich selbst.</h2>
         <p className="text-[15px] text-[#6E6E73] mb-8">30 Sekunden bis zu deinem ersten Kader. Kostenlos.</p>
-        <a href="/landing#cta" className="inline-flex items-center gap-2 px-8 py-3.5 bg-[#3739C1] text-white text-[14px] font-semibold rounded-xl hover:shadow-lg hover:bg-[#2D2FA0] transition-all">
+        <a href="/landing#cta" className="inline-flex items-center gap-2 px-8 py-3.5 bg-[#000088] text-white text-[14px] font-semibold rounded-xl hover:shadow-lg hover:bg-[#000066] transition-all">
           Platz sichern <ArrowRight size={16} />
         </a>
       </div>

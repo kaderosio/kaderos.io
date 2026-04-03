@@ -10,7 +10,7 @@ export default function BlogPost() {
   return (
     <article className="max-w-3xl mx-auto py-16 px-6">
       <div className="mb-10">
-        <div className="text-[12px] text-[#3739C1] font-semibold uppercase tracking-widest mb-3">
+        <div className="text-[12px] text-[#000088] font-semibold uppercase tracking-widest mb-3">
           Blog
         </div>
         <h1 className="text-[32px] sm:text-[44px] font-bold tracking-tight mb-4">
@@ -125,7 +125,7 @@ export default function BlogPost() {
           Und vor allem: Agents wählen, die deine Sprache sprechen. Dein Recht kennen. Und in deiner Währung rechnen.
         </p>
 
-        <div className="mt-16 p-8 rounded-2xl bg-gradient-to-br from-[#3739C1]/5 to-white border border-[#3739C1]/10">
+        <div className="mt-16 p-8 rounded-2xl bg-gradient-to-br from-[#000088]/5 to-white border border-[#000088]/10">
           <h3 className="text-[20px] font-bold text-[#1D1D1F] mb-3">
             Bereit, dein erstes Kader aufzubauen?
           </h3>
@@ -135,7 +135,7 @@ export default function BlogPost() {
           </p>
           <Link
             href="/landing"
-            className="inline-flex items-center gap-2 bg-[#3739C1] text-white text-[14px] font-semibold px-6 py-3 rounded-full hover:bg-[#2D2F9E] transition-colors"
+            className="inline-flex items-center gap-2 bg-[#000088] text-white text-[14px] font-semibold px-6 py-3 rounded-full hover:bg-[#2D2F9E] transition-colors"
           >
             Auf die Waitlist
           </Link>

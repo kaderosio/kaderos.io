@@ -25,7 +25,7 @@ function Navbar() {
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrollY > 40 ? "bg-white/80 backdrop-blur-xl shadow-sm border-b border-[#F5F5F7]" : "bg-white/50 backdrop-blur-sm"}`}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
           <a href="/landing" className="flex items-center gap-2">
-            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-[#3739C1] flex items-center justify-center shadow-sm">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-[#000088] flex items-center justify-center shadow-sm">
               <span className="text-white text-xs sm:text-sm font-bold">K</span>
             </div>
             <span className="text-[15px] sm:text-[16px] font-semibold tracking-tight">KaderOS</span>
@@ -37,14 +37,14 @@ function Navbar() {
               <a key={l.label} href={l.href} className="text-[13px] text-[#6E6E73] hover:text-[#1D1D1F] transition-colors font-medium">{l.label}</a>
             ))}
             <a href="https://github.com/kaderos" target="_blank" rel="noopener noreferrer" className="text-[13px] text-[#6E6E73] hover:text-[#1D1D1F] transition-colors font-medium flex items-center gap-1.5"><Github size={14} /> GitHub</a>
-            <a href="/landing#cta" className="px-4 lg:px-5 py-2 bg-[#3739C1] text-white text-[12px] sm:text-[13px] font-semibold rounded-xl transition-all hover:shadow-lg hover:bg-[#2D2FA0]">
+            <a href="/landing#cta" className="px-4 lg:px-5 py-2 bg-[#000088] text-white text-[12px] sm:text-[13px] font-semibold rounded-xl transition-all hover:shadow-lg hover:bg-[#000066]">
               Platz sichern
             </a>
           </div>
 
           {/* Mobile Menu Button */}
           <div className="flex md:hidden items-center gap-3">
-            <a href="/landing#cta" className="px-3 py-1.5 bg-[#3739C1] text-white text-[12px] font-semibold rounded-lg">
+            <a href="/landing#cta" className="px-3 py-1.5 bg-[#000088] text-white text-[12px] font-semibold rounded-lg">
               Platz sichern
             </a>
             <button onClick={() => setMenuOpen(!menuOpen)} className="text-[#6E6E73] p-1">
@@ -79,7 +79,7 @@ function Footer() {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 sm:gap-10 mb-10 sm:mb-12">
           <div className="col-span-2 sm:col-span-1">
             <a href="/landing" className="flex items-center gap-2 mb-4">
-              <div className="w-7 h-7 rounded-lg bg-[#3739C1] flex items-center justify-center">
+              <div className="w-7 h-7 rounded-lg bg-[#000088] flex items-center justify-center">
                 <span className="text-white text-[11px] font-bold">K</span>
               </div>
               <span className="text-[14px] font-semibold">KaderOS</span>
@@ -118,7 +118,7 @@ function Footer() {
           <div className="flex items-center gap-5 text-[11px] text-[#C7C7CC]">
             <span>🇨🇭 Zürich, Schweiz</span>
             <span className="flex gap-2">
-              {["DE", "FR", "IT", "EN"].map(l => <span key={l} className={l === "DE" ? "text-[#3739C1] font-semibold" : ""}>{l}</span>)}
+              {["DE", "FR", "IT", "EN"].map(l => <span key={l} className={l === "DE" ? "text-[#000088] font-semibold" : ""}>{l}</span>)}
             </span>
           </div>
         </div>
@@ -132,7 +132,7 @@ export default function LandingLayout({ children }: { children: React.ReactNode 
     <div className="min-h-screen bg-white text-[#1D1D1F]" style={{ fontFamily: "var(--font-outfit, 'Outfit'), -apple-system, sans-serif" }}>
       <style>{`
         html { scroll-behavior: smooth; }
-        .gradient-text { background: linear-gradient(135deg, #3739C1 0%, #000088 50%, #0891B2 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shimmer 6s linear infinite; }
+        .gradient-text { background: linear-gradient(135deg, #000088 0%, #000088 50%, #0891B2 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shimmer 6s linear infinite; }
         @keyframes shimmer { from { background-position:-200% center; } to { background-position:200% center; } }
         @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
       `}</style>

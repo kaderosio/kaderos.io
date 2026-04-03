@@ -47,7 +47,7 @@ export default function PricingPage() {
     <div className="py-20 px-6">
       {/* Hero */}
       <div className="max-w-4xl mx-auto text-center mb-16">
-        <div className="text-[12px] font-semibold text-[#3739C1] uppercase tracking-widest mb-4">Pricing</div>
+        <div className="text-[12px] font-semibold text-[#000088] uppercase tracking-widest mb-4">Pricing</div>
         <h1 className="text-[48px] font-extrabold tracking-tight mb-5">
           Was es kostet.<br /><span className="gradient-text">Ohne Kleingedrucktes.</span>
         </h1>
@@ -71,8 +71,8 @@ export default function PricingPage() {
       {/* Plans */}
       <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mb-16 sm:mb-24">
         {PLANS.map(p => (
-          <div key={p.name} className={`relative rounded-2xl p-7 border transition-all ${p.pop ? "border-[#3739C1] bg-white shadow-xl shadow-[#3739C1]/10 scale-[1.02]" : "border-[#E5E5EA] bg-white hover:shadow-lg"}`}>
-            {p.pop && <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-[#3739C1] text-white text-[10px] font-bold rounded-full uppercase tracking-wider">Beliebt</div>}
+          <div key={p.name} className={`relative rounded-2xl p-7 border transition-all ${p.pop ? "border-[#000088] bg-white shadow-xl shadow-[#000088]/10 scale-[1.02]" : "border-[#E5E5EA] bg-white hover:shadow-lg"}`}>
+            {p.pop && <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-[#000088] text-white text-[10px] font-bold rounded-full uppercase tracking-wider">Beliebt</div>}
             <div className="text-[14px] font-semibold text-[#86868B] mb-2">{p.name}</div>
             <div className="flex items-baseline gap-1 mb-1">
               <span className="text-[12px] text-[#86868B]">CHF</span>
@@ -82,16 +82,16 @@ export default function PricingPage() {
             {annual && p.price > 0 && (
               <div className="text-[11px] text-[#059669] font-medium mb-1">Spare CHF {(p.price - p.annual) * 12}/Jahr</div>
             )}
-            <div className="text-[12px] text-[#3739C1] font-semibold mb-3">{p.agents}</div>
+            <div className="text-[12px] text-[#000088] font-semibold mb-3">{p.agents}</div>
             <p className="text-[12px] text-[#86868B] mb-5 leading-relaxed">{p.desc}</p>
             <ul className="space-y-2.5 mb-7">
               {p.feats.map(f => (
                 <li key={f} className="flex items-start gap-2.5 text-[13px] text-[#6E6E73]">
-                  <Check size={14} className="text-[#3739C1] shrink-0 mt-0.5" /> {f}
+                  <Check size={14} className="text-[#000088] shrink-0 mt-0.5" /> {f}
                 </li>
               ))}
             </ul>
-            <button className={`w-full py-3 rounded-xl text-[13px] font-semibold transition-all ${p.pop ? "bg-[#3739C1] text-white hover:bg-[#2D2FA0] hover:shadow-lg" : "bg-[#F5F5F7] text-[#1D1D1F] border border-[#E5E5EA] hover:border-[#3739C1] hover:text-[#3739C1]"}`}>
+            <button className={`w-full py-3 rounded-xl text-[13px] font-semibold transition-all ${p.pop ? "bg-[#000088] text-white hover:bg-[#000066] hover:shadow-lg" : "bg-[#F5F5F7] text-[#1D1D1F] border border-[#E5E5EA] hover:border-[#000088] hover:text-[#000088]"}`}>
               {p.cta}
             </button>
           </div>

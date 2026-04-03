@@ -10,9 +10,9 @@ import {
 
 // ── DESIGN TOKENS ──
 const C = {
-  primary: "#3739C1",
-  primarySoft: "#3739C118",
-  primaryMid: "#3739C130",
+  primary: "#000088",
+  primarySoft: "#00008818",
+  primaryMid: "#00008830",
   purple: "#000088",
   cyan: "#0891B2",
   green: "#059669",

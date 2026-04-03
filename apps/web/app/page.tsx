@@ -16,8 +16,8 @@ import {
 
 // ── DESIGN TOKENS ─────────────────────────────────────────────────────────
 const COLORS = {
-  primary: "#3739C1",
-  primaryLight: "#3739C115",
+  primary: "#000088",
+  primaryLight: "#00008815",
   purple: "#000088",
   cyan: "#0891B2",
   green: "#059669",
@@ -34,7 +34,7 @@ const COLORS = {
 
 // ── AGENT COLORS ──────────────────────────────────────────────────────────
 const AC: Record<string, { bg: string; text: string }> = {
-  max:   { bg: "#3739C1", text: "#fff" },
+  max:   { bg: "#000088", text: "#fff" },
   aura:  { bg: "#000088", text: "#fff" },
   vega:  { bg: "#0891B2", text: "#fff" },
   orion: { bg: "#059669", text: "#fff" },
@@ -139,7 +139,7 @@ const Card = ({ children, className = "", ...props }: { children: React.ReactNod
   <div className={`bg-white border border-[#E5E5EA] rounded-[14px] p-5 ${className}`} {...props}>{children}</div>
 );
 
-const PBar = ({ prog, color = "#3739C1" }: { prog: number; color?: string }) => (
+const PBar = ({ prog, color = "#000088" }: { prog: number; color?: string }) => (
   <div className="bg-[#F5F5F7] rounded h-[5px] overflow-hidden">
     <div className="h-full rounded transition-all duration-300" style={{ width: `${Math.min(100, prog)}%`, background: color }} />
   </div>
@@ -170,7 +170,7 @@ export default function KaderOS() {
       <aside className={`${sidebarOpen ? "w-[220px]" : "w-[60px]"} bg-white border-r border-[#E5E5EA] flex flex-col transition-all duration-200 shrink-0`}>
         {/* Logo */}
         <div className="h-14 flex items-center gap-2.5 px-4 border-b border-[#E5E5EA]">
-          <div className="w-8 h-8 rounded-lg bg-[#3739C1] flex items-center justify-center">
+          <div className="w-8 h-8 rounded-lg bg-[#000088] flex items-center justify-center">
             <span className="text-white text-sm font-bold">K</span>
           </div>
           {sidebarOpen && (
@@ -188,7 +188,7 @@ export default function KaderOS() {
             const Icon = item.icon;
             return (
               <button key={item.id} onClick={() => setView(item.id)}
-                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-[10px] text-[13px] transition-all ${active ? "bg-[#3739C115] text-[#3739C1] font-medium" : "text-[#6E6E73] hover:bg-[#F5F5F7]"}`}>
+                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-[10px] text-[13px] transition-all ${active ? "bg-[#00008815] text-[#000088] font-medium" : "text-[#6E6E73] hover:bg-[#F5F5F7]"}`}>
                 <Icon size={16} />
                 {sidebarOpen && item.label}
               </button>
@@ -200,7 +200,7 @@ export default function KaderOS() {
         {sidebarOpen && (
           <div className="p-3 border-t border-[#E5E5EA]">
             <div className="flex items-center gap-2 px-2 py-1.5 rounded-lg bg-[#F5F5F7]">
-              <div className="w-6 h-6 rounded bg-[#3739C1] flex items-center justify-center">
+              <div className="w-6 h-6 rounded bg-[#000088] flex items-center justify-center">
                 <Building2 size={12} className="text-white" />
               </div>
               <div className="flex-1 min-w-0">
@@ -267,7 +267,7 @@ function DashboardView() {
       {/* Stats Row */}
       <div className="grid grid-cols-4 gap-4">
         {[
-          { label: "Agents aktiv", value: "3/4", icon: Users, color: "#3739C1", sub: "1 Standby" },
+          { label: "Agents aktiv", value: "3/4", icon: Users, color: "#000088", sub: "1 Standby" },
           { label: "Offene Tasks", value: "6", icon: CheckSquare, color: "#D97706", sub: "2 In Arbeit" },
           { label: "Budget Monat", value: "CHF 0", icon: DollarSign, color: "#059669", sub: "von CHF 500" },
           { label: "Entscheide offen", value: "2", icon: ShieldCheck, color: "#DC2626", sub: "Approval nötig" },
@@ -352,7 +352,7 @@ function DashboardView() {
                   <span className="text-[10px] text-[#86868B]">Confidence: {d.conf}%</span>
                   <div className="flex gap-2">
                     <button className="px-2.5 py-1 text-[11px] rounded-lg border border-[#E5E5EA] bg-white text-[#1D1D1F] hover:bg-[#F5F5F7]">Deny</button>
-                    <button className="px-3 py-1 text-[11px] rounded-lg bg-[#3739C1] text-white font-medium hover:opacity-90">Approve</button>
+                    <button className="px-3 py-1 text-[11px] rounded-lg bg-[#000088] text-white font-medium hover:opacity-90">Approve</button>
                   </div>
                 </div>
               </div>
@@ -393,7 +393,7 @@ function AgentsView() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div className="text-[15px] font-semibold text-[#1D1D1F]">Dein Kader ({AGENTS.length} Agents)</div>
-        <button className="flex items-center gap-1.5 px-3 py-1.5 bg-[#3739C1] text-white text-[12px] font-medium rounded-lg hover:opacity-90">
+        <button className="flex items-center gap-1.5 px-3 py-1.5 bg-[#000088] text-white text-[12px] font-medium rounded-lg hover:opacity-90">
           <Plus size={14} /> Agent hinzufügen
         </button>
       </div>
@@ -437,12 +437,12 @@ function TasksView() {
         <div className="flex gap-2">
           {[["all", "Alle"], ["todo", "Offen"], ["in-progress", "In Arbeit"], ["done", "Erledigt"]].map(([id, lbl]) => (
             <button key={id} onClick={() => setFilter(id)}
-              className={`px-3 py-1.5 text-[12px] font-medium rounded-lg border transition-all ${filter === id ? "border-[#3739C1] bg-[#3739C115] text-[#3739C1]" : "border-[#E5E5EA] text-[#6E6E73] hover:bg-[#F5F5F7]"}`}>
+              className={`px-3 py-1.5 text-[12px] font-medium rounded-lg border transition-all ${filter === id ? "border-[#000088] bg-[#00008815] text-[#000088]" : "border-[#E5E5EA] text-[#6E6E73] hover:bg-[#F5F5F7]"}`}>
               {lbl}
             </button>
           ))}
         </div>
-        <button className="flex items-center gap-1.5 px-3 py-1.5 bg-[#3739C1] text-white text-[12px] font-medium rounded-lg"><Plus size={14} /> Neue Aufgabe</button>
+        <button className="flex items-center gap-1.5 px-3 py-1.5 bg-[#000088] text-white text-[12px] font-medium rounded-lg"><Plus size={14} /> Neue Aufgabe</button>
       </div>
 
       <Card className="!p-0 overflow-hidden">
@@ -575,7 +575,7 @@ function MeetingView() {
             return (
               <div key={i} className={`flex gap-3 ${isUser ? "flex-row-reverse" : ""}`}>
                 <Av id={isUser ? "team" : m.from} size={28} />
-                <div className={`max-w-[70%] px-4 py-2.5 text-[13px] leading-relaxed whitespace-pre-wrap ${isUser ? "bg-[#3739C1] text-white rounded-[12px_4px_12px_12px]" : "bg-[#F5F5F7] text-[#1D1D1F] rounded-[4px_12px_12px_12px]"}`}>
+                <div className={`max-w-[70%] px-4 py-2.5 text-[13px] leading-relaxed whitespace-pre-wrap ${isUser ? "bg-[#000088] text-white rounded-[12px_4px_12px_12px]" : "bg-[#F5F5F7] text-[#1D1D1F] rounded-[4px_12px_12px_12px]"}`}>
                   {m.text}
                 </div>
               </div>
@@ -588,9 +588,9 @@ function MeetingView() {
           <input value={input} onChange={e => setInput(e.target.value)}
             onKeyDown={e => e.key === "Enter" && sendMsg()}
             placeholder={`Nachricht an ${current.name}...`}
-            className="flex-1 px-4 py-2 rounded-lg bg-[#F5F5F7] text-[13px] outline-none focus:ring-2 focus:ring-[#3739C1] focus:ring-opacity-30" />
+            className="flex-1 px-4 py-2 rounded-lg bg-[#F5F5F7] text-[13px] outline-none focus:ring-2 focus:ring-[#000088] focus:ring-opacity-30" />
           <button onClick={sendMsg}
-            className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 ${input.trim() ? "bg-[#3739C1] text-white" : "bg-[#F5F5F7] text-[#86868B]"}`}>
+            className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 ${input.trim() ? "bg-[#000088] text-white" : "bg-[#F5F5F7] text-[#86868B]"}`}>
             <Send size={15} />
           </button>
         </div>
@@ -624,7 +624,7 @@ function DecisionsView() {
               {d.status === "pending" && (
                 <div className="flex gap-2">
                   <button className="px-2.5 py-1 text-[11px] rounded-lg border border-[#E5E5EA] hover:bg-[#F5F5F7]">Deny</button>
-                  <button className="px-3 py-1 text-[11px] rounded-lg bg-[#3739C1] text-white font-medium hover:opacity-90">Approve</button>
+                  <button className="px-3 py-1 text-[11px] rounded-lg bg-[#000088] text-white font-medium hover:opacity-90">Approve</button>
                 </div>
               )}
             </div>
@@ -699,7 +699,7 @@ function AuditView() {
 const LLM_PROVIDERS = [
   { id: "anthropic", name: "Anthropic", desc: "Claude Sonnet, Opus, Haiku", icon: "🧠", models: ["claude-sonnet-4", "claude-opus-4", "claude-haiku-3.5"], status: "connected", color: "#D97706" },
   { id: "openai",    name: "OpenAI",    desc: "GPT-4o, GPT-4.1, o3",       icon: "🤖", models: ["gpt-4o", "gpt-4.1", "o3-mini", "o3"],                  status: "disconnected", color: "#059669" },
-  { id: "mistral",   name: "Mistral",   desc: "EU-hosted, Large & Small",  icon: "🌊", models: ["mistral-large", "mistral-small", "codestral"],          status: "disconnected", color: "#3739C1" },
+  { id: "mistral",   name: "Mistral",   desc: "EU-hosted, Large & Small",  icon: "🌊", models: ["mistral-large", "mistral-small", "codestral"],          status: "disconnected", color: "#000088" },
   { id: "ollama",    name: "Ollama",    desc: "Lokale Modelle, kein API Key", icon: "🏠", models: ["llama3.3", "qwen3", "deepseek-r1"],                 status: "disconnected", color: "#000088" },
   { id: "custom",    name: "Custom",    desc: "OpenAI-kompatibler Endpoint", icon: "⚙️", models: [],                                                     status: "disconnected", color: "#6E6E73" },
 ];
@@ -741,7 +741,7 @@ function ConnectorsView() {
       <div className="grid grid-cols-4 gap-4">
         {[
           { label: "LLM Providers", value: LLM_PROVIDERS.filter(l => l.status === "connected").length + "/" + LLM_PROVIDERS.length, icon: Brain, color: "#D97706" },
-          { label: "Tools verbunden", value: connected + "/" + TOOL_CONNECTORS.length, icon: Plug, color: "#3739C1" },
+          { label: "Tools verbunden", value: connected + "/" + TOOL_CONNECTORS.length, icon: Plug, color: "#000088" },
           { label: "Skills geladen", value: String(SKILLS_DATA.length), icon: FileCode, color: "#000088" },
           { label: "Agents konfiguriert", value: AGENTS.filter(a => a.status === "active").length + "/" + AGENTS.length, icon: Bot, color: "#059669" },
         ].map((s, i) => (
@@ -768,7 +768,7 @@ function ConnectorsView() {
           ["agents", "Agent Config", Sliders],
         ] as const).map(([id, label, Icon]) => (
           <button key={id} onClick={() => setTab(id)}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-[12px] font-medium transition-all ${tab === id ? "bg-white text-[#3739C1] shadow-sm" : "text-[#6E6E73] hover:text-[#1D1D1F]"}`}>
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-[12px] font-medium transition-all ${tab === id ? "bg-white text-[#000088] shadow-sm" : "text-[#6E6E73] hover:text-[#1D1D1F]"}`}>
             <Icon size={14} /> {label}
           </button>
         ))}
@@ -779,7 +779,7 @@ function ConnectorsView() {
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <div className="text-[14px] font-semibold text-[#1D1D1F]">LLM Providers</div>
-            <button className="flex items-center gap-1.5 px-3 py-1.5 bg-[#3739C1] text-white text-[12px] font-medium rounded-lg">
+            <button className="flex items-center gap-1.5 px-3 py-1.5 bg-[#000088] text-white text-[12px] font-medium rounded-lg">
               <Plus size={14} /> Custom Provider
             </button>
           </div>
@@ -815,7 +815,7 @@ function ConnectorsView() {
                           {showApiKey[p.id] ? <EyeOff size={13} /> : <Eye size={13} />}
                         </button>
                       </div>
-                      <button className={`px-4 py-2 rounded-lg text-[12px] font-medium transition-all ${p.status === "connected" ? "bg-[#DCFCE7] text-[#14532D]" : "bg-[#3739C1] text-white hover:opacity-90"}`}>
+                      <button className={`px-4 py-2 rounded-lg text-[12px] font-medium transition-all ${p.status === "connected" ? "bg-[#DCFCE7] text-[#14532D]" : "bg-[#000088] text-white hover:opacity-90"}`}>
                         {p.status === "connected" ? <span className="flex items-center gap-1"><Check size={13} /> Verbunden</span> : "Verbinden"}
                       </button>
                     </div>
@@ -860,7 +860,7 @@ function ConnectorsView() {
               <button className="flex items-center gap-1.5 px-3 py-1.5 border border-[#E5E5EA] text-[#6E6E73] text-[12px] rounded-lg hover:bg-[#F5F5F7]">
                 <Webhook size={14} /> Custom Webhook
               </button>
-              <button className="flex items-center gap-1.5 px-3 py-1.5 bg-[#3739C1] text-white text-[12px] font-medium rounded-lg">
+              <button className="flex items-center gap-1.5 px-3 py-1.5 bg-[#000088] text-white text-[12px] font-medium rounded-lg">
                 <Plus size={14} /> MCP Server
               </button>
             </div>
@@ -887,7 +887,7 @@ function ConnectorsView() {
                         <Pill txt={t.status === "connected" ? "Verbunden" : "Verfügbar"}
                           bg={t.status === "connected" ? "#DCFCE7" : "#F3F4F6"}
                           c={t.status === "connected" ? "#14532D" : "#6E6E73"} />
-                        <button className={`px-3 py-1 text-[11px] rounded-lg font-medium ${t.status === "connected" ? "text-[#6E6E73] border border-[#E5E5EA] hover:bg-[#F5F5F7]" : "bg-[#3739C1] text-white"}`}>
+                        <button className={`px-3 py-1 text-[11px] rounded-lg font-medium ${t.status === "connected" ? "text-[#6E6E73] border border-[#E5E5EA] hover:bg-[#F5F5F7]" : "bg-[#000088] text-white"}`}>
                           {t.status === "connected" ? "Konfigurieren" : "Verbinden"}
                         </button>
                       </div>
@@ -905,14 +905,14 @@ function ConnectorsView() {
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <div className="text-[14px] font-semibold text-[#1D1D1F]">Skills Library ({SKILLS_DATA.length} Skills)</div>
-            <button className="flex items-center gap-1.5 px-3 py-1.5 bg-[#3739C1] text-white text-[12px] font-medium rounded-lg">
+            <button className="flex items-center gap-1.5 px-3 py-1.5 bg-[#000088] text-white text-[12px] font-medium rounded-lg">
               <Upload size={14} /> Skill hochladen
             </button>
           </div>
 
           {/* Upload Area */}
           <Card className="!p-0 overflow-hidden">
-            <div className="border-2 border-dashed border-[#E5E5EA] rounded-xl m-4 p-8 text-center hover:border-[#3739C1] hover:bg-[#3739C115] transition-all cursor-pointer">
+            <div className="border-2 border-dashed border-[#E5E5EA] rounded-xl m-4 p-8 text-center hover:border-[#000088] hover:bg-[#00008815] transition-all cursor-pointer">
               <Upload size={32} className="mx-auto mb-3 text-[#86868B]" />
               <div className="text-[13px] font-medium text-[#1D1D1F] mb-1">SKILLS.md oder JSON hochladen</div>
               <div className="text-[11px] text-[#86868B]">Drag & Drop oder klicken · Markdown, JSON, YAML</div>
@@ -956,7 +956,7 @@ function ConnectorsView() {
                   <div className="text-[20px] mb-2">{t.icon}</div>
                   <div className="text-[12px] font-medium text-[#1D1D1F]">{t.name}</div>
                   <div className="text-[10px] text-[#86868B] mb-2">{t.desc}</div>
-                  <button className="text-[11px] text-[#3739C1] font-medium">+ Installieren</button>
+                  <button className="text-[11px] text-[#000088] font-medium">+ Installieren</button>
                 </Card>
               ))}
             </div>
@@ -1008,7 +1008,7 @@ function ConnectorsView() {
                           </div>
                         </div>
 
-                        <button className="mt-3 flex items-center gap-1 text-[12px] text-[#3739C1] font-medium hover:underline">
+                        <button className="mt-3 flex items-center gap-1 text-[12px] text-[#000088] font-medium hover:underline">
                           <Sliders size={13} /> Konfigurieren <ChevronRight size={13} />
                         </button>
                       </div>
@@ -1052,7 +1052,7 @@ function AgentConfigDetail({ agentId, onBack }: { agentId: string; onBack: () =>
           ["governance", "Governance"],
         ] as const).map(([id, label]) => (
           <button key={id} onClick={() => setConfigTab(id)}
-            className={`px-4 py-2 rounded-lg text-[12px] font-medium transition-all ${configTab === id ? "bg-white text-[#3739C1] shadow-sm" : "text-[#6E6E73]"}`}>
+            className={`px-4 py-2 rounded-lg text-[12px] font-medium transition-all ${configTab === id ? "bg-white text-[#000088] shadow-sm" : "text-[#6E6E73]"}`}>
             {label}
           </button>
         ))}
@@ -1064,16 +1064,16 @@ function AgentConfigDetail({ agentId, onBack }: { agentId: string; onBack: () =>
           <div className="space-y-4">
             <div>
               <label className="text-[12px] font-medium text-[#1D1D1F] block mb-1.5">Name</label>
-              <input defaultValue={agent.name} className="w-full px-3 py-2 bg-[#F5F5F7] rounded-lg text-[13px] outline-none border border-[#E5E5EA] focus:border-[#3739C1]" />
+              <input defaultValue={agent.name} className="w-full px-3 py-2 bg-[#F5F5F7] rounded-lg text-[13px] outline-none border border-[#E5E5EA] focus:border-[#000088]" />
             </div>
             <div>
               <label className="text-[12px] font-medium text-[#1D1D1F] block mb-1.5">Rolle</label>
-              <input defaultValue={agent.role} className="w-full px-3 py-2 bg-[#F5F5F7] rounded-lg text-[13px] outline-none border border-[#E5E5EA] focus:border-[#3739C1]" />
+              <input defaultValue={agent.role} className="w-full px-3 py-2 bg-[#F5F5F7] rounded-lg text-[13px] outline-none border border-[#E5E5EA] focus:border-[#000088]" />
             </div>
             <div>
               <label className="text-[12px] font-medium text-[#1D1D1F] block mb-1.5">System Prompt</label>
               <textarea rows={6} defaultValue={`Du bist ${agent.name}, der ${agent.role} von KaderOS Demo. Du arbeitest autonom, berichtest klar und eskalierst bei Unsicherheit. Antworte auf Deutsch, kurz und präzise.`}
-                className="w-full px-3 py-2 bg-[#F5F5F7] rounded-lg text-[12px] outline-none border border-[#E5E5EA] focus:border-[#3739C1] font-mono leading-relaxed" />
+                className="w-full px-3 py-2 bg-[#F5F5F7] rounded-lg text-[12px] outline-none border border-[#E5E5EA] focus:border-[#000088] font-mono leading-relaxed" />
             </div>
             <div>
               <label className="text-[12px] font-medium text-[#1D1D1F] block mb-1.5">Reports an</label>
@@ -1085,12 +1085,12 @@ function AgentConfigDetail({ agentId, onBack }: { agentId: string; onBack: () =>
             <div>
               <label className="text-[12px] font-medium text-[#1D1D1F] block mb-1.5">Accent Farbe</label>
               <div className="flex gap-2">
-                {["#3739C1", "#000088", "#0891B2", "#059669", "#D97706", "#DC2626"].map(c => (
+                {["#000088", "#000088", "#0891B2", "#059669", "#D97706", "#DC2626"].map(c => (
                   <button key={c} className="w-8 h-8 rounded-full border-2 transition-all" style={{ background: c, borderColor: col.bg === c ? "#1D1D1F" : "transparent" }} />
                 ))}
               </div>
             </div>
-            <button className="px-4 py-2 bg-[#3739C1] text-white text-[12px] font-medium rounded-lg hover:opacity-90">Speichern</button>
+            <button className="px-4 py-2 bg-[#000088] text-white text-[12px] font-medium rounded-lg hover:opacity-90">Speichern</button>
           </div>
         </Card>
       )}
@@ -1125,7 +1125,7 @@ function AgentConfigDetail({ agentId, onBack }: { agentId: string; onBack: () =>
               </div>
               <div className="text-[10px] text-[#86868B] mt-1">Niedrig = präzise, Hoch = kreativ</div>
             </div>
-            <button className="px-4 py-2 bg-[#3739C1] text-white text-[12px] font-medium rounded-lg hover:opacity-90">Speichern</button>
+            <button className="px-4 py-2 bg-[#000088] text-white text-[12px] font-medium rounded-lg hover:opacity-90">Speichern</button>
           </div>
         </Card>
       )}
@@ -1151,7 +1151,7 @@ function AgentConfigDetail({ agentId, onBack }: { agentId: string; onBack: () =>
               );
             })}
           </div>
-          <button className="mt-4 px-4 py-2 bg-[#3739C1] text-white text-[12px] font-medium rounded-lg hover:opacity-90">Speichern</button>
+          <button className="mt-4 px-4 py-2 bg-[#000088] text-white text-[12px] font-medium rounded-lg hover:opacity-90">Speichern</button>
         </Card>
       )}
 
@@ -1176,7 +1176,7 @@ function AgentConfigDetail({ agentId, onBack }: { agentId: string; onBack: () =>
               );
             })}
           </div>
-          <button className="px-4 py-2 bg-[#3739C1] text-white text-[12px] font-medium rounded-lg hover:opacity-90">Speichern</button>
+          <button className="px-4 py-2 bg-[#000088] text-white text-[12px] font-medium rounded-lg hover:opacity-90">Speichern</button>
         </Card>
       )}
 
@@ -1241,7 +1241,7 @@ function AgentConfigDetail({ agentId, onBack }: { agentId: string; onBack: () =>
               </div>
             </div>
 
-            <button className="px-4 py-2 bg-[#3739C1] text-white text-[12px] font-medium rounded-lg hover:opacity-90">Speichern</button>
+            <button className="px-4 py-2 bg-[#000088] text-white text-[12px] font-medium rounded-lg hover:opacity-90">Speichern</button>
           </div>
         </Card>
       )}
@@ -1264,7 +1264,7 @@ function SettingsView() {
             <div className="text-[12px] font-medium text-[#1D1D1F] mb-1">Sprache</div>
             <div className="flex gap-2">
               {["DE", "FR", "IT", "EN"].map(l => (
-                <span key={l} className={`px-2.5 py-1 text-[11px] rounded-lg border ${l === "DE" ? "border-[#3739C1] bg-[#3739C115] text-[#3739C1] font-medium" : "border-[#E5E5EA] text-[#86868B]"}`}>{l}</span>
+                <span key={l} className={`px-2.5 py-1 text-[11px] rounded-lg border ${l === "DE" ? "border-[#000088] bg-[#00008815] text-[#000088] font-medium" : "border-[#E5E5EA] text-[#86868B]"}`}>{l}</span>
               ))}
             </div>
           </div>

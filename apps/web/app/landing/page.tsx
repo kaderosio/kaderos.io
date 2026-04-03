@@ -63,7 +63,7 @@ function TerminalDemo() {
 
   return (
     <div ref={ref} className="relative max-w-2xl mx-auto">
-      <div className="absolute -inset-4 bg-gradient-to-b from-[#3739C1]/[0.04] to-transparent rounded-3xl blur-2xl" />
+      <div className="absolute -inset-4 bg-gradient-to-b from-[#000088]/[0.04] to-transparent rounded-3xl blur-2xl" />
       <div className="relative bg-[#FAFAFA] border border-[#E5E5EA] rounded-2xl overflow-hidden shadow-xl">
         <div className="flex items-center gap-2 px-5 py-3 border-b border-[#E5E5EA]">
           <div className="flex gap-1.5">
@@ -77,9 +77,9 @@ function TerminalDemo() {
           {lines.slice(0, vis).map((l, i) => (
             <div key={i} className={`${l.t.startsWith("✓") ? "text-[#059669]" : l.t.startsWith("Dein") ? "text-[#1D1D1F] font-semibold" : "text-[#1D1D1F]"}`}
               style={{ opacity: i === 0 ? 1 : 0, animation: i > 0 ? "fadeIn .3s ease forwards" : "none" }}>
-              <span className="text-[#3739C1]">{l.p}</span>
+              <span className="text-[#000088]">{l.p}</span>
               {i === 0 ? (
-                <>{l.t.slice(0, chars)}{chars < l.t.length && <span className="inline-block w-[2px] h-[14px] bg-[#3739C1] ml-px align-middle animate-pulse" />}</>
+                <>{l.t.slice(0, chars)}{chars < l.t.length && <span className="inline-block w-[2px] h-[14px] bg-[#000088] ml-px align-middle animate-pulse" />}</>
               ) : l.t}
             </div>
           ))}
@@ -139,7 +139,7 @@ function WaitlistForm({ variant = "default" }: { variant?: "default" | "hero" })
         <div className="text-[12px] text-[#86868B]">
           Teile deinen Link — rück 10 Plätze vor pro Referral:<br />
           <button onClick={() => navigator.clipboard.writeText(`https://kaderos.io/landing?ref=${refCode}`)}
-            className="mt-1 px-3 py-1 bg-[#F5F5F7] rounded-lg text-[#3739C1] font-medium hover:bg-[#E5E5EA] transition-colors">
+            className="mt-1 px-3 py-1 bg-[#F5F5F7] rounded-lg text-[#000088] font-medium hover:bg-[#E5E5EA] transition-colors">
             kaderos.io?ref={refCode} — kopieren
           </button>
         </div>
@@ -152,11 +152,11 @@ function WaitlistForm({ variant = "default" }: { variant?: "default" | "hero" })
       <div className="flex-1">
         <input type="email" value={email} onChange={e => setEmail(e.target.value)}
           placeholder="deine@email.ch"
-          className="w-full px-5 py-3.5 bg-white border border-[#D2D2D7] rounded-xl text-[14px] text-[#1D1D1F] placeholder:text-[#C7C7CC] outline-none focus:border-[#3739C1] focus:shadow-[0_0_0_3px_#3739C110] transition-all" />
+          className="w-full px-5 py-3.5 bg-white border border-[#D2D2D7] rounded-xl text-[14px] text-[#1D1D1F] placeholder:text-[#C7C7CC] outline-none focus:border-[#000088] focus:shadow-[0_0_0_3px_#00008810] transition-all" />
         {error && <div className="text-[11px] text-[#DC2626] mt-1 ml-1">{error}</div>}
       </div>
       <button type="submit" disabled={loading}
-        className={`px-7 py-3.5 bg-[#3739C1] text-white text-[14px] font-semibold rounded-xl flex items-center gap-2 transition-all shrink-0 ${loading ? "opacity-60" : "hover:bg-[#2D2FA0] hover:shadow-lg active:scale-[0.98]"}`}>
+        className={`px-7 py-3.5 bg-[#000088] text-white text-[14px] font-semibold rounded-xl flex items-center gap-2 transition-all shrink-0 ${loading ? "opacity-60" : "hover:bg-[#000066] hover:shadow-lg active:scale-[0.98]"}`}>
         {loading ? (
           <><span className="inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> Wird gesendet</>
         ) : (
@@ -184,7 +184,7 @@ export default function LandingPage() {
       {/* Animations + utility classes — fonts & gradient-text from layout.tsx */}
       <style>{`
         @keyframes float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-10px); } }
-        @keyframes pulseGlow { 0%,100% { box-shadow:0 0 15px #3739C115; } 50% { box-shadow:0 0 30px #3739C125; } }
+        @keyframes pulseGlow { 0%,100% { box-shadow:0 0 15px #00008815; } 50% { box-shadow:0 0 30px #00008825; } }
         @keyframes slideIn { from { opacity:0; transform:translateX(-20px); } to { opacity:1; transform:translateX(0); } }
 
         .s1 { animation: fadeIn .7s ease .1s forwards; opacity:0; }
@@ -198,7 +198,7 @@ export default function LandingPage() {
         {/* Subtle gradient bg */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#F5F5F7]/50 via-white to-white" />
         <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full opacity-30"
-          style={{ background: "radial-gradient(ellipse, #3739C108, transparent 70%)" }} />
+          style={{ background: "radial-gradient(ellipse, #00008808, transparent 70%)" }} />
 
         <div className="relative max-w-4xl mx-auto text-center">
           {/* Live Badge */}
@@ -207,7 +207,7 @@ export default function LandingPage() {
             <span className="text-[13px] text-[#6E6E73]">
               <span className="text-[#1D1D1F] font-semibold">{waitlistN}</span> Gründer bauen bereits ihr AI-Team
             </span>
-            <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#3739C1]/10 text-[#3739C1] font-semibold">BETA</span>
+            <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#000088]/10 text-[#000088] font-semibold">BETA</span>
           </div>
 
           {/* Main Headline */}
@@ -222,8 +222,8 @@ export default function LandingPage() {
           </p>
 
           {/* Badge */}
-          <div className="s3 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#3739C1]/5 border border-[#3739C1]/15 mb-10">
-            <span className="text-[13px] text-[#3739C1] font-semibold">Agenten statt Stellenanzeigen.</span>
+          <div className="s3 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#000088]/5 border border-[#000088]/15 mb-10">
+            <span className="text-[13px] text-[#000088] font-semibold">Agenten statt Stellenanzeigen.</span>
           </div>
 
           {/* CTA */}
@@ -234,7 +234,7 @@ export default function LandingPage() {
           {/* Trust */}
           <div className="s4 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-[11px] sm:text-[13px] text-[#86868B] font-medium">
             <span className="flex items-center gap-2">🇨🇭 Swiss Made</span>
-            <span className="flex items-center gap-2"><Lock size={13} className="text-[#3739C1]" /> nDSG-konform</span>
+            <span className="flex items-center gap-2"><Lock size={13} className="text-[#000088]" /> nDSG-konform</span>
             <span className="flex items-center gap-2"><Shield size={13} className="text-[#059669]" /> Open Source</span>
             <span className="flex items-center gap-2"><Globe size={13} className="text-[#0891B2]" /> 100% Lokal</span>
           </div>
@@ -246,7 +246,7 @@ export default function LandingPage() {
         <div className="max-w-4xl mx-auto">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-12 text-center">
             <div>
-              <div className="text-[28px] sm:text-[32px] font-extrabold text-[#3739C1]">{waitlistN || "—"}</div>
+              <div className="text-[28px] sm:text-[32px] font-extrabold text-[#000088]">{waitlistN || "—"}</div>
               <div className="text-[11px] text-[#86868B] font-medium">auf der Waitlist</div>
             </div>
             <div className="hidden sm:block w-px h-10 bg-[#E5E5EA]" />
@@ -283,7 +283,7 @@ export default function LandingPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
             {[
-              { before: "10 Tabs offen, keiner weiss vom anderen", after: "1 Team. 1 Dashboard. Volle Kontrolle.", icon: Layers, color: "#3739C1" },
+              { before: "10 Tabs offen, keiner weiss vom anderen", after: "1 Team. 1 Dashboard. Volle Kontrolle.", icon: Layers, color: "#000088" },
               { before: "CHF 500 verbrannt ohne es zu merken", after: "Budget pro Agent. Auto-Stopp bei Limit.", icon: DollarSign, color: "#059669" },
               { before: "Agent hat falsch entschieden — keiner weiss warum", after: "Audit Trail. Jede Aktion. Nachvollziehbar.", icon: ShieldCheck, color: "#000088" },
             ].map((item, i) => (
@@ -303,7 +303,7 @@ export default function LandingPage() {
       <section id="wie" className="py-16 sm:py-28 px-4 sm:px-6">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <div className="text-[12px] font-semibold text-[#3739C1] uppercase tracking-widest mb-3">So funktioniert's</div>
+            <div className="text-[12px] font-semibold text-[#000088] uppercase tracking-widest mb-3">So funktioniert's</div>
             <h2 className="text-[26px] sm:text-[36px] font-bold tracking-tight">Vom Founder zum CEO. In 3 Schritten.</h2>
           </div>
 
@@ -314,7 +314,7 @@ export default function LandingPage() {
                 title: "Stelle dein Team auf",
                 desc: "CTO der deine Plattform baut. CMO der deine Pipeline füllt. CEO der priorisiert. Jeder Agent hat Rolle, Budget und Verantwortung.",
                 icon: Users,
-                color: "#3739C1",
+                color: "#000088",
               },
               {
                 step: "02",
@@ -350,7 +350,7 @@ export default function LandingPage() {
       <section className="py-14 sm:py-20 px-4 sm:px-6 bg-[#FAFAFA]">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-10">
-            <div className="text-[12px] font-semibold text-[#3739C1] uppercase tracking-widest mb-3">Installation</div>
+            <div className="text-[12px] font-semibold text-[#000088] uppercase tracking-widest mb-3">Installation</div>
             <h2 className="text-[30px] font-bold mb-2 tracking-tight">30 Sekunden bis zu deinem ersten Team.</h2>
             <p className="text-[14px] text-[#86868B]">Kein Account. Keine Cloud. Kein Vendor Lock-in. Deine Maschine, deine Daten.</p>
           </div>
@@ -362,24 +362,24 @@ export default function LandingPage() {
       <section id="features" className="py-16 sm:py-28 px-4 sm:px-6">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <div className="text-[12px] font-semibold text-[#3739C1] uppercase tracking-widest mb-3">Features</div>
+            <div className="text-[12px] font-semibold text-[#000088] uppercase tracking-widest mb-3">Features</div>
             <h2 className="text-[26px] sm:text-[36px] font-bold tracking-tight mb-4">Kein Feature-Bloat. Nur was zählt.</h2>
             <p className="text-[15px] text-[#6E6E73]">Jedes Feature existiert, weil ein echtes Business es braucht. Nicht weil es gut auf einer Slide aussieht.</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
             {[
-              { icon: Users, title: "Dein Organigramm", desc: "Wer reportet an wen. Wer ist wofür verantwortlich. Auf einen Blick — nicht in deinem Kopf.", color: "#3739C1" },
+              { icon: Users, title: "Dein Organigramm", desc: "Wer reportet an wen. Wer ist wofür verantwortlich. Auf einen Blick — nicht in deinem Kopf.", color: "#000088" },
               { icon: MessageSquare, title: "Meeting Room", desc: "Frag deinen CTO nach dem Status. Gib dem CMO eine neue Richtung. Wie ein echtes Standup — nur schneller.", color: "#000088" },
               { icon: DollarSign, title: "Budget in CHF", desc: "Agent Max darf CHF 50/Monat ausgeben. Bei 80% kriegst du eine Warnung. Bei 100% stoppt er. Automatisch.", color: "#059669" },
               { icon: ShieldCheck, title: "Du bleibst CEO", desc: "Über 90% Confidence? Agent handelt. Unter 70%? Du entscheidest. Dein Unternehmen, deine Regeln.", color: "#DC2626" },
               { icon: Activity, title: "Volle Transparenz", desc: "Welcher Agent hat was entschieden, wann, warum. Unveränderbar protokolliert. nDSG-konform ab Tag 1.", color: "#0891B2" },
               { icon: Plug, title: "Dein Stack. Verbunden.", desc: "Claude, GPT, GitHub, Slack, Notion — alles was du schon nutzt. Anschliessen, nicht ersetzen.", color: "#D97706" },
-              { icon: GitBranch, title: "Sprints mit Agents", desc: "Montag: Sprint planen. Freitag: Ergebnisse reviewen. Dazwischen? Arbeitet dein Kader.", color: "#3739C1" },
+              { icon: GitBranch, title: "Sprints mit Agents", desc: "Montag: Sprint planen. Freitag: Ergebnisse reviewen. Dazwischen? Arbeitet dein Kader.", color: "#000088" },
               { icon: Brain, title: "Wissen das bleibt", desc: "Deine Agents vergessen nichts. Skills, Playbooks, Regeln — einmal definiert, immer angewendet.", color: "#000088" },
               { icon: Building2, title: "Mehrere Firmen", desc: "Agentur? Betreib 5 AI-Companies isoliert. Jede mit eigenem Kader, Budget und Audit Trail.", color: "#059669" },
             ].map((f, i) => (
-              <div key={i} className="group p-6 rounded-2xl border border-[#E5E5EA] bg-white hover:border-[#3739C1]/30 hover:shadow-lg transition-all duration-300">
+              <div key={i} className="group p-6 rounded-2xl border border-[#E5E5EA] bg-white hover:border-[#000088]/30 hover:shadow-lg transition-all duration-300">
                 <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-4 transition-transform group-hover:scale-110" style={{ background: f.color + "10" }}>
                   <f.icon size={20} style={{ color: f.color }} />
                 </div>
@@ -424,7 +424,7 @@ export default function LandingPage() {
               <thead>
                 <tr className="bg-[#FAFAFA]">
                   <th className="text-left px-4 sm:px-6 py-4 text-[12px] font-medium text-[#86868B] sticky left-0 bg-[#FAFAFA] z-10"></th>
-                  <th className="text-center px-4 sm:px-6 py-4"><span className="text-[13px] font-bold text-[#3739C1]">KaderOS</span></th>
+                  <th className="text-center px-4 sm:px-6 py-4"><span className="text-[13px] font-bold text-[#000088]">KaderOS</span></th>
                   <th className="text-center px-4 sm:px-6 py-4 text-[12px] text-[#86868B]">Paperclip</th>
                   <th className="text-center px-4 sm:px-6 py-4 text-[12px] text-[#86868B]">CrewAI</th>
                 </tr>
@@ -443,7 +443,7 @@ export default function LandingPage() {
                 ].map(([feat, k, p, c], i) => (
                   <tr key={i} className="border-t border-[#F5F5F7]">
                     <td className="px-4 sm:px-6 py-3 text-[13px] text-[#6E6E73] sticky left-0 bg-white z-10">{feat as string}</td>
-                    <td className="text-center">{k ? <Check size={16} className="text-[#3739C1] mx-auto" /> : <span className="text-[#E5E5EA]">—</span>}</td>
+                    <td className="text-center">{k ? <Check size={16} className="text-[#000088] mx-auto" /> : <span className="text-[#E5E5EA]">—</span>}</td>
                     <td className="text-center">{p ? <Check size={16} className="text-[#C7C7CC] mx-auto" /> : <span className="text-[#E5E5EA]">—</span>}</td>
                     <td className="text-center">{c ? <Check size={16} className="text-[#C7C7CC] mx-auto" /> : <span className="text-[#E5E5EA]">—</span>}</td>
                   </tr>
@@ -458,7 +458,7 @@ export default function LandingPage() {
       <section className="py-14 sm:py-24 px-4 sm:px-6">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <div className="text-[12px] font-semibold text-[#3739C1] uppercase tracking-widest mb-3">Templates</div>
+            <div className="text-[12px] font-semibold text-[#000088] uppercase tracking-widest mb-3">Templates</div>
             <h2 className="text-[30px] font-bold tracking-tight mb-3">Nicht bei Null anfangen. Bei Eins.</h2>
             <p className="text-[14px] text-[#6E6E73]">Wähle ein Template. Passe es an. Dein Kader arbeitet in unter 5 Minuten.</p>
           </div>
@@ -470,11 +470,11 @@ export default function LandingPage() {
               { name: "E-Commerce", n: 7, icon: "🛒", sub: "Shop · Marketing · Support" },
               { name: "Consulting", n: 5, icon: "💼", sub: "Partner · Analyst · Writer" },
             ].map(t => (
-              <div key={t.name} className="text-center p-6 rounded-2xl border border-[#E5E5EA] bg-white hover:shadow-lg hover:border-[#3739C1]/30 transition-all group cursor-pointer">
+              <div key={t.name} className="text-center p-6 rounded-2xl border border-[#E5E5EA] bg-white hover:shadow-lg hover:border-[#000088]/30 transition-all group cursor-pointer">
                 <div className="text-[36px] mb-3 group-hover:scale-110 transition-transform">{t.icon}</div>
                 <div className="text-[14px] font-semibold mb-1">{t.name}</div>
                 <div className="text-[11px] text-[#86868B] mb-2">{t.sub}</div>
-                <div className="text-[12px] text-[#3739C1] font-semibold">{t.n} Agents</div>
+                <div className="text-[12px] text-[#000088] font-semibold">{t.n} Agents</div>
               </div>
             ))}
           </div>
@@ -485,7 +485,7 @@ export default function LandingPage() {
       <section id="pricing" className="py-16 sm:py-28 px-4 sm:px-6 bg-[#FAFAFA]">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <div className="text-[12px] font-semibold text-[#3739C1] uppercase tracking-widest mb-3">Pricing</div>
+            <div className="text-[12px] font-semibold text-[#000088] uppercase tracking-widest mb-3">Pricing</div>
             <h2 className="text-[36px] font-bold tracking-tight mb-3">Was es kostet. Ohne Kleingedrucktes.</h2>
             <p className="text-[15px] text-[#6E6E73]">Du zahlst für die Lizenz. Nicht für deine Daten. Die gehören dir.</p>
           </div>
@@ -497,23 +497,23 @@ export default function LandingPage() {
               { name: "Team", price: "149", per: "/Monat", agents: "25 Agents", feats: ["Mehrere Firmen betreiben", "Priority Support innert 4h", "Eigene Templates bauen", "API für Automationen", "Playbooks ohne Code"], pop: false },
               { name: "Agency", price: "349", per: "/Monat", agents: "Unbegrenzt", feats: ["Dein Logo, dein Brand", "Mandanten isoliert", "Persönlicher Ansprechpartner", "Eigene Connectors", "SLA 99.9%"], pop: false },
             ].map(p => (
-              <div key={p.name} className={`relative rounded-2xl p-7 border transition-all ${p.pop ? "border-[#3739C1] bg-white shadow-xl shadow-[#3739C1]/10 scale-[1.02]" : "border-[#E5E5EA] bg-white"}`}>
-                {p.pop && <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-[#3739C1] text-white text-[10px] font-bold rounded-full uppercase tracking-wider">Beliebt</div>}
+              <div key={p.name} className={`relative rounded-2xl p-7 border transition-all ${p.pop ? "border-[#000088] bg-white shadow-xl shadow-[#000088]/10 scale-[1.02]" : "border-[#E5E5EA] bg-white"}`}>
+                {p.pop && <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-[#000088] text-white text-[10px] font-bold rounded-full uppercase tracking-wider">Beliebt</div>}
                 <div className="text-[13px] font-semibold text-[#86868B] mb-5">{p.name}</div>
                 <div className="flex items-baseline gap-1 mb-1">
                   <span className="text-[12px] text-[#86868B]">CHF</span>
                   <span className="text-[40px] font-extrabold text-[#1D1D1F]">{p.price}</span>
                   <span className="text-[12px] text-[#86868B]">{p.per}</span>
                 </div>
-                <div className="text-[12px] text-[#3739C1] font-semibold mb-6">{p.agents}</div>
+                <div className="text-[12px] text-[#000088] font-semibold mb-6">{p.agents}</div>
                 <ul className="space-y-3 mb-7">
                   {p.feats.map(f => (
                     <li key={f} className="flex items-center gap-2.5 text-[13px] text-[#6E6E73]">
-                      <Check size={14} className="text-[#3739C1] shrink-0" /> {f}
+                      <Check size={14} className="text-[#000088] shrink-0" /> {f}
                     </li>
                   ))}
                 </ul>
-                <button className={`w-full py-3 rounded-xl text-[13px] font-semibold transition-all ${p.pop ? "bg-[#3739C1] text-white hover:bg-[#2D2FA0] hover:shadow-lg" : "bg-[#F5F5F7] text-[#1D1D1F] border border-[#E5E5EA] hover:border-[#3739C1] hover:text-[#3739C1]"}`}>
+                <button className={`w-full py-3 rounded-xl text-[13px] font-semibold transition-all ${p.pop ? "bg-[#000088] text-white hover:bg-[#000066] hover:shadow-lg" : "bg-[#F5F5F7] text-[#1D1D1F] border border-[#E5E5EA] hover:border-[#000088] hover:text-[#000088]"}`}>
                   {p.price === "0" ? "Jetzt kostenlos starten" : "Platz sichern →"}
                 </button>
               </div>
@@ -541,7 +541,7 @@ export default function LandingPage() {
 
       {/* ── FINAL CTA ── */}
       <section className="py-20 sm:py-32 px-4 sm:px-6 relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-white via-[#3739C1]/[0.02] to-white" />
+        <div className="absolute inset-0 bg-gradient-to-b from-white via-[#000088]/[0.02] to-white" />
         <div className="relative max-w-2xl mx-auto text-center">
           <h2 className="text-[30px] sm:text-[44px] font-extrabold tracking-tight mb-5">
             Die Frage ist nicht ob.<br /><span className="gradient-text">Sondern wann du anfängst.</span>

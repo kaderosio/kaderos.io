@@ -9,7 +9,7 @@ export default function DatenschutzPage() {
           <section>
             <h2 className="text-[18px] font-semibold text-[#1D1D1F] mb-3">1. Grundsatz</h2>
             <p>KaderOS nimmt den Schutz deiner Daten ernst. Wir behandeln deine personenbezogenen Daten vertraulich und entsprechend den gesetzlichen Datenschutzvorschriften sowie dieser Datenschutzerklärung.</p>
-            <p className="mt-2 p-3 bg-[#3739C1]/5 rounded-lg text-[#3739C1] text-[13px] font-medium">Kernprinzip: KaderOS speichert keine deiner Business-Daten in der Cloud. Die Software läuft lokal auf deiner Maschine. Wir haben keinen Zugriff auf deine Agents, Tasks, Budgets oder sonstigen Inhalte.</p>
+            <p className="mt-2 p-3 bg-[#000088]/5 rounded-lg text-[#000088] text-[13px] font-medium">Kernprinzip: KaderOS speichert keine deiner Business-Daten in der Cloud. Die Software läuft lokal auf deiner Maschine. Wir haben keinen Zugriff auf deine Agents, Tasks, Budgets oder sonstigen Inhalte.</p>
           </section>
 
           <section>

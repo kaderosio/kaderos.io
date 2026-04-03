@@ -15,7 +15,7 @@ const TEMPLATES = [
       { name: "Orion", role: "Strategy Partner", focus: "Sparring, Blindspots, GTM" },
     ],
     tags: ["Startups", "SaaS", "Tech"],
-    color: "#3739C1",
+    color: "#000088",
   },
   {
     name: "Digital Agency",
@@ -80,7 +80,7 @@ export default function TemplatesPage() {
     <div className="py-20 px-6">
       {/* Hero */}
       <div className="max-w-4xl mx-auto text-center mb-20">
-        <div className="text-[12px] font-semibold text-[#3739C1] uppercase tracking-widest mb-4">Kader Templates</div>
+        <div className="text-[12px] font-semibold text-[#000088] uppercase tracking-widest mb-4">Kader Templates</div>
         <h1 className="text-[48px] font-extrabold tracking-tight mb-5">
           Nicht bei Null anfangen.<br /><span className="gradient-text">Bei Eins.</span>
         </h1>
@@ -116,13 +116,13 @@ export default function TemplatesPage() {
                           </div>
                           <span className="text-[12px] font-semibold">{r.name}</span>
                         </div>
-                        <div className="text-[10px] text-[#3739C1] font-medium mb-0.5">{r.role}</div>
+                        <div className="text-[10px] text-[#000088] font-medium mb-0.5">{r.role}</div>
                         <div className="text-[10px] text-[#86868B]">{r.focus}</div>
                       </div>
                     ))}
                   </div>
                 </div>
-                <button className="shrink-0 px-5 py-2.5 bg-[#3739C1] text-white text-[13px] font-semibold rounded-xl hover:bg-[#2D2FA0] hover:shadow-lg transition-all flex items-center gap-2">
+                <button className="shrink-0 px-5 py-2.5 bg-[#000088] text-white text-[13px] font-semibold rounded-xl hover:bg-[#000066] hover:shadow-lg transition-all flex items-center gap-2">
                   Template laden <ArrowRight size={14} />
                 </button>
               </div>
@@ -136,7 +136,7 @@ export default function TemplatesPage() {
         <div className="text-[32px] mb-3">🛠</div>
         <h3 className="text-[20px] font-bold mb-2">Eigenes Template erstellen</h3>
         <p className="text-[14px] text-[#6E6E73] mb-5">Kein passendes Template? Bau dein eigenes Kader — mit den Rollen die dein Business braucht.</p>
-        <a href="/landing#cta" className="inline-flex items-center gap-2 px-6 py-3 bg-[#F5F5F7] text-[#1D1D1F] text-[13px] font-semibold rounded-xl border border-[#E5E5EA] hover:border-[#3739C1] hover:text-[#3739C1] transition-all">
+        <a href="/landing#cta" className="inline-flex items-center gap-2 px-6 py-3 bg-[#F5F5F7] text-[#1D1D1F] text-[13px] font-semibold rounded-xl border border-[#E5E5EA] hover:border-[#000088] hover:text-[#000088] transition-all">
           Mit Pro starten <ArrowRight size={14} />
         </a>
       </div>

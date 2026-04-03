@@ -10,7 +10,7 @@ const POSTS = [
     date: "2. April 2026",
     readTime: "5 min",
     tag: "Manifesto",
-    tagColor: "#3739C1",
+    tagColor: "#000088",
     featured: true,
   },
   {
@@ -153,7 +153,7 @@ export default function BlogPage() {
     <div className="py-20 px-6">
       {/* Hero */}
       <div className="max-w-4xl mx-auto text-center mb-16">
-        <div className="text-[12px] font-semibold text-[#3739C1] uppercase tracking-widest mb-4">Blog</div>
+        <div className="text-[12px] font-semibold text-[#000088] uppercase tracking-widest mb-4">Blog</div>
         <h1 className="text-[48px] font-extrabold tracking-tight mb-4">
           Denken. Bauen. Teilen.
         </h1>
@@ -164,15 +164,15 @@ export default function BlogPage() {
         {/* Featured Post */}
         {featured && (
           <a href={`/landing/blog/${featured.slug}`} className="block mb-12 group cursor-pointer">
-            <div className="p-10 rounded-2xl border border-[#E5E5EA] bg-gradient-to-br from-[#3739C1]/[0.03] to-white hover:shadow-xl transition-all">
+            <div className="p-10 rounded-2xl border border-[#E5E5EA] bg-gradient-to-br from-[#000088]/[0.03] to-white hover:shadow-xl transition-all">
               <div className="flex items-center gap-3 mb-4">
                 <span className="text-[11px] px-2.5 py-1 rounded-full font-semibold" style={{ background: featured.tagColor + "10", color: featured.tagColor }}>{featured.tag}</span>
                 <span className="text-[12px] text-[#86868B] flex items-center gap-1"><Clock size={12} /> {featured.readTime}</span>
                 <span className="text-[12px] text-[#86868B]">{featured.date}</span>
               </div>
-              <h2 className="text-[28px] font-bold mb-3 group-hover:text-[#3739C1] transition-colors">{featured.title}</h2>
+              <h2 className="text-[28px] font-bold mb-3 group-hover:text-[#000088] transition-colors">{featured.title}</h2>
               <p className="text-[15px] text-[#6E6E73] leading-relaxed max-w-3xl mb-5">{featured.excerpt}</p>
-              <span className="text-[13px] text-[#3739C1] font-semibold flex items-center gap-1 group-hover:gap-2 transition-all">
+              <span className="text-[13px] text-[#000088] font-semibold flex items-center gap-1 group-hover:gap-2 transition-all">
                 Weiterlesen <ArrowRight size={14} />
               </span>
             </div>
@@ -182,16 +182,16 @@ export default function BlogPage() {
         {/* Post Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {rest.map(post => (
-            <a key={post.slug} href={`/landing/blog/${post.slug}`} className="group cursor-pointer rounded-2xl border border-[#E5E5EA] bg-white p-6 hover:shadow-lg hover:border-[#3739C1]/20 transition-all">
+            <a key={post.slug} href={`/landing/blog/${post.slug}`} className="group cursor-pointer rounded-2xl border border-[#E5E5EA] bg-white p-6 hover:shadow-lg hover:border-[#000088]/20 transition-all">
               <div className="flex items-center gap-2 mb-4">
                 <span className="text-[10px] px-2 py-0.5 rounded-full font-semibold" style={{ background: post.tagColor + "10", color: post.tagColor }}>{post.tag}</span>
                 <span className="text-[10px] text-[#C7C7CC]">{post.readTime}</span>
               </div>
-              <h3 className="text-[15px] font-semibold mb-2 group-hover:text-[#3739C1] transition-colors leading-snug">{post.title}</h3>
+              <h3 className="text-[15px] font-semibold mb-2 group-hover:text-[#000088] transition-colors leading-snug">{post.title}</h3>
               <p className="text-[12px] text-[#86868B] leading-relaxed mb-4 line-clamp-3">{post.excerpt}</p>
               <div className="flex items-center justify-between">
                 <span className="text-[11px] text-[#C7C7CC]">{post.date}</span>
-                <ArrowUpRight size={14} className="text-[#C7C7CC] group-hover:text-[#3739C1] transition-colors" />
+                <ArrowUpRight size={14} className="text-[#C7C7CC] group-hover:text-[#000088] transition-colors" />
               </div>
             </a>
           ))}
