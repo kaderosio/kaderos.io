@@ -30,9 +30,24 @@ export async function POST(req: NextRequest) {
   } = await supabase.auth.getUser();
   if (!user) return new Response("Unauthorized", { status: 401 });
 
-  const body = await req.json();
+  let body: any;
+  try {
+    body = await req.json();
+  } catch {
+    body = {};
+  }
+
   const agentId = req.nextUrl.searchParams.get("agentId") || body.agentId;
-  if (!agentId) return new Response("agentId required", { status: 400 });
+
+  // Debug: log what we received
+  console.log("[chat] URL:", req.url);
+  console.log("[chat] agentId from query:", req.nextUrl.searchParams.get("agentId"));
+  console.log("[chat] agentId from body:", body.agentId);
+  console.log("[chat] body keys:", Object.keys(body));
+
+  if (!agentId) {
+    return new Response("agentId required. Bitte wähle einen Agent aus.", { status: 400 });
+  }
   const { messages } = body;
 
   // Get agent
