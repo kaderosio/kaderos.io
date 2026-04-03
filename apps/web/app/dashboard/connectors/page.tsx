@@ -98,9 +98,9 @@ export default function ConnectorsPage() {
 
   /* Fetch existing connectors */
   useEffect(() => {
-    if (companyLoading) return;
+    if (companyLoading || !companyId) return;
     setLoading(true);
-    fetch("/api/connectors")
+    fetch(`/api/connectors?companyId=${companyId}`)
       .then((r) => {
         if (!r.ok) throw new Error("Fehler beim Laden");
         return r.json();
@@ -108,7 +108,7 @@ export default function ConnectorsPage() {
       .then((d) => setConnectors(d.connectors ?? []))
       .catch((e) => setError(e.message))
       .finally(() => setLoading(false));
-  }, [companyLoading]);
+  }, [companyLoading, companyId]);
 
   /* Helpers */
   function getConnector(providerId: string): Connector | undefined {

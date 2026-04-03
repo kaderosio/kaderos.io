@@ -92,11 +92,6 @@ function MeetingRoomContent() {
       setChatError(msg);
       setTimeout(() => setChatError(null), 8000);
     },
-    onData: ({ data, type }) => {
-      if (type === "data-trace") {
-        setTraceEvents((prev) => [...prev, data as TraceEvent]);
-      }
-    },
   });
 
   const isStreaming = status === "streaming" || status === "submitted";

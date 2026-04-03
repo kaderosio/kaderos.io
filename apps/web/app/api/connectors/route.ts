@@ -2,7 +2,7 @@ import { createClient } from "@/utils/supabase/server";
 import { encrypt, sha256 } from "@/lib/crypto";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   const supabase = await createClient();
 
   const {
@@ -13,13 +13,20 @@ export async function GET() {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { data, error } = await supabase
+  const companyId = req.nextUrl.searchParams.get("companyId");
+
+  let query = supabase
     .from("connector_credentials")
     .select(
       "id, provider, label, credential_type, metadata, is_active, last_tested_at, last_test_result, created_at"
     )
-    .eq("user_id", user.id)
-    .order("created_at", { ascending: false });
+    .eq("user_id", user.id);
+
+  if (companyId) {
+    query = query.eq("company_id", companyId);
+  }
+
+  const { data, error } = await query.order("created_at", { ascending: false });
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });

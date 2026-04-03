@@ -86,19 +86,6 @@ export async function POST(req: NextRequest) {
 
   const stream = createUIMessageStream({
     execute: ({ writer }) => {
-      // Send run_start as transient data (won't persist in message history)
-      writer.write({
-        type: "data-trace",
-        data: {
-          event: "run_start",
-          runId,
-          agentName: agent.name,
-          agentRole: agent.role,
-          ts: Date.now(),
-        },
-        transient: true,
-      });
-
       const result = streamText({
         model,
         system:
@@ -124,18 +111,6 @@ export async function POST(req: NextRequest) {
               tokens: totalTokens,
               runId,
             },
-          });
-
-          // Send run_complete as transient data
-          writer.write({
-            type: "data-trace",
-            data: {
-              event: "run_complete",
-              runId,
-              tokens: totalTokens,
-              ts: Date.now(),
-            },
-            transient: true,
           });
         },
       });
