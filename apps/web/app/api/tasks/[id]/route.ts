@@ -64,6 +64,32 @@ export async function PUT(
     details: { updatedFields: Object.keys(updates).filter((k) => k !== "updated_at") },
   });
 
+  // Auto-update goal progress when task is marked done and has a goal_id
+  if (data.status === "done" && data.goal_id) {
+    const { count: totalCount } = await supabase
+      .from("tasks")
+      .select("*", { count: "exact", head: true })
+      .eq("goal_id", data.goal_id);
+
+    const { count: doneCount } = await supabase
+      .from("tasks")
+      .select("*", { count: "exact", head: true })
+      .eq("goal_id", data.goal_id)
+      .eq("status", "done");
+
+    if (totalCount && totalCount > 0) {
+      const progress = Math.round(((doneCount || 0) / totalCount) * 100);
+      const goalUpdates: Record<string, unknown> = {
+        progress,
+        updated_at: new Date().toISOString(),
+      };
+      if (progress >= 100) {
+        goalUpdates.status = "completed";
+      }
+      await supabase.from("goals").update(goalUpdates).eq("id", data.goal_id);
+    }
+  }
+
   return NextResponse.json({ task: data });
 }
 

@@ -39,12 +39,6 @@ export async function POST(req: NextRequest) {
 
   const agentId = req.nextUrl.searchParams.get("agentId") || body.agentId;
 
-  // Debug: log what we received
-  console.log("[chat] URL:", req.url);
-  console.log("[chat] agentId from query:", req.nextUrl.searchParams.get("agentId"));
-  console.log("[chat] agentId from body:", body.agentId);
-  console.log("[chat] body keys:", Object.keys(body));
-
   if (!agentId) {
     return new Response("agentId required. Bitte wähle einen Agent aus.", { status: 400 });
   }
