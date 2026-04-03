@@ -288,6 +288,17 @@ export async function GET(request: NextRequest) {
           },
         });
 
+        await supabase.from("decisions").insert({
+          company_id: agent.company_id,
+          agent_id: agent.id,
+          request: `Task erledigt: ${task.title}`,
+          type: "other",
+          confidence: 90,
+          status: "approved",
+          decided_by: "system",
+          reason: "Automatisch durch Heartbeat Engine ausgeführt",
+        });
+
         summary.tasks_completed++;
       } else {
         await supabase
@@ -311,6 +322,17 @@ export async function GET(request: NextRequest) {
           entityId: task.id,
           agentId: agent.id,
           details: { error: result.error, task_title: task.title },
+        });
+
+        await supabase.from("decisions").insert({
+          company_id: agent.company_id,
+          agent_id: agent.id,
+          request: `Task fehlgeschlagen: ${task.title}`,
+          type: "other",
+          confidence: 30,
+          status: "pending",
+          decided_by: null,
+          reason: result.error || "Unbekannter Fehler bei automatischer Ausführung",
         });
 
         summary.tasks_failed++;
