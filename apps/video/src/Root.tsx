@@ -8,16 +8,16 @@ export const Root: React.FC = () => {
       <Composition
         id="HeroVideo"
         component={HeroVideo}
-        durationInFrames={1090}
-        fps={30}
+        durationInFrames={2520}
+        fps={60}
         width={1080}
         height={1920}
       />
       <Composition
         id="HeroVideoLandscape"
         component={HeroVideo}
-        durationInFrames={1090}
-        fps={30}
+        durationInFrames={2520}
+        fps={60}
         width={1920}
         height={1080}
       />

@@ -211,16 +211,20 @@ export default function LandingPage() {
           </div>
 
           {/* Main Headline */}
-          <h1 className="s2 text-[28px] sm:text-[52px] md:text-[72px] leading-[1.05] font-extrabold tracking-tight mb-7">
+          <h1 className="s2 text-[28px] sm:text-[52px] md:text-[72px] leading-[1.05] font-extrabold tracking-tight mb-5">
             Dein nächster Mitarbeiter<br />
             <span className="gradient-text">ist kein Mensch.</span>
           </h1>
 
-          {/* Sub */}
-          <p className="s3 text-[19px] text-[#6E6E73] max-w-2xl mx-auto mb-12 leading-relaxed font-light">
-            Du stellst dein Team auf. Du setzt die Ziele. Dein Kader aus AI Agents erledigt den Rest.
-            CEO, CTO, CMO — <span className="text-[#1D1D1F] font-medium">4 Agents. 30 Sekunden. Dein Unternehmen.</span>
+          {/* Sub Claim */}
+          <p className="s3 text-[20px] sm:text-[26px] text-[#6E6E73] max-w-2xl mx-auto mb-4 leading-snug font-semibold tracking-tight">
+            Die C-Suite, die niemals schläft.
           </p>
+
+          {/* Badge */}
+          <div className="s3 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#3739C1]/5 border border-[#3739C1]/15 mb-10">
+            <span className="text-[13px] text-[#3739C1] font-semibold">Agenten statt Stellenanzeigen.</span>
+          </div>
 
           {/* CTA */}
           <div className="s4 mb-8" id="cta">
