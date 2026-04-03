@@ -8,6 +8,7 @@ import {
   Briefcase,
   UserCheck,
   Sparkles,
+  ShoppingCart,
   KeyRound,
   ArrowRight,
   ArrowLeft,
@@ -30,28 +31,35 @@ const TEMPLATES: Template[] = [
     label: "Side Hustle",
     agents: 2,
     icon: Rocket,
-    description: "2 Agents — Marketing + Operations",
+    description: "2 Agents für deinen Start — ein Allrounder und ein Assistent.",
   },
   {
     id: "startup",
     label: "Startup",
     agents: 4,
     icon: Sparkles,
-    description: "4 Agents — CTO, CMO, CEO, Strategy",
+    description: "4 Agents — CEO, CTO, Sales, Content. Für Founder die skalieren.",
   },
   {
     id: "agentur",
     label: "Agentur",
     agents: 5,
     icon: Users,
-    description: "5 Agents — Full Creative Team",
+    description: "5 Agents — CEO, PM, Designer, Dev, Content. Für 1-3 Mann Agenturen.",
   },
   {
     id: "freelancer",
     label: "Freelancer Pro",
     agents: 3,
     icon: UserCheck,
-    description: "3 Agents — Sales, Delivery, Admin",
+    description: "3 Agents — Assistent, Buchhalter, Content. Wie eine Firma auftreten.",
+  },
+  {
+    id: "ecommerce",
+    label: "E-Commerce",
+    agents: 4,
+    icon: ShoppingCart,
+    description: "4 Agents — Shop Manager, Kundendienst, Marketing, Logistik.",
   },
   {
     id: "leer",
@@ -98,7 +106,24 @@ export default function OnboardingPage() {
 
       const { company } = await companyRes.json();
 
-      /* 2. Optionally save connector */
+      /* 2. Import template (skip if "leer") */
+      if (selectedTemplate && selectedTemplate !== "leer") {
+        const importRes = await fetch(
+          `/api/companies/${company.id}/import-template`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ templateId: selectedTemplate }),
+          }
+        );
+
+        if (!importRes.ok) {
+          const err = await importRes.json();
+          console.error("Template import failed:", err);
+        }
+      }
+
+      /* 3. Optionally save connector */
       if (!skipConnector && apiKey.trim()) {
         await fetch("/api/connectors", {
           method: "POST",
