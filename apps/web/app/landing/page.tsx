@@ -391,6 +391,52 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* ── TESTIMONIALS ── */}
+      <section className="py-16 sm:py-24 px-4 sm:px-6 bg-[#FAFAFA]">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <div className="text-[12px] font-semibold text-[#000088] uppercase tracking-widest mb-3">Early Access</div>
+            <h2 className="text-[30px] font-bold tracking-tight">Was Beta-User sagen.</h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+            {[
+              {
+                quote: "Ich hab in 2 Tagen mehr erledigt als sonst in 2 Wochen. Mein CTO-Agent hat die ganze Architektur geplant, während ich Kunden akquiriert habe.",
+                name: "Luca M.",
+                role: "Founder, SaaS Startup",
+                loc: "Zürich",
+              },
+              {
+                quote: "Endlich weiss ich, was meine AI-Tools kosten. Das Budget-Feature allein hat mir CHF 200 im ersten Monat gespart.",
+                name: "Sarah K.",
+                role: "Freelance Designerin",
+                loc: "Bern",
+              },
+              {
+                quote: "Wir betreuen 8 Mandanten. Jeder hat seinen eigenen Kader. Isoliert, nachvollziehbar, nDSG-konform. Genau was wir brauchten.",
+                name: "Marco T.",
+                role: "Partner, Digitalagentur",
+                loc: "Basel",
+              },
+            ].map((t, i) => (
+              <div key={i} className="p-6 rounded-2xl bg-white border border-[#E5E5EA] shadow-sm">
+                <div className="text-[24px] text-[#000088] mb-4">&ldquo;</div>
+                <p className="text-[14px] text-[#6E6E73] leading-relaxed mb-6">{t.quote}</p>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-[#000088]/10 flex items-center justify-center">
+                    <span className="text-[13px] font-bold text-[#000088]">{t.name.charAt(0)}</span>
+                  </div>
+                  <div>
+                    <div className="text-[13px] font-semibold text-[#1D1D1F]">{t.name}</div>
+                    <div className="text-[11px] text-[#86868B]">{t.role} · {t.loc}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── MANIFESTO ── */}
       <section className="py-24 sm:py-32 px-6 relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%233739C1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")" }} />

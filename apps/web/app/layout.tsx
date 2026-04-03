@@ -43,6 +43,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://kaderos.io",
   },
+  icons: {
+    icon: "/favicon.svg",
+    apple: "/apple-touch-icon.svg",
+  },
 };
 
 export default function RootLayout({
