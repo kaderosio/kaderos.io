@@ -105,7 +105,17 @@ export default function ConnectorsPage() {
         if (!r.ok) throw new Error("Fehler beim Laden");
         return r.json();
       })
-      .then((d) => setConnectors(d.connectors ?? []))
+      .then((d) => {
+        // Supabase returns last_test_result as JSON string — parse it
+        const parsed = (d.connectors ?? []).map((c: any) => ({
+          ...c,
+          last_test_result:
+            typeof c.last_test_result === "string"
+              ? JSON.parse(c.last_test_result)
+              : c.last_test_result,
+        }));
+        setConnectors(parsed);
+      })
       .catch((e) => setError(e.message))
       .finally(() => setLoading(false));
   }, [companyLoading, companyId]);
