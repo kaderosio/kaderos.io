@@ -1,0 +1,27 @@
+{
+  "name": "video",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "studio": "remotion studio src/index.tsx",
+    "render": "remotion render src/index.tsx HeroVideo out/hero.mp4",
+    "render:vertical": "remotion render src/index.tsx HeroVideoVertical out/hero-vertical.mp4",
+    "render:gif": "remotion render src/index.tsx HeroVideo out/hero.gif --image-format png"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@remotion/cli": "4.0.443",
+    "@remotion/player": "4.0.443",
+    "@remotion/transitions": "4.0.443",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "remotion": "4.0.443",
+    "typescript": "6.0.2"
+  }
+}
