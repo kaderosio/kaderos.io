@@ -285,7 +285,7 @@ export default function LandingPage() {
             {[
               { before: "10 Tabs offen, keiner weiss vom anderen", after: "1 Team. 1 Dashboard. Volle Kontrolle.", icon: Layers, color: "#3739C1" },
               { before: "CHF 500 verbrannt ohne es zu merken", after: "Budget pro Agent. Auto-Stopp bei Limit.", icon: DollarSign, color: "#059669" },
-              { before: "Agent hat falsch entschieden — keiner weiss warum", after: "Audit Trail. Jede Aktion. Nachvollziehbar.", icon: ShieldCheck, color: "#7C3AED" },
+              { before: "Agent hat falsch entschieden — keiner weiss warum", after: "Audit Trail. Jede Aktion. Nachvollziehbar.", icon: ShieldCheck, color: "#000088" },
             ].map((item, i) => (
               <div key={i} className="bg-white rounded-2xl p-7 border border-[#E5E5EA] shadow-sm hover:shadow-md transition-shadow">
                 <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-5 mx-auto" style={{ background: item.color + "10" }}>
@@ -321,7 +321,7 @@ export default function LandingPage() {
                 title: "Gib die Richtung vor",
                 desc: "Setze die Mission. Definiere Ziele. Dein Kader bricht sie runter in Tasks und arbeitet sie ab — autonom, mit Governance.",
                 icon: Target,
-                color: "#7C3AED",
+                color: "#000088",
               },
               {
                 step: "03",
@@ -370,13 +370,13 @@ export default function LandingPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
             {[
               { icon: Users, title: "Dein Organigramm", desc: "Wer reportet an wen. Wer ist wofür verantwortlich. Auf einen Blick — nicht in deinem Kopf.", color: "#3739C1" },
-              { icon: MessageSquare, title: "Meeting Room", desc: "Frag deinen CTO nach dem Status. Gib dem CMO eine neue Richtung. Wie ein echtes Standup — nur schneller.", color: "#7C3AED" },
+              { icon: MessageSquare, title: "Meeting Room", desc: "Frag deinen CTO nach dem Status. Gib dem CMO eine neue Richtung. Wie ein echtes Standup — nur schneller.", color: "#000088" },
               { icon: DollarSign, title: "Budget in CHF", desc: "Agent Max darf CHF 50/Monat ausgeben. Bei 80% kriegst du eine Warnung. Bei 100% stoppt er. Automatisch.", color: "#059669" },
               { icon: ShieldCheck, title: "Du bleibst CEO", desc: "Über 90% Confidence? Agent handelt. Unter 70%? Du entscheidest. Dein Unternehmen, deine Regeln.", color: "#DC2626" },
               { icon: Activity, title: "Volle Transparenz", desc: "Welcher Agent hat was entschieden, wann, warum. Unveränderbar protokolliert. nDSG-konform ab Tag 1.", color: "#0891B2" },
               { icon: Plug, title: "Dein Stack. Verbunden.", desc: "Claude, GPT, GitHub, Slack, Notion — alles was du schon nutzt. Anschliessen, nicht ersetzen.", color: "#D97706" },
               { icon: GitBranch, title: "Sprints mit Agents", desc: "Montag: Sprint planen. Freitag: Ergebnisse reviewen. Dazwischen? Arbeitet dein Kader.", color: "#3739C1" },
-              { icon: Brain, title: "Wissen das bleibt", desc: "Deine Agents vergessen nichts. Skills, Playbooks, Regeln — einmal definiert, immer angewendet.", color: "#7C3AED" },
+              { icon: Brain, title: "Wissen das bleibt", desc: "Deine Agents vergessen nichts. Skills, Playbooks, Regeln — einmal definiert, immer angewendet.", color: "#000088" },
               { icon: Building2, title: "Mehrere Firmen", desc: "Agentur? Betreib 5 AI-Companies isoliert. Jede mit eigenem Kader, Budget und Audit Trail.", color: "#059669" },
             ].map((f, i) => (
               <div key={i} className="group p-6 rounded-2xl border border-[#E5E5EA] bg-white hover:border-[#3739C1]/30 hover:shadow-lg transition-all duration-300">

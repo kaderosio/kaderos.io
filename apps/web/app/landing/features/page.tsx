@@ -12,7 +12,7 @@ const FEATURES = [
     category: "Dein Team",
     items: [
       { icon: Users, title: "Org Chart", desc: "Hierarchien, Rollen, Reporting Lines. Wer reportet an wen — auf einen Blick, nicht in deinem Kopf. Swiss Company Roles (GF, VR) inklusive.", color: "#3739C1" },
-      { icon: MessageSquare, title: "Meeting Room", desc: "Sprich mit deinem CTO. Gib dem CMO neue Richtung. Oder ruf das ganze Team zusammen — wie ein echtes Standup. Nur schneller.", color: "#7C3AED" },
+      { icon: MessageSquare, title: "Meeting Room", desc: "Sprich mit deinem CTO. Gib dem CMO neue Richtung. Oder ruf das ganze Team zusammen — wie ein echtes Standup. Nur schneller.", color: "#000088" },
       { icon: Sliders, title: "Agent Config", desc: "Jeder Agent bekommt: LLM-Auswahl, System Prompt, Tools, Skills, Budget, Heartbeat-Schedule. Alles an einem Ort konfigurierbar.", color: "#0891B2" },
     ],
   },
@@ -20,7 +20,7 @@ const FEATURES = [
     category: "Dein Business",
     items: [
       { icon: Target, title: "Goal Alignment", desc: "Company Mission → Projekte → Agent Goals → Tasks. Alles kaskadiert. Dein CTO weiss, warum er diese API baut.", color: "#3739C1" },
-      { icon: GitBranch, title: "Sprint Planning", desc: "Montag: Sprint planen. Freitag: Ergebnisse reviewen. Dein Kader arbeitet dazwischen autonom. Scrum ohne Meetings.", color: "#7C3AED" },
+      { icon: GitBranch, title: "Sprint Planning", desc: "Montag: Sprint planen. Freitag: Ergebnisse reviewen. Dein Kader arbeitet dazwischen autonom. Scrum ohne Meetings.", color: "#000088" },
       { icon: BarChart3, title: "Sales Pipeline", desc: "Deals tracken, Agents zuweisen, Probability scoren. Dein CMO-Agent füllt die Pipeline. Du entscheidest, was Priorität hat.", color: "#059669" },
     ],
   },
@@ -36,7 +36,7 @@ const FEATURES = [
     category: "Dein Stack",
     items: [
       { icon: Plug, title: "12+ Connectors", desc: "Claude, GPT, Mistral, Ollama. GitHub, Slack, Notion, Supabase. SMTP, Kalender, Webhooks, MCP Server. Dein Stack. Verbunden.", color: "#D97706" },
-      { icon: Brain, title: "Skills & Playbooks", desc: "SKILLS.md hochladen. Playbooks definieren. Agents lernen zur Laufzeit — kein Retraining, kein Prompt-Chaos.", color: "#7C3AED" },
+      { icon: Brain, title: "Skills & Playbooks", desc: "SKILLS.md hochladen. Playbooks definieren. Agents lernen zur Laufzeit — kein Retraining, kein Prompt-Chaos.", color: "#000088" },
       { icon: Building2, title: "Multi-Company", desc: "5 AI-Firmen. Komplett isoliert. Jede mit eigenem Kader, Budget, Audit Trail. Perfekt für Agencies und Treuhänder.", color: "#059669" },
     ],
   },

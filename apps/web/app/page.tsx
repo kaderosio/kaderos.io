@@ -18,7 +18,7 @@ import {
 const COLORS = {
   primary: "#3739C1",
   primaryLight: "#3739C115",
-  purple: "#7C3AED",
+  purple: "#000088",
   cyan: "#0891B2",
   green: "#059669",
   shark: "#1D1D1F",
@@ -35,7 +35,7 @@ const COLORS = {
 // ── AGENT COLORS ──────────────────────────────────────────────────────────
 const AC: Record<string, { bg: string; text: string }> = {
   max:   { bg: "#3739C1", text: "#fff" },
-  aura:  { bg: "#7C3AED", text: "#fff" },
+  aura:  { bg: "#000088", text: "#fff" },
   vega:  { bg: "#0891B2", text: "#fff" },
   orion: { bg: "#059669", text: "#fff" },
   team:  { bg: "#1E293B", text: "#fff" },
@@ -700,7 +700,7 @@ const LLM_PROVIDERS = [
   { id: "anthropic", name: "Anthropic", desc: "Claude Sonnet, Opus, Haiku", icon: "🧠", models: ["claude-sonnet-4", "claude-opus-4", "claude-haiku-3.5"], status: "connected", color: "#D97706" },
   { id: "openai",    name: "OpenAI",    desc: "GPT-4o, GPT-4.1, o3",       icon: "🤖", models: ["gpt-4o", "gpt-4.1", "o3-mini", "o3"],                  status: "disconnected", color: "#059669" },
   { id: "mistral",   name: "Mistral",   desc: "EU-hosted, Large & Small",  icon: "🌊", models: ["mistral-large", "mistral-small", "codestral"],          status: "disconnected", color: "#3739C1" },
-  { id: "ollama",    name: "Ollama",    desc: "Lokale Modelle, kein API Key", icon: "🏠", models: ["llama3.3", "qwen3", "deepseek-r1"],                 status: "disconnected", color: "#7C3AED" },
+  { id: "ollama",    name: "Ollama",    desc: "Lokale Modelle, kein API Key", icon: "🏠", models: ["llama3.3", "qwen3", "deepseek-r1"],                 status: "disconnected", color: "#000088" },
   { id: "custom",    name: "Custom",    desc: "OpenAI-kompatibler Endpoint", icon: "⚙️", models: [],                                                     status: "disconnected", color: "#6E6E73" },
 ];
 
@@ -742,7 +742,7 @@ function ConnectorsView() {
         {[
           { label: "LLM Providers", value: LLM_PROVIDERS.filter(l => l.status === "connected").length + "/" + LLM_PROVIDERS.length, icon: Brain, color: "#D97706" },
           { label: "Tools verbunden", value: connected + "/" + TOOL_CONNECTORS.length, icon: Plug, color: "#3739C1" },
-          { label: "Skills geladen", value: String(SKILLS_DATA.length), icon: FileCode, color: "#7C3AED" },
+          { label: "Skills geladen", value: String(SKILLS_DATA.length), icon: FileCode, color: "#000088" },
           { label: "Agents konfiguriert", value: AGENTS.filter(a => a.status === "active").length + "/" + AGENTS.length, icon: Bot, color: "#059669" },
         ].map((s, i) => (
           <Card key={i}>
@@ -923,8 +923,8 @@ function ConnectorsView() {
           <Card className="!p-0 overflow-hidden">
             {SKILLS_DATA.map((s, i) => (
               <div key={s.id} className={`flex items-center gap-4 px-5 py-3.5 ${i < SKILLS_DATA.length - 1 ? "border-b border-[#F5F5F7]" : ""} hover:bg-[#FAFAFA]`}>
-                <div className="w-9 h-9 rounded-xl bg-[#7C3AED15] flex items-center justify-center">
-                  <FileCode size={16} className="text-[#7C3AED]" />
+                <div className="w-9 h-9 rounded-xl bg-[#00008815] flex items-center justify-center">
+                  <FileCode size={16} className="text-[#000088]" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="text-[13px] font-medium text-[#1D1D1F]">{s.name}</div>
@@ -1085,7 +1085,7 @@ function AgentConfigDetail({ agentId, onBack }: { agentId: string; onBack: () =>
             <div>
               <label className="text-[12px] font-medium text-[#1D1D1F] block mb-1.5">Accent Farbe</label>
               <div className="flex gap-2">
-                {["#3739C1", "#7C3AED", "#0891B2", "#059669", "#D97706", "#DC2626"].map(c => (
+                {["#3739C1", "#000088", "#0891B2", "#059669", "#D97706", "#DC2626"].map(c => (
                   <button key={c} className="w-8 h-8 rounded-full border-2 transition-all" style={{ background: c, borderColor: col.bg === c ? "#1D1D1F" : "transparent" }} />
                 ))}
               </div>
@@ -1163,13 +1163,13 @@ function AgentConfigDetail({ agentId, onBack }: { agentId: string; onBack: () =>
             {SKILLS_DATA.map(s => {
               const assigned = s.agents.includes(agentId);
               return (
-                <div key={s.id} className={`flex items-center gap-3 px-3 py-2.5 rounded-lg border transition-all cursor-pointer hover:bg-[#FAFAFA] ${assigned ? "border-[#7C3AED]/30 bg-[#FAF5FF]" : "border-[#E5E5EA]"}`}>
-                  <FileCode size={16} className="text-[#7C3AED]" />
+                <div key={s.id} className={`flex items-center gap-3 px-3 py-2.5 rounded-lg border transition-all cursor-pointer hover:bg-[#FAFAFA] ${assigned ? "border-[#000088]/30 bg-[#FAF5FF]" : "border-[#E5E5EA]"}`}>
+                  <FileCode size={16} className="text-[#000088]" />
                   <div className="flex-1">
                     <div className="text-[12px] font-medium text-[#1D1D1F]">{s.name}</div>
                     <div className="text-[10px] text-[#86868B]">{s.desc}</div>
                   </div>
-                  <div className={`w-10 h-5 rounded-full relative transition-all ${assigned ? "bg-[#7C3AED]" : "bg-[#E5E5EA]"}`}>
+                  <div className={`w-10 h-5 rounded-full relative transition-all ${assigned ? "bg-[#000088]" : "bg-[#E5E5EA]"}`}>
                     <div className={`w-4 h-4 bg-white rounded-full absolute top-0.5 transition-all shadow-sm ${assigned ? "left-[22px]" : "left-0.5"}`} />
                   </div>
                 </div>

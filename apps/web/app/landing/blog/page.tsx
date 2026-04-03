@@ -20,7 +20,7 @@ const POSTS = [
     date: "3. April 2026",
     readTime: "4 min",
     tag: "Vergleich",
-    tagColor: "#7C3AED",
+    tagColor: "#000088",
     featured: false,
   },
   {
@@ -100,7 +100,7 @@ const POSTS = [
     date: "6. April 2026",
     readTime: "7 min",
     tag: "Analyse",
-    tagColor: "#7C3AED",
+    tagColor: "#000088",
     featured: false,
   },
   {
@@ -110,7 +110,7 @@ const POSTS = [
     date: "7. April 2026",
     readTime: "7 min",
     tag: "Vergleich",
-    tagColor: "#7C3AED",
+    tagColor: "#000088",
     featured: false,
   },
   {

@@ -29,7 +29,7 @@ export default async function Image() {
             left: 0,
             right: 0,
             height: 6,
-            background: "linear-gradient(90deg, #3739C1, #7C3AED, #0891B2)",
+            background: "linear-gradient(90deg, #3739C1, #000088, #0891B2)",
           }}
         />
 

@@ -1,0 +1,228 @@
+<h2>KaderOS Hero Video — Full Design</h2>
+<p class="subtitle">Light Premium Hybrid · 45s Loop · Website Hero · 60fps · 1080x1920</p>
+
+<div style="max-width: 760px; margin: 0 auto;">
+
+  <!-- DESIGN APPROACH -->
+  <div style="margin-bottom: 32px; padding: 24px; border-radius: 16px; background: linear-gradient(135deg, #3739C108 0%, #7C3AED06 100%); border: 1px solid #3739C118;">
+    <h3 style="margin: 0 0 12px 0; font-size: 18px; color: #3739C1; font-family: Outfit, sans-serif;">Visueller Ansatz</h3>
+    <div style="font-size: 14px; color: #1D1D1F; line-height: 1.8; font-family: Outfit, sans-serif;">
+      <strong>Weiss + Farbige Akzente.</strong> Jede Scene hat einen subtilen radialen Gradient-Glow hinter dem Hauptelement (#3739C1 bei 6-8% Opacity). UI-Karten mit leichten farbigen Box-Shadows statt grauem Shadow. Gradient-Text für Highlights. Micro-Parallax auf Hintergrund-Elemente. Cinematic Transitions zwischen Scenes (zoom-through, morph, slide).<br><br>
+      <strong>Technisch:</strong> @remotion/transitions für Scene-Wechsel, @remotion/shapes für UI-Elemente, Spring-Physik (mass: 1, damping: 24) für alles. 60fps für Smoothness.
+    </div>
+  </div>
+
+  <!-- SCENE 0 -->
+  <div style="padding: 20px; margin-bottom: 12px; border-radius: 16px; background: white; border: 1px solid #E8E8EC; box-shadow: 0 4px 20px rgba(55,57,193,0.06);">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+      <div style="min-width: 32px; height: 32px; border-radius: 8px; background: linear-gradient(135deg, #3739C1, #7C3AED); color: white; display: flex; justify-content: center; align-items: center; font-weight: 800; font-size: 14px;">0</div>
+      <div>
+        <div style="font-weight: 700; font-size: 16px; color: #1D1D1F; font-family: Outfit, sans-serif;">Claim Opener</div>
+        <div style="font-size: 12px; color: #86868B;">4s · 240 frames</div>
+      </div>
+    </div>
+    <div style="padding: 24px; border-radius: 12px; background: #FAFAFA; text-align: center; margin-bottom: 12px;">
+      <div style="font-size: 11px; color: #86868B; font-family: Outfit, sans-serif; margin-bottom: 16px; letter-spacing: 2px; text-transform: uppercase;">MOCKUP</div>
+      <div style="font-size: 28px; font-weight: 800; font-family: Outfit, sans-serif; color: #1D1D1F; letter-spacing: -0.5px; line-height: 1.3;">
+        Dein Team steht schon bereit.<br>
+        <span style="background: linear-gradient(135deg, #3739C1, #7C3AED); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Du musst es nur noch aktivieren.</span>
+      </div>
+    </div>
+    <div style="font-size: 13px; color: #86868B; line-height: 1.7; font-family: Outfit, sans-serif;">
+      <strong>Animation:</strong> Erste Zeile erscheint wortweise mit Scale-Bounce (0.92→1). Pause. Zweite Zeile revealed sich als Gradient-Text mit Shimmer-Effekt. Subtiler radialer Glow (#3739C1, 8%) pulsiert sanft hinter dem Text. KaderOS Logo (klein, oben) faded in.<br>
+      <strong>Transition out:</strong> Text zoomt leicht rein (scale 1→1.05) und faded, morpht in Terminal.
+    </div>
+  </div>
+
+  <!-- SCENE 1 -->
+  <div style="padding: 20px; margin-bottom: 12px; border-radius: 16px; background: white; border: 1px solid #E8E8EC; box-shadow: 0 4px 20px rgba(55,57,193,0.06);">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+      <div style="min-width: 32px; height: 32px; border-radius: 8px; background: #3739C1; color: white; display: flex; justify-content: center; align-items: center; font-weight: 800; font-size: 14px;">1</div>
+      <div>
+        <div style="font-weight: 700; font-size: 16px; color: #1D1D1F; font-family: Outfit, sans-serif;">Terminal Onboard</div>
+        <div style="font-size: 12px; color: #86868B;">5s · 300 frames</div>
+      </div>
+    </div>
+    <div style="padding: 20px; border-radius: 12px; background: #FAFAFA; margin-bottom: 12px;">
+      <div style="font-size: 11px; color: #86868B; font-family: Outfit, sans-serif; margin-bottom: 12px; letter-spacing: 2px; text-transform: uppercase;">MOCKUP</div>
+      <!-- Terminal mockup -->
+      <div style="border-radius: 12px; overflow: hidden; border: 1px solid #E8E8EC; box-shadow: 0 8px 30px rgba(55,57,193,0.08);">
+        <div style="display: flex; gap: 6px; padding: 10px 14px; background: #F8F8FA; border-bottom: 1px solid #E8E8EC;">
+          <div style="width: 10px; height: 10px; border-radius: 50%; background: #FF5F57;"></div>
+          <div style="width: 10px; height: 10px; border-radius: 50%; background: #FEBC2E;"></div>
+          <div style="width: 10px; height: 10px; border-radius: 50%; background: #28C840;"></div>
+          <span style="margin-left: 8px; font-size: 11px; color: #A1A1AA; font-family: 'JetBrains Mono', monospace;">kaderos — terminal</span>
+        </div>
+        <div style="padding: 16px 18px; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 2.2; background: white;">
+          <div><span style="color: #3739C1; font-weight: 600;">$ </span><span style="color: #1D1D1F;">npx kaderos onboard</span></div>
+          <div style="color: #059669;">✓ Kader erkannt: "Agentur Zürich"</div>
+          <div style="color: #059669;">✓ 4 Agents bereit (CEO · CTO · CMO · Strategy)</div>
+          <div style="color: #059669;">✓ Budget: CHF 62/Monat</div>
+          <div style="color: #3739C1; font-weight: 600;">🚀 Dein AI-Kader ist einsatzbereit.</div>
+        </div>
+      </div>
+    </div>
+    <div style="font-size: 13px; color: #86868B; line-height: 1.7; font-family: Outfit, sans-serif;">
+      <strong>Neu vs. aktuell:</strong> Terminal hat farbigen Box-Shadow (rgba(55,57,193,0.08)) statt grau. Subtiler Glow hinter dem Fenster. Typing-Speed etwas schneller. Output-Zeilen mit blur(8px)→blur(0) Reveal. Letzte Zeile bekommt Gradient-Unterlegung.<br>
+      <strong>Transition:</strong> Terminal zoomt leicht out → Dashboard revealed sich dahinter (Zoom-Through).
+    </div>
+  </div>
+
+  <!-- SCENE 2 -->
+  <div style="padding: 20px; margin-bottom: 12px; border-radius: 16px; background: white; border: 1px solid #E8E8EC; box-shadow: 0 4px 20px rgba(55,57,193,0.06);">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+      <div style="min-width: 32px; height: 32px; border-radius: 8px; background: #7C3AED; color: white; display: flex; justify-content: center; align-items: center; font-weight: 800; font-size: 14px;">2</div>
+      <div>
+        <div style="font-weight: 700; font-size: 16px; color: #1D1D1F; font-family: Outfit, sans-serif;">Dashboard Reveal</div>
+        <div style="font-size: 12px; color: #86868B;">5s · 300 frames</div>
+      </div>
+    </div>
+    <div style="padding: 20px; border-radius: 12px; background: #FAFAFA; margin-bottom: 12px;">
+      <div style="font-size: 11px; color: #86868B; font-family: Outfit, sans-serif; margin-bottom: 12px; letter-spacing: 2px; text-transform: uppercase;">MOCKUP</div>
+      <!-- Dashboard mockup -->
+      <div style="text-align: center; margin-bottom: 16px;">
+        <div style="font-size: 22px; font-weight: 800; font-family: Outfit, sans-serif; color: #1D1D1F;">Dein Kader</div>
+        <div style="font-size: 13px; color: #86868B; font-family: Outfit, sans-serif;">4 Agents · Active · CHF 62/Mt.</div>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <div style="padding: 14px; border-radius: 12px; background: white; border: 1px solid #E8E8EC; box-shadow: 0 4px 16px rgba(55,57,193,0.06);">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <div style="width: 32px; height: 32px; border-radius: 8px; background: #3739C112; display: flex; justify-content: center; align-items: center; font-size: 14px;">👤</div>
+            <div style="font-size: 13px; font-weight: 700; color: #1D1D1F; font-family: Outfit, sans-serif;">Lena · <span style="color: #3739C1;">CEO</span></div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 4px; margin-top: 8px;"><div style="width: 6px; height: 6px; border-radius: 50%; background: #059669;"></div><span style="font-size: 11px; color: #86868B;">Active · 3 Entscheide</span></div>
+        </div>
+        <div style="padding: 14px; border-radius: 12px; background: white; border: 1px solid #E8E8EC; box-shadow: 0 4px 16px rgba(124,58,237,0.06);">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <div style="width: 32px; height: 32px; border-radius: 8px; background: #7C3AED12; display: flex; justify-content: center; align-items: center; font-size: 14px;">⚙️</div>
+            <div style="font-size: 13px; font-weight: 700; color: #1D1D1F; font-family: Outfit, sans-serif;">Max · <span style="color: #7C3AED;">CTO</span></div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 4px; margin-top: 8px;"><div style="width: 6px; height: 6px; border-radius: 50%; background: #059669;"></div><span style="font-size: 11px; color: #86868B;">Active · 3 PRs shipped</span></div>
+        </div>
+        <div style="padding: 14px; border-radius: 12px; background: white; border: 1px solid #E8E8EC; box-shadow: 0 4px 16px rgba(8,145,178,0.06);">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <div style="width: 32px; height: 32px; border-radius: 8px; background: #0891B212; display: flex; justify-content: center; align-items: center; font-size: 14px;">📣</div>
+            <div style="font-size: 13px; font-weight: 700; color: #1D1D1F; font-family: Outfit, sans-serif;">Sara · <span style="color: #0891B2;">CMO</span></div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 4px; margin-top: 8px;"><div style="width: 6px; height: 6px; border-radius: 50%; background: #059669;"></div><span style="font-size: 11px; color: #86868B;">Active · 5 Posts geplant</span></div>
+        </div>
+        <div style="padding: 14px; border-radius: 12px; background: white; border: 1px solid #E8E8EC; box-shadow: 0 4px 16px rgba(5,150,105,0.06);">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <div style="width: 32px; height: 32px; border-radius: 8px; background: #05966912; display: flex; justify-content: center; align-items: center; font-size: 14px;">📊</div>
+            <div style="font-size: 13px; font-weight: 700; color: #1D1D1F; font-family: Outfit, sans-serif;">Noah · <span style="color: #059669;">Strategy</span></div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 4px; margin-top: 8px;"><div style="width: 6px; height: 6px; border-radius: 50%; background: #059669;"></div><span style="font-size: 11px; color: #86868B;">Active · Report erstellt</span></div>
+        </div>
+      </div>
+    </div>
+    <div style="font-size: 13px; color: #86868B; line-height: 1.7; font-family: Outfit, sans-serif;">
+      <strong>Neu:</strong> Realistische Dashboard-UI statt abstrakte Karten. Jede Karte hat farbigen Shadow passend zur Agent-Farbe. Leichte 3D-Perspektive (5° Y-Rotation). Glint-Sweep über die Karten. Status-Dots pulsieren subtil.<br>
+      <strong>Transition:</strong> Zoom in CTO-Karte → Deep-Dive.
+    </div>
+  </div>
+
+  <!-- SCENE 3 -->
+  <div style="padding: 20px; margin-bottom: 12px; border-radius: 16px; background: white; border: 1px solid #E8E8EC; box-shadow: 0 4px 20px rgba(55,57,193,0.06);">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+      <div style="min-width: 32px; height: 32px; border-radius: 8px; background: #0891B2; color: white; display: flex; justify-content: center; align-items: center; font-weight: 800; font-size: 14px;">3</div>
+      <div>
+        <div style="font-weight: 700; font-size: 16px; color: #1D1D1F; font-family: Outfit, sans-serif;">CTO Deep-Dive</div>
+        <div style="font-size: 12px; color: #86868B;">5s · 300 frames</div>
+      </div>
+    </div>
+    <div style="font-size: 13px; color: #86868B; line-height: 1.7; font-family: Outfit, sans-serif;">
+      <strong>Neu:</strong> Drei-Spalten-Layout wie ein echtes IDE. Links: Agent-Sidebar. Mitte: Live Code-Streaming mit Syntax-Highlighting (farbige Spans). Rechts: Progress mit Liquid-Fill Checkmarks. Unten: Tool-Calls als schwebende Pills mit farbigem Glow wenn aktiv. Timestamp "03:14" prominent — Agent arbeitet nachts.<br>
+      <strong>Transition:</strong> Zoom-out, Columns collabieren → Rollen-Overview.
+    </div>
+  </div>
+
+  <!-- SCENE 4 -->
+  <div style="padding: 20px; margin-bottom: 12px; border-radius: 16px; background: white; border: 1px solid #E8E8EC; box-shadow: 0 4px 20px rgba(55,57,193,0.06);">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+      <div style="min-width: 32px; height: 32px; border-radius: 8px; background: #059669; color: white; display: flex; justify-content: center; align-items: center; font-weight: 800; font-size: 14px;">4</div>
+      <div>
+        <div style="font-weight: 700; font-size: 16px; color: #1D1D1F; font-family: Outfit, sans-serif;">Rollen-Karussell</div>
+        <div style="font-size: 12px; color: #86868B;">5s · 300 frames</div>
+      </div>
+    </div>
+    <div style="font-size: 13px; color: #86868B; line-height: 1.7; font-family: Outfit, sans-serif;">
+      <strong>Neu:</strong> 6 Rollen-Cards in einem langsam rotierenden 3D-Ellipsen-Karussell um das KaderOS Logo. Vorderste Card ist grösser + leuchtet auf. Capabilities erscheinen als animierte Zeilen darunter. Tagline "Dein Kader. Deine Regeln." wortweise mit Scale-Bounce. Subtiler radialer Glow hinter dem Logo.<br>
+      <strong>Transition:</strong> Cards fliegen in Pipeline-Formation → Workflow.
+    </div>
+  </div>
+
+  <!-- SCENE 5 -->
+  <div style="padding: 20px; margin-bottom: 12px; border-radius: 16px; background: white; border: 1px solid #E8E8EC; box-shadow: 0 4px 20px rgba(55,57,193,0.06);">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+      <div style="min-width: 32px; height: 32px; border-radius: 8px; background: #D97706; color: white; display: flex; justify-content: center; align-items: center; font-weight: 800; font-size: 14px;">5</div>
+      <div>
+        <div style="font-weight: 700; font-size: 16px; color: #1D1D1F; font-family: Outfit, sans-serif;">Pipeline Flow</div>
+        <div style="font-size: 12px; color: #86868B;">5s · 300 frames</div>
+      </div>
+    </div>
+    <div style="font-size: 13px; color: #86868B; line-height: 1.7; font-family: Outfit, sans-serif;">
+      <strong>Neu:</strong> Vertikale Pipeline mit animierter Energiekugel die durch die Steps fliesst. Wenn die Kugel einen Step passiert, erscheint ein Checkmark und der Step glowed kurz in seiner Farbe. Verbindungslinien animieren sich als fliessende Linie (gradient stroke). Am Ende: subtiler weisser Flash + "Pipeline complete".<br>
+      <strong>Transition:</strong> Pipeline morpht → Split-Screen Pricing.
+    </div>
+  </div>
+
+  <!-- SCENE 6 -->
+  <div style="padding: 20px; margin-bottom: 12px; border-radius: 16px; background: white; border: 1px solid #E8E8EC; box-shadow: 0 4px 20px rgba(55,57,193,0.06);">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+      <div style="min-width: 32px; height: 32px; border-radius: 8px; background: #DB2777; color: white; display: flex; justify-content: center; align-items: center; font-weight: 800; font-size: 14px;">6</div>
+      <div>
+        <div style="font-weight: 700; font-size: 16px; color: #1D1D1F; font-family: Outfit, sans-serif;">Pricing Disruption</div>
+        <div style="font-size: 12px; color: #86868B;">5s · 300 frames</div>
+      </div>
+    </div>
+    <div style="font-size: 13px; color: #86868B; line-height: 1.7; font-family: Outfit, sans-serif;">
+      <strong>Neu:</strong> Split-Screen — Links grau (Mensch), Rechts farbig (Kader). Animated Counter: CHF 15'000 zählt runter → grau/klein. CHF 62 zählt hoch → gross/gradient. Vergleichszeilen erscheinen Zeile für Zeile (Verfügbar, Setup, Ferien). "241× günstiger" als grosser Gradient-Text mit Shimmer. Pricing-Bars (wie Histogram) die visuell den Unterschied zeigen.<br>
+      <strong>Transition:</strong> Fade → Trust Signals.
+    </div>
+  </div>
+
+  <!-- SCENE 7 -->
+  <div style="padding: 20px; margin-bottom: 12px; border-radius: 16px; background: white; border: 1px solid #E8E8EC; box-shadow: 0 4px 20px rgba(55,57,193,0.06);">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+      <div style="min-width: 32px; height: 32px; border-radius: 8px; background: #DC2626; color: white; display: flex; justify-content: center; align-items: center; font-weight: 800; font-size: 14px;">7</div>
+      <div>
+        <div style="font-weight: 700; font-size: 16px; color: #1D1D1F; font-family: Outfit, sans-serif;">Swiss Trust</div>
+        <div style="font-size: 12px; color: #86868B;">5s · 300 frames</div>
+      </div>
+    </div>
+    <div style="font-size: 13px; color: #86868B; line-height: 1.7; font-family: Outfit, sans-serif;">
+      <strong>Neu:</strong> Drei schnelle Sub-Beats (je ~1.7s): (1) 🇨🇭 gross mit Scale-In + "Swiss Made", (2) "Lokal. Autonom. nDSG-konform." als kinetische Wellen-Typografie, (3) KaderOS Logo + "100% Open Source". Jeder Beat hat eigenen crossfade. Subtiles Grid im Hintergrund.<br>
+      <strong>Transition:</strong> Logo bleibt → wird zum CTA Logo.
+    </div>
+  </div>
+
+  <!-- SCENE 8 -->
+  <div style="padding: 20px; margin-bottom: 12px; border-radius: 16px; background: white; border: 1px solid #E8E8EC; box-shadow: 0 4px 20px rgba(55,57,193,0.06);">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+      <div style="min-width: 32px; height: 32px; border-radius: 8px; background: #1D1D1F; color: white; display: flex; justify-content: center; align-items: center; font-weight: 800; font-size: 14px;">8</div>
+      <div>
+        <div style="font-weight: 700; font-size: 16px; color: #1D1D1F; font-family: Outfit, sans-serif;">CTA Finale → Loop</div>
+        <div style="font-size: 12px; color: #86868B;">5s · 300 frames</div>
+      </div>
+    </div>
+    <div style="font-size: 13px; color: #86868B; line-height: 1.7; font-family: Outfit, sans-serif;">
+      <strong>Neu:</strong> Logo sitzt bereits (Continuity von Scene 7). "kaderos.io" mit Cursor-Blink. "Platz sichern" Button mit animiertem Border-Trace (conic-gradient Rotation). Badges "🇨🇭 Swiss Made · Open Source · Ab CHF 49". Subtiler radialer Glow pulsiert sanft. Letzte 30 Frames: alles faded sanft → weiss → Loop zurück zu Scene 0 (Claim).<br>
+      <strong>Loop:</strong> End-State und Start-State sind beide weisser Screen → seamless Loop.
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div style="margin-top: 24px; padding: 20px; border-radius: 16px; background: #F8F8FA; border: 1px solid #E8E8EC;">
+    <h3 style="margin: 0 0 12px; font-size: 16px; color: #1D1D1F; font-family: Outfit, sans-serif;">Zusammenfassung</h3>
+    <div style="font-size: 13px; color: #86868B; line-height: 1.8; font-family: Outfit, sans-serif;">
+      <strong>9 Scenes · ~45s · 60fps · 1080x1920</strong><br>
+      <strong>Stil:</strong> Light Premium Hybrid — weiss + farbige Gradient-Akzente<br>
+      <strong>Wow-Faktoren:</strong> Realistische UI-Mockups, 3D-Karussell, kinetische Typografie, Animated Counters, Cinematic Transitions (zoom-through, morph), Micro-Details (Glow, Glint, Pulse)<br>
+      <strong>Tech:</strong> @remotion/transitions, @remotion/shapes, Spring-Physik, Gradient-Text<br>
+      <strong>Loop:</strong> Weiss → Claim → ... → CTA → Weiss → Claim (seamless)
+    </div>
+  </div>
+
+</div>
+
+<p style="margin-top: 20px; text-align: center; color: #86868B; font-size: 14px;">Passt das so? Sag im Terminal ob du etwas ändern willst.</p>

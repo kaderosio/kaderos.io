@@ -13,7 +13,7 @@ const C = {
   primary: "#3739C1",
   primarySoft: "#3739C118",
   primaryMid: "#3739C130",
-  purple: "#7C3AED",
+  purple: "#000088",
   cyan: "#0891B2",
   green: "#059669",
   greenSoft: "#05966918",

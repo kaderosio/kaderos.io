@@ -132,7 +132,7 @@ export default function LandingLayout({ children }: { children: React.ReactNode 
     <div className="min-h-screen bg-white text-[#1D1D1F]" style={{ fontFamily: "var(--font-outfit, 'Outfit'), -apple-system, sans-serif" }}>
       <style>{`
         html { scroll-behavior: smooth; }
-        .gradient-text { background: linear-gradient(135deg, #3739C1 0%, #7C3AED 50%, #0891B2 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shimmer 6s linear infinite; }
+        .gradient-text { background: linear-gradient(135deg, #3739C1 0%, #000088 50%, #0891B2 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shimmer 6s linear infinite; }
         @keyframes shimmer { from { background-position:-200% center; } to { background-position:200% center; } }
         @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
       `}</style>

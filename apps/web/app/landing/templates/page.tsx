@@ -29,7 +29,7 @@ const TEMPLATES = [
       { name: "Dev 2", role: "Dev Agent", focus: "Features, Bug Fixes, Tests" },
     ],
     tags: ["Agencies", "Design", "Development"],
-    color: "#7C3AED",
+    color: "#000088",
   },
   {
     name: "Treuhand / Immobilien",
