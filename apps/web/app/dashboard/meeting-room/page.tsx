@@ -59,12 +59,11 @@ function MeetingRoomContent() {
     [agents, selectedAgentId]
   );
 
-  // Build transport with current agentId
+  // Build transport — agentId sent via query param to avoid stale body issue
   const transport = useMemo(
     () =>
       new DefaultChatTransport({
-        api: "/api/chat",
-        body: { agentId: selectedAgentId },
+        api: selectedAgentId ? `/api/chat?agentId=${selectedAgentId}` : "/api/chat",
       }),
     [selectedAgentId]
   );

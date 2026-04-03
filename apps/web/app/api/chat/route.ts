@@ -30,8 +30,10 @@ export async function POST(req: NextRequest) {
   } = await supabase.auth.getUser();
   if (!user) return new Response("Unauthorized", { status: 401 });
 
-  const { messages, agentId } = await req.json();
+  const body = await req.json();
+  const agentId = req.nextUrl.searchParams.get("agentId") || body.agentId;
   if (!agentId) return new Response("agentId required", { status: 400 });
+  const { messages } = body;
 
   // Get agent
   const { data: agent } = await supabase
