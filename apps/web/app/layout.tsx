@@ -17,8 +17,32 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "KaderOS — Dein AI-Kader",
-  description: "Swiss AI Workforce Orchestration Platform. Lokal. Sicher. Autonom.",
+  title: {
+    default: "KaderOS — Dein nächster Mitarbeiter ist kein Mensch.",
+    template: "%s | KaderOS",
+  },
+  description: "Bau ein Unternehmen aus AI Agents. Open Source. Lokal. Swiss Made. CHF 0 bis CHF 349/Monat.",
+  metadataBase: new URL("https://kaderos.io"),
+  openGraph: {
+    type: "website",
+    locale: "de_CH",
+    url: "https://kaderos.io",
+    siteName: "KaderOS",
+    title: "KaderOS — Dein nächster Mitarbeiter ist kein Mensch.",
+    description: "Bau ein Unternehmen aus AI Agents. Open Source. Lokal. Swiss Made.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "KaderOS — Dein nächster Mitarbeiter ist kein Mensch.",
+    description: "Bau ein Unternehmen aus AI Agents. Open Source. Lokal. Swiss Made.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  alternates: {
+    canonical: "https://kaderos.io",
+  },
 };
 
 export default function RootLayout({

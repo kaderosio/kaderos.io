@@ -237,6 +237,33 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* ── SOCIAL PROOF BAR ── */}
+      <section className="py-8 sm:py-10 px-4 sm:px-6 border-b border-[#F5F5F7]">
+        <div className="max-w-4xl mx-auto">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-12 text-center">
+            <div>
+              <div className="text-[28px] sm:text-[32px] font-extrabold text-[#3739C1]">{waitlistN || "—"}</div>
+              <div className="text-[11px] text-[#86868B] font-medium">auf der Waitlist</div>
+            </div>
+            <div className="hidden sm:block w-px h-10 bg-[#E5E5EA]" />
+            <div>
+              <div className="text-[28px] sm:text-[32px] font-extrabold text-[#1D1D1F]">12+</div>
+              <div className="text-[11px] text-[#86868B] font-medium">Connectors ab Launch</div>
+            </div>
+            <div className="hidden sm:block w-px h-10 bg-[#E5E5EA]" />
+            <div>
+              <div className="text-[28px] sm:text-[32px] font-extrabold text-[#1D1D1F]">AGPLv3</div>
+              <div className="text-[11px] text-[#86868B] font-medium">100% Open Source</div>
+            </div>
+            <div className="hidden sm:block w-px h-10 bg-[#E5E5EA]" />
+            <div>
+              <div className="text-[28px] sm:text-[32px] font-extrabold text-[#1D1D1F]">🇨🇭</div>
+              <div className="text-[11px] text-[#86868B] font-medium">Swiss Made</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── PROBLEM → SOLUTION ── */}
       <section className="py-16 sm:py-28 px-4 sm:px-6 bg-[#FAFAFA]">
         <div className="max-w-4xl mx-auto text-center">
