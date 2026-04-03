@@ -63,6 +63,86 @@ const POSTS = [
     tagColor: "#0891B2",
     featured: false,
   },
+  {
+    slug: "ai-agents-schweiz",
+    title: "AI Agents für Schweizer KMU: Was sie können und was nicht",
+    excerpt: "AI Agents versprechen viel. Aber was leisten sie wirklich für Schweizer KMU? Ein ehrlicher Überblick über Möglichkeiten, Grenzen und den richtigen Einsatz.",
+    date: "3. April 2026",
+    readTime: "7 min",
+    tag: "Guide",
+    tagColor: "#059669",
+    featured: false,
+  },
+  {
+    slug: "ai-team-aufbauen",
+    title: "Wie du ein AI-Team aufbaust — ohne ein einziges Bewerbungsgespräch",
+    excerpt: "AI Mitarbeiter brauchen kein Vorstellungsgespräch. So baust du dein digitales Team auf — Schritt für Schritt, von der Rolle bis zum ersten Sprint.",
+    date: "4. April 2026",
+    readTime: "8 min",
+    tag: "Tutorial",
+    tagColor: "#D97706",
+    featured: false,
+  },
+  {
+    slug: "ndsg-ai-konform",
+    title: "nDSG und AI: So setzt du KI datenschutzkonform ein",
+    excerpt: "Das Schweizer Datenschutzgesetz gilt auch für AI Agents. Worauf du achten musst — konkret und ohne Juristendeutsch.",
+    date: "5. April 2026",
+    readTime: "8 min",
+    tag: "Compliance",
+    tagColor: "#DC2626",
+    featured: false,
+  },
+  {
+    slug: "ai-kosten-kmu",
+    title: "Was kostet AI wirklich? Ein ehrlicher Vergleich für KMU",
+    excerpt: "AI-Kosten für Schweizer KMU transparent aufgeschlüsselt. Von API-Kosten bis TCO — mit konkreten CHF-Zahlen und ehrlichem ROI-Vergleich.",
+    date: "6. April 2026",
+    readTime: "7 min",
+    tag: "Analyse",
+    tagColor: "#7C3AED",
+    featured: false,
+  },
+  {
+    slug: "crewai-vs-kaderos",
+    title: "CrewAI vs KaderOS: Welches AI-Framework passt zu dir?",
+    excerpt: "CrewAI und KaderOS im direkten Vergleich. Features, Zielgruppe, Preise und Schweiz-Tauglichkeit — ehrlich und ohne Marketing-Blabla.",
+    date: "7. April 2026",
+    readTime: "7 min",
+    tag: "Vergleich",
+    tagColor: "#7C3AED",
+    featured: false,
+  },
+  {
+    slug: "ai-automatisierung-agentur",
+    title: "AI Automatisierung für Agenturen: 5 Workflows die sofort funktionieren",
+    excerpt: "5 konkrete AI-Workflows für Agenturen — von Client Reporting bis Content-Produktion. Mit Zeitersparnis pro Workflow.",
+    date: "8. April 2026",
+    readTime: "8 min",
+    tag: "Praxis",
+    tagColor: "#059669",
+    featured: false,
+  },
+  {
+    slug: "zukunft-arbeit-schweiz",
+    title: "Die Zukunft der Arbeit in der Schweiz: AI Agents statt Headcount",
+    excerpt: "Der Schweizer Arbeitsmarkt verändert sich. AI Agents ersetzen nicht Menschen — sie verändern, wie Teams skalieren.",
+    date: "9. April 2026",
+    readTime: "8 min",
+    tag: "Trend",
+    tagColor: "#059669",
+    featured: false,
+  },
+  {
+    slug: "open-source-ai-tools",
+    title: "Die besten Open Source AI Tools 2026 für Schweizer Unternehmen",
+    excerpt: "Open Source AI Tools für Schweizer KMU — von Sprachmodellen bis Agent-Frameworks. Was taugt, was nicht, und worauf du achten musst.",
+    date: "10. April 2026",
+    readTime: "9 min",
+    tag: "Toolbox",
+    tagColor: "#0891B2",
+    featured: false,
+  },
 ];
 
 export default function BlogPage() {
@@ -83,7 +163,7 @@ export default function BlogPage() {
       <div className="max-w-5xl mx-auto">
         {/* Featured Post */}
         {featured && (
-          <div className="mb-12 group cursor-pointer">
+          <a href={`/landing/blog/${featured.slug}`} className="block mb-12 group cursor-pointer">
             <div className="p-10 rounded-2xl border border-[#E5E5EA] bg-gradient-to-br from-[#3739C1]/[0.03] to-white hover:shadow-xl transition-all">
               <div className="flex items-center gap-3 mb-4">
                 <span className="text-[11px] px-2.5 py-1 rounded-full font-semibold" style={{ background: featured.tagColor + "10", color: featured.tagColor }}>{featured.tag}</span>
@@ -96,13 +176,13 @@ export default function BlogPage() {
                 Weiterlesen <ArrowRight size={14} />
               </span>
             </div>
-          </div>
+          </a>
         )}
 
         {/* Post Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {rest.map(post => (
-            <div key={post.slug} className="group cursor-pointer rounded-2xl border border-[#E5E5EA] bg-white p-6 hover:shadow-lg hover:border-[#3739C1]/20 transition-all">
+            <a key={post.slug} href={`/landing/blog/${post.slug}`} className="group cursor-pointer rounded-2xl border border-[#E5E5EA] bg-white p-6 hover:shadow-lg hover:border-[#3739C1]/20 transition-all">
               <div className="flex items-center gap-2 mb-4">
                 <span className="text-[10px] px-2 py-0.5 rounded-full font-semibold" style={{ background: post.tagColor + "10", color: post.tagColor }}>{post.tag}</span>
                 <span className="text-[10px] text-[#C7C7CC]">{post.readTime}</span>
@@ -113,7 +193,7 @@ export default function BlogPage() {
                 <span className="text-[11px] text-[#C7C7CC]">{post.date}</span>
                 <ArrowUpRight size={14} className="text-[#C7C7CC] group-hover:text-[#3739C1] transition-colors" />
               </div>
-            </div>
+            </a>
           ))}
         </div>
       </div>
