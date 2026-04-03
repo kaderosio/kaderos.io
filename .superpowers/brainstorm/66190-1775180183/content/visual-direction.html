@@ -1,0 +1,82 @@
+<h2>Welche visuelle Richtung für das KaderOS Hero Video?</h2>
+<p class="subtitle">Das aktuelle Video hat saubere Struktur, aber es fehlt der Wow-Effekt. Welcher Stil passt zu KaderOS?</p>
+
+<div class="cards">
+
+  <!-- Option A: Apple Keynote -->
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="background: #FFFFFF; padding: 40px; text-align: center; min-height: 280px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 16px;">
+      <div style="width: 60px; height: 60px; border-radius: 16px; background: #3739C1; display: flex; justify-content: center; align-items: center;">
+        <span style="color: white; font-size: 28px; font-weight: 800; font-family: Outfit, sans-serif;">K</span>
+      </div>
+      <div style="font-size: 42px; font-weight: 800; font-family: Outfit, sans-serif; color: #1D1D1F; letter-spacing: -1.5px;">Dein Kader.</div>
+      <div style="font-size: 18px; color: #86868B; font-family: Outfit, sans-serif;">Minimal. Weiss. Typografie-getrieben.</div>
+      <div style="margin-top: 20px; display: flex; gap: 20px;">
+        <div style="width: 100px; height: 8px; border-radius: 4px; background: #3739C1;"></div>
+        <div style="width: 60px; height: 8px; border-radius: 4px; background: #E5E5EA;"></div>
+        <div style="width: 40px; height: 8px; border-radius: 4px; background: #E5E5EA;"></div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Apple Keynote Clean</h3>
+      <p>Weisser Hintergrund, grosse Typografie, subtile Animationen. Wie eine Apple-Produktvorstellung. Premium-Gefühl durch Weissraum und Timing. <strong>Aktueller Stil — aber verfeinert.</strong></p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Pros</h4><ul><li>Brand-konsistent, seriös</li><li>Einfach zu perfektionieren</li><li>Funktioniert auf allen Screens</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>Kann "leer" wirken ohne gute Typografie-Animation</li><li>Weniger Scroll-Stopper auf TikTok</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Option B: Dark Premium -->
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="background: linear-gradient(135deg, #0A0A1A 0%, #12123A 100%); padding: 40px; text-align: center; min-height: 280px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 16px; position: relative; overflow: hidden;">
+      <!-- Glow orb -->
+      <div style="position: absolute; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle, rgba(55,57,193,0.3) 0%, transparent 70%); top: 20px; left: 50%; transform: translateX(-50%);"></div>
+      <div style="font-size: 42px; font-weight: 800; font-family: Outfit, sans-serif; color: #FAFAFA; letter-spacing: -1.5px; position: relative; z-index: 1;">Dein Kader.</div>
+      <div style="font-size: 18px; color: #A1A1AA; font-family: Outfit, sans-serif; position: relative; z-index: 1;">Dark. Glow-Effekte. Tiefe.</div>
+      <!-- Floating dots -->
+      <div style="position: absolute; top: 30px; left: 40px; width: 4px; height: 4px; border-radius: 50%; background: #7C3AED; opacity: 0.5;"></div>
+      <div style="position: absolute; top: 80px; right: 60px; width: 3px; height: 3px; border-radius: 50%; background: #0891B2; opacity: 0.4;"></div>
+      <div style="position: absolute; bottom: 40px; left: 100px; width: 5px; height: 5px; border-radius: 50%; background: #3739C1; opacity: 0.3;"></div>
+    </div>
+    <div class="card-body">
+      <h3>B — Dark Premium mit Glow</h3>
+      <p>Dunkler Hintergrund, subtile Glow-Orbs, Glassmorphism-Karten, Licht-Akzente. Wie Vercel, Linear, oder Stripe. <strong>Tech-Premium vibes.</strong></p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Pros</h4><ul><li>Sofort "tech" und modern</li><li>Glow-Effekte = Wow-Faktor</li><li>Besserer Kontrast für Text</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>Kann "generisch AI-Startup" wirken</li><li>Schwieriger sauber zu halten</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Option C: Hybrid -->
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image" style="background: #FAFAFA; padding: 40px; text-align: center; min-height: 280px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 16px; position: relative; overflow: hidden;">
+      <!-- Subtle gradient accent -->
+      <div style="position: absolute; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(55,57,193,0.08) 0%, transparent 70%); top: -50px; right: -80px;"></div>
+      <div style="font-size: 42px; font-weight: 800; font-family: Outfit, sans-serif; color: #1D1D1F; letter-spacing: -1.5px; position: relative; z-index: 1;">Dein Kader.</div>
+      <div style="font-size: 18px; color: #86868B; font-family: Outfit, sans-serif; position: relative; z-index: 1;">Hell + Akzente. Das Beste aus beiden.</div>
+      <!-- UI card preview -->
+      <div style="margin-top: 16px; padding: 16px 24px; border-radius: 14px; background: white; border: 1px solid #E8E8EC; box-shadow: 0 8px 30px rgba(55,57,193,0.08); position: relative; z-index: 1; display: flex; align-items: center; gap: 12px;">
+        <div style="width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg, #3739C1, #7C3AED); display: flex; justify-content: center; align-items: center;">
+          <span style="color: white; font-size: 14px; font-weight: 800;">⚙️</span>
+        </div>
+        <div style="text-align: left;">
+          <div style="font-size: 14px; font-weight: 700; color: #1D1D1F; font-family: Outfit, sans-serif;">Max · CTO</div>
+          <div style="font-size: 11px; color: #86868B; font-family: Outfit, sans-serif;">Active · 3 PRs shipped</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Light Premium Hybrid</h3>
+      <p>Heller Hintergrund, aber mit <strong>farbigen Gradient-Akzenten</strong>, leichten Schatten mit Farbe, und UI-Mockups die "echt" wirken. Wie Notion oder Arc Browser Keynotes. <strong>Mein Favorit.</strong></p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Pros</h4><ul><li>Clean + lebendig — kein "leeres" Feeling</li><li>Brand-Color (#3739C1) kommt zur Geltung</li><li>UI-Karten wirken wie echtes Produkt</li><li>Unterscheidbar von "Generic Dark AI"</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>Braucht mehr Design-Arbeit für Balance</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<p style="margin-top: 24px; text-align: center; color: #86868B; font-size: 14px;">Klick auf eine Karte um sie auszuwählen, dann sag mir Bescheid im Terminal.</p>
