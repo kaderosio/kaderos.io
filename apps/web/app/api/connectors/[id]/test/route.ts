@@ -82,7 +82,7 @@ export async function POST(
   const { id } = await params;
 
   const { data: connector, error } = await supabase
-    .from("connectors")
+    .from("connector_credentials")
     .select("*")
     .eq("id", id)
     .eq("user_id", user.id)
@@ -124,7 +124,7 @@ export async function POST(
   }
 
   await supabase
-    .from("connectors")
+    .from("connector_credentials")
     .update({
       last_tested_at: new Date().toISOString(),
       last_test_result: result,

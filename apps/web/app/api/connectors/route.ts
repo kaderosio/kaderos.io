@@ -14,7 +14,7 @@ export async function GET() {
   }
 
   const { data, error } = await supabase
-    .from("connectors")
+    .from("connector_credentials")
     .select(
       "id, provider, label, credential_type, metadata, is_active, last_tested_at, last_test_result, created_at"
     )
@@ -53,7 +53,7 @@ export async function POST(req: NextRequest) {
   const valueHash = sha256(value);
 
   const { data, error } = await supabase
-    .from("connectors")
+    .from("connector_credentials")
     .upsert(
       {
         company_id: companyId,
@@ -62,7 +62,7 @@ export async function POST(req: NextRequest) {
         label: label || provider,
         credential_type: credentialType || "api_key",
         encrypted_value: encrypted,
-        value_hash: valueHash,
+        value_sha256: valueHash,
         metadata: metadata || {},
         is_active: true,
       },
@@ -101,7 +101,7 @@ export async function DELETE(req: NextRequest) {
   }
 
   const { data, error } = await supabase
-    .from("connectors")
+    .from("connector_credentials")
     .delete()
     .eq("id", id)
     .eq("user_id", user.id)
