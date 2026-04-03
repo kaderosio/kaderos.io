@@ -10,3 +10,5 @@ export * from "./playbooks";
 export * from "./heartbeats";
 export * from "./meetings";
 export * from "./templates";
+export * from "./connector_credentials";
+export * from "./activity_log";
