@@ -54,18 +54,23 @@ function MeetingRoomContent() {
   const [chatError, setChatError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  // Ref for agentId — transport body reads this dynamically
+  const agentIdRef = useRef(selectedAgentId);
+  agentIdRef.current = selectedAgentId;
+
   const selectedAgent = useMemo(
     () => agents.find((a) => a.id === selectedAgentId),
     [agents, selectedAgentId]
   );
 
-  // Build transport — agentId sent via query param to avoid stale body issue
+  // Transport created once — body function reads agentId from ref (always fresh)
   const transport = useMemo(
     () =>
       new DefaultChatTransport({
-        api: selectedAgentId ? `/api/chat?agentId=${selectedAgentId}` : "/api/chat",
+        api: "/api/chat",
+        body: () => ({ agentId: agentIdRef.current }),
       }),
-    [selectedAgentId]
+    []
   );
 
   // Load agents
