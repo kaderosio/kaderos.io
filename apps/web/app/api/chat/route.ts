@@ -53,14 +53,18 @@ export async function POST(req: NextRequest) {
 
   if (!credential) {
     return new Response(
-      JSON.stringify({
-        error: `Kein API Key für ${provider} gefunden. Bitte unter Connectors verbinden.`,
-      }),
-      { status: 400, headers: { "Content-Type": "application/json" } }
+      `Kein API Key für ${provider} gefunden. Bitte unter Connectors verbinden.`,
+      { status: 400 }
     );
   }
 
-  const apiKey = decrypt(credential.encrypted_value);
+  let apiKey: string;
+  try {
+    apiKey = decrypt(credential.encrypted_value);
+  } catch {
+    return new Response("API Key konnte nicht entschlüsselt werden.", { status: 500 });
+  }
+
   const runId = randomUUID();
 
   // Create model instance
@@ -73,7 +77,12 @@ export async function POST(req: NextRequest) {
     model = openai(MODEL_MAP[agent.type] || "gpt-4o");
   }
 
-  const modelMessages = await convertToModelMessages(messages as UIMessage[]);
+  let modelMessages;
+  try {
+    modelMessages = await convertToModelMessages(messages as UIMessage[]);
+  } catch {
+    return new Response("Ungültiges Nachrichtenformat.", { status: 400 });
+  }
 
   const stream = createUIMessageStream({
     execute: ({ writer }) => {

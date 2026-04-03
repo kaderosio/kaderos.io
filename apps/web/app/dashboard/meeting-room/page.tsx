@@ -51,6 +51,7 @@ function MeetingRoomContent() {
   const [showTrace, setShowTrace] = useState(true);
   const [input, setInput] = useState("");
   const [traceEvents, setTraceEvents] = useState<TraceEvent[]>([]);
+  const [chatError, setChatError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const selectedAgent = useMemo(
@@ -87,6 +88,9 @@ function MeetingRoomContent() {
     transport,
     onError: (error) => {
       console.error("Chat error:", error);
+      const msg = error?.message || "Verbindungsfehler. Prüfe deinen API Key unter Connectors.";
+      setChatError(msg);
+      setTimeout(() => setChatError(null), 8000);
     },
     onData: ({ data, type }) => {
       if (type === "data-trace") {
@@ -122,6 +126,7 @@ function MeetingRoomContent() {
     (e: React.FormEvent) => {
       e.preventDefault();
       if (!input.trim() || isStreaming || !selectedAgentId) return;
+      setChatError(null);
       sendMessage({ text: input });
       setInput("");
     },
@@ -280,6 +285,15 @@ function MeetingRoomContent() {
             <div ref={messagesEndRef} />
           </div>
         </div>
+
+        {/* Error Banner */}
+        {chatError && (
+          <div className="mx-4 mb-2 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 flex items-center gap-2">
+            <span className="shrink-0">⚠</span>
+            <span>{chatError}</span>
+            <button onClick={() => setChatError(null)} className="ml-auto shrink-0 text-red-400 hover:text-red-600">&times;</button>
+          </div>
+        )}
 
         {/* Input */}
         <div className="border-t border-gray-200 bg-white p-4">
