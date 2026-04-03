@@ -2,6 +2,7 @@
 
 import { useEffect, useState, FormEvent } from "react";
 import { useCompany } from "../layout";
+import { useToast } from "../_components/toast";
 import { Plus, Calendar, X } from "lucide-react";
 
 /* ── Types ─────────────────────────────────────────────────────────── */
@@ -22,7 +23,7 @@ type Task = {
 
 const COLUMNS = [
   { key: "todo", label: "To Do" },
-  { key: "in_progress", label: "In Arbeit" },
+  { key: "in-progress", label: "In Arbeit" },
   { key: "review", label: "Review" },
   { key: "done", label: "Erledigt" },
 ] as const;
@@ -37,6 +38,7 @@ const PRIORITY_STYLE: Record<string, { bg: string; text: string; label: string }
 
 export default function AufgabenPage() {
   const { companyId, loading } = useCompany();
+  const { toast } = useToast();
   const [tasks, setTasks] = useState<Task[]>([]);
   const [agents, setAgents] = useState<Agent[]>([]);
   const [fetching, setFetching] = useState(true);
@@ -75,9 +77,13 @@ export default function AufgabenPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status: newStatus }),
       });
-      if (!res.ok) setTasks(prev);
+      if (!res.ok) {
+        setTasks(prev);
+        toast("Status konnte nicht aktualisiert werden", "error");
+      }
     } catch {
       setTasks(prev);
+      toast("Status konnte nicht aktualisiert werden", "error");
     }
   }
 
@@ -106,7 +112,11 @@ export default function AufgabenPage() {
         setPriority("medium");
         setAgentId("");
         setShowForm(false);
+      } else {
+        toast("Aufgabe konnte nicht erstellt werden", "error");
       }
+    } catch {
+      toast("Aufgabe konnte nicht erstellt werden", "error");
     } finally {
       setSubmitting(false);
     }

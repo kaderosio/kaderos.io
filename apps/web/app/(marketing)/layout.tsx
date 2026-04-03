@@ -22,7 +22,7 @@ function Navbar() {
 
   return (
     <>
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrollY > 40 ? "bg-white/80 backdrop-blur-xl shadow-sm border-b border-[#F5F5F7]" : "bg-white/50 backdrop-blur-sm"}`}>
+      <nav aria-label="Hauptnavigation" className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrollY > 40 ? "bg-white/80 backdrop-blur-xl shadow-sm border-b border-[#F5F5F7]" : "bg-white/50 backdrop-blur-sm"}`}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
           <a href="/" className="flex items-center gap-2">
             <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-[#000088] flex items-center justify-center shadow-sm">
@@ -36,7 +36,7 @@ function Navbar() {
             {links.map(l => (
               <a key={l.label} href={l.href} className="text-[13px] text-[#6E6E73] hover:text-[#1D1D1F] transition-colors font-medium">{l.label}</a>
             ))}
-            <a href="https://github.com/kaderos" target="_blank" rel="noopener noreferrer" className="text-[13px] text-[#6E6E73] hover:text-[#1D1D1F] transition-colors font-medium flex items-center gap-1.5"><Github size={14} /> GitHub</a>
+            <a href="https://github.com/kaderosio/kaderos.io" target="_blank" rel="noopener noreferrer" className="text-[13px] text-[#6E6E73] hover:text-[#1D1D1F] transition-colors font-medium flex items-center gap-1.5"><Github size={14} /> GitHub</a>
             <a href="/#cta" className="px-4 lg:px-5 py-2 bg-[#000088] text-white text-[12px] sm:text-[13px] font-semibold rounded-xl transition-all hover:shadow-lg hover:bg-[#000066]">
               Platz sichern
             </a>
@@ -47,7 +47,7 @@ function Navbar() {
             <a href="/#cta" className="px-3 py-1.5 bg-[#000088] text-white text-[12px] font-semibold rounded-lg">
               Platz sichern
             </a>
-            <button onClick={() => setMenuOpen(!menuOpen)} className="text-[#6E6E73] p-1">
+            <button onClick={() => setMenuOpen(!menuOpen)} className="text-[#6E6E73] p-1" aria-label={menuOpen ? "Menü schliessen" : "Menü öffnen"} aria-expanded={menuOpen}>
               {menuOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
@@ -61,7 +61,7 @@ function Navbar() {
             {links.map(l => (
               <a key={l.label} href={l.href} className="text-[16px] text-[#1D1D1F] font-medium py-3 border-b border-[#F5F5F7]">{l.label}</a>
             ))}
-            <a href="https://github.com/kaderos" target="_blank" rel="noopener noreferrer" className="text-[16px] text-[#1D1D1F] font-medium py-3 border-b border-[#F5F5F7] flex items-center gap-2"><Github size={16} /> GitHub</a>
+            <a href="https://github.com/kaderosio/kaderos.io" target="_blank" rel="noopener noreferrer" className="text-[16px] text-[#1D1D1F] font-medium py-3 border-b border-[#F5F5F7] flex items-center gap-2"><Github size={16} /> GitHub</a>
             <a href="/changelog" className="text-[16px] text-[#6E6E73] font-medium py-3 border-b border-[#F5F5F7]">Changelog</a>
             <a href="/impressum" className="text-[14px] text-[#86868B] py-2">Impressum</a>
             <a href="/datenschutz" className="text-[14px] text-[#86868B] py-2">Datenschutz</a>
@@ -74,7 +74,7 @@ function Navbar() {
 
 function Footer() {
   return (
-    <footer className="border-t border-[#E5E5EA] py-10 sm:py-14 px-4 sm:px-6 bg-[#FAFAFA]">
+    <footer aria-label="Footer" className="border-t border-[#E5E5EA] py-10 sm:py-14 px-4 sm:px-6 bg-[#FAFAFA]">
       <div className="max-w-5xl mx-auto">
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 sm:gap-10 mb-10 sm:mb-12">
           <div className="col-span-2 sm:col-span-1">
@@ -96,7 +96,7 @@ function Footer() {
               { label: "Changelog", href: "/changelog" },
             ]},
             { title: "Community", links: [
-              { label: "GitHub", href: "https://github.com/kaderos" },
+              { label: "GitHub", href: "https://github.com/kaderosio/kaderos.io" },
               { label: "Blog", href: "/blog" },
             ]},
             { title: "Legal", links: [
@@ -117,9 +117,6 @@ function Footer() {
           <div className="text-[11px] text-[#C7C7CC]">© 2026 KaderOS · Swiss Made Software</div>
           <div className="flex items-center gap-5 text-[11px] text-[#C7C7CC]">
             <span>🇨🇭 Zürich, Schweiz</span>
-            <span className="flex gap-2">
-              {["DE", "FR", "IT", "EN"].map(l => <span key={l} className={l === "DE" ? "text-[#000088] font-semibold" : ""}>{l}</span>)}
-            </span>
           </div>
         </div>
       </div>
@@ -137,7 +134,7 @@ export default function LandingLayout({ children }: { children: React.ReactNode 
         @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
       `}</style>
       <Navbar />
-      <main className="pt-14 sm:pt-16">{children}</main>
+      <main role="main" className="pt-14 sm:pt-16">{children}</main>
       <Footer />
     </div>
   );

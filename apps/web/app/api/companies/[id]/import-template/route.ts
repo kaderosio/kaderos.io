@@ -89,7 +89,7 @@ export async function POST(
     company_id: companyId,
     title: g.title,
     description: g.description,
-    status: "active",
+    status: "on-track",
     progress: 0,
   }));
 

@@ -2,6 +2,7 @@
 
 import { useEffect, useState, FormEvent } from "react";
 import { useCompany } from "../layout";
+import { useToast } from "../_components/toast";
 import { Plus, X, Target } from "lucide-react";
 
 /* ── Types ─────────────────────────────────────────────────────────── */
@@ -31,6 +32,7 @@ const STATUS_STYLE: Record<string, { bg: string; text: string; label: string }> 
 
 export default function ZielePage() {
   const { companyId, loading } = useCompany();
+  const { toast } = useToast();
   const [goals, setGoals] = useState<Goal[]>([]);
   const [agents, setAgents] = useState<Agent[]>([]);
   const [fetching, setFetching] = useState(true);
@@ -83,7 +85,11 @@ export default function ZielePage() {
         setDeadline("");
         setAgentId("");
         setShowForm(false);
+      } else {
+        toast("Ziel konnte nicht erstellt werden", "error");
       }
+    } catch {
+      toast("Ziel konnte nicht erstellt werden", "error");
     } finally {
       setSubmitting(false);
     }

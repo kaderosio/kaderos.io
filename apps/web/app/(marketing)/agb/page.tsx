@@ -1,3 +1,8 @@
+export const metadata = {
+  title: "AGB",
+  description: "Allgemeine Geschäftsbedingungen von KaderOS.",
+};
+
 export default function AGBPage() {
   return (
     <div className="py-20 px-6">

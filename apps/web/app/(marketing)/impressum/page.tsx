@@ -1,3 +1,8 @@
+export const metadata = {
+  title: "Impressum",
+  description: "Impressum und Kontaktdaten von KaderOS.",
+};
+
 export default function ImpressumPage() {
   return (
     <div className="py-20 px-6">

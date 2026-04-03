@@ -1,3 +1,8 @@
+export const metadata = {
+  title: "Datenschutz",
+  description: "Datenschutzerklärung von KaderOS nach Schweizer Datenschutzgesetz (nDSG).",
+};
+
 export default function DatenschutzPage() {
   return (
     <div className="py-20 px-6">

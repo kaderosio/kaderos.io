@@ -12,6 +12,7 @@ import {
   TestTube,
 } from "lucide-react";
 import { useCompany } from "../layout";
+import { useToast } from "../_components/toast";
 
 /* ── Types ───────────────────────────────────────────────────────────── */
 
@@ -83,6 +84,7 @@ const CATEGORIES: Category[] = [
 export default function ConnectorsPage() {
   const { companyId, loading: companyLoading } = useCompany();
 
+  const { toast } = useToast();
   const [connectors, setConnectors] = useState<Connector[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -132,8 +134,9 @@ export default function ConnectorsPage() {
         return [connector, ...filtered];
       });
       setInputs((p) => ({ ...p, [providerId]: "" }));
+      toast("API Key gespeichert", "success");
     } catch {
-      /* silent */
+      toast("Key konnte nicht gespeichert werden", "error");
     } finally {
       setSaving((p) => ({ ...p, [providerId]: false }));
     }
@@ -162,8 +165,13 @@ export default function ConnectorsPage() {
             : c
         )
       );
+      if (result.success) {
+        toast("Verbindung erfolgreich", "success");
+      } else {
+        toast("Verbindungstest fehlgeschlagen", "error");
+      }
     } catch {
-      /* silent */
+      toast("Verbindungstest fehlgeschlagen", "error");
     } finally {
       setTesting((p) => ({ ...p, [connector.provider]: false }));
     }
@@ -178,8 +186,9 @@ export default function ConnectorsPage() {
       });
       if (!res.ok) throw new Error();
       setConnectors((prev) => prev.filter((c) => c.id !== connector.id));
+      toast("Key entfernt", "success");
     } catch {
-      /* silent */
+      toast("Key konnte nicht entfernt werden", "error");
     } finally {
       setRemoving((p) => ({ ...p, [connector.provider]: false }));
     }

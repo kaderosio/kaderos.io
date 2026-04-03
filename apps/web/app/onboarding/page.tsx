@@ -79,6 +79,7 @@ export default function OnboardingPage() {
   const [companyName, setCompanyName] = useState("");
   const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
   const [apiKey, setApiKey] = useState("");
+  const [provider, setProvider] = useState<"anthropic" | "openai">("anthropic");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
 
@@ -130,8 +131,8 @@ export default function OnboardingPage() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             companyId: company.id,
-            provider: "openai",
-            label: "OpenAI API Key",
+            provider: provider,
+            label: provider === "anthropic" ? "Anthropic API Key" : "OpenAI API Key",
             value: apiKey.trim(),
             credentialType: "api_key",
           }),
@@ -247,13 +248,39 @@ export default function OnboardingPage() {
         Verbinde dein AI
       </h1>
       <p className="mx-auto mt-2 max-w-sm text-sm text-gray-500">
-        Dein OpenAI API Key wird verschlüsselt gespeichert.
+        Dein {provider === "anthropic" ? "Anthropic" : "OpenAI"} API Key wird verschlüsselt gespeichert.
       </p>
-      <div className="relative mx-auto mt-8 max-w-sm">
+      <div className="mx-auto mt-8 max-w-sm">
+        <div className="flex rounded-lg border border-gray-200 bg-white p-1 mb-4">
+          <button
+            type="button"
+            onClick={() => setProvider("anthropic")}
+            className={`flex-1 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+              provider === "anthropic"
+                ? "bg-[#000088] text-white"
+                : "text-gray-600 hover:text-gray-900"
+            }`}
+          >
+            Anthropic (Claude)
+          </button>
+          <button
+            type="button"
+            onClick={() => setProvider("openai")}
+            className={`flex-1 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+              provider === "openai"
+                ? "bg-[#000088] text-white"
+                : "text-gray-600 hover:text-gray-900"
+            }`}
+          >
+            OpenAI (GPT)
+          </button>
+        </div>
+      </div>
+      <div className="relative mx-auto max-w-sm">
         <KeyRound className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
         <input
           type="password"
-          placeholder="sk-..."
+          placeholder={provider === "anthropic" ? "sk-ant-..." : "sk-..."}
           value={apiKey}
           onChange={(e) => setApiKey(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && next()}

@@ -63,7 +63,7 @@ export async function POST(req: NextRequest) {
       description: description || null,
       owner_agent_id: ownerAgentId || null,
       deadline: deadline || null,
-      status: "active",
+      status: "on-track",
       progress: 0,
     })
     .select()

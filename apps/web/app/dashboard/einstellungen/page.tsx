@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useCompany } from "../layout";
+import { useToast } from "../_components/toast";
 import { Settings, Globe, Clock, Trash2 } from "lucide-react";
 
 /* ── Page ──────────────────────────────────────────────────────────── */
@@ -9,8 +10,8 @@ import { Settings, Globe, Clock, Trash2 } from "lucide-react";
 export default function EinstellungenPage() {
   const { companyId, companyName, loading } = useCompany();
   const [name, setName] = useState(companyName ?? "");
+  const { toast } = useToast();
   const [saving, setSaving] = useState(false);
-  const [saved, setSaved] = useState(false);
 
   /* Sync initial value when context loads */
   useEffect(() => {
@@ -20,7 +21,6 @@ export default function EinstellungenPage() {
   async function handleSave() {
     if (!companyId || !name.trim()) return;
     setSaving(true);
-    setSaved(false);
     try {
       const res = await fetch(`/api/companies/${companyId}`, {
         method: "PUT",
@@ -28,11 +28,12 @@ export default function EinstellungenPage() {
         body: JSON.stringify({ name: name.trim() }),
       });
       if (res.ok) {
-        setSaved(true);
-        setTimeout(() => setSaved(false), 2000);
+        toast("Gespeichert", "success");
+      } else {
+        toast("Speichern fehlgeschlagen", "error");
       }
     } catch {
-      /* silent */
+      toast("Speichern fehlgeschlagen", "error");
     } finally {
       setSaving(false);
     }
@@ -73,7 +74,7 @@ export default function EinstellungenPage() {
               disabled={saving || !name.trim() || name === companyName}
               className="rounded-lg bg-[#000088] px-4 py-2 text-sm font-medium text-white hover:bg-[#000066] disabled:opacity-50 transition-colors"
             >
-              {saving ? "..." : saved ? "Gespeichert" : "Speichern"}
+              {saving ? "..." : "Speichern"}
             </button>
           </div>
         </div>

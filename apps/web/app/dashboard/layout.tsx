@@ -8,7 +8,7 @@ import React, {
   useCallback,
 } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   Building2,
   Users,
@@ -20,7 +20,11 @@ import {
   Settings,
   Menu,
   X,
+  LogOut,
+  MessageSquare,
 } from "lucide-react";
+import { createClient } from "@/utils/supabase/client";
+import { ToastProvider } from "./_components/toast";
 
 /* ── Company Context ──────────────────────────────────────────────────── */
 
@@ -45,6 +49,7 @@ export function useCompany() {
 const NAV_ITEMS = [
   { href: "/dashboard", label: "Übersicht", icon: Building2, exact: true },
   { href: "/dashboard/team", label: "Team", icon: Users },
+  { href: "/dashboard/meeting-room", label: "Meeting Room", icon: MessageSquare },
   { href: "/dashboard/aufgaben", label: "Aufgaben", icon: ClipboardList },
   { href: "/dashboard/ziele", label: "Ziele", icon: Target },
   { href: "/dashboard/finanzen", label: "Finanzen", icon: Wallet },
@@ -61,6 +66,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   /* Load first company */
@@ -86,6 +92,12 @@ export default function DashboardLayout({
     }
     load();
   }, []);
+
+  async function handleLogout() {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    router.push("/login");
+  }
 
   /* Close mobile menu on route change */
   useEffect(() => {
@@ -124,6 +136,7 @@ export default function DashboardLayout({
 
   return (
     <CompanyContext.Provider value={{ companyId, companyName, loading }}>
+      <ToastProvider>
       <div className="flex h-screen overflow-hidden bg-gray-50">
         {/* ── Desktop Sidebar ─────────────────────────────────────────── */}
         <aside className="hidden md:flex md:w-56 md:flex-col md:border-r md:border-gray-200 md:bg-white">
@@ -139,6 +152,17 @@ export default function DashboardLayout({
 
           {/* Nav */}
           <div className="flex-1 overflow-y-auto">{navContent}</div>
+
+          {/* Logout */}
+          <div className="border-t border-gray-200 px-2 py-2">
+            <button
+              onClick={handleLogout}
+              className="mx-0 flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-gray-600 transition-colors hover:bg-red-50 hover:text-red-600"
+            >
+              <LogOut className="h-[18px] w-[18px] shrink-0" />
+              <span>Abmelden</span>
+            </button>
+          </div>
 
           {/* Company badge */}
           {companyName && (
@@ -189,6 +213,15 @@ export default function DashboardLayout({
                   </span>
                 </div>
                 {navContent}
+                <div className="border-t border-gray-200 px-2 py-2">
+                  <button
+                    onClick={handleLogout}
+                    className="mx-0 flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-gray-600 transition-colors hover:bg-red-50 hover:text-red-600"
+                  >
+                    <LogOut className="h-[18px] w-[18px] shrink-0" />
+                    <span>Abmelden</span>
+                  </button>
+                </div>
               </div>
             </>
           )}
@@ -197,6 +230,7 @@ export default function DashboardLayout({
           <main className="flex-1 overflow-y-auto">{children}</main>
         </div>
       </div>
+      </ToastProvider>
     </CompanyContext.Provider>
   );
 }

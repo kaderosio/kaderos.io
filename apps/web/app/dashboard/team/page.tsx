@@ -9,8 +9,10 @@ import {
   Trash2,
   Users,
   Loader2,
+  MessageSquare,
 } from "lucide-react";
 import { useCompany } from "../layout";
+import { useToast } from "../_components/toast";
 
 /* ── Types ───────────────────────────────────────────────────────────── */
 
@@ -44,6 +46,7 @@ function statusStyle(s: string) {
 
 export default function TeamPage() {
   const { companyId, loading: companyLoading } = useCompany();
+  const { toast } = useToast();
 
   const [agents, setAgents] = useState<Agent[]>([]);
   const [loading, setLoading] = useState(true);
@@ -79,7 +82,7 @@ export default function TeamPage() {
       const { agent: updated } = await res.json();
       setAgents((prev) => prev.map((a) => (a.id === agent.id ? updated : a)));
     } catch {
-      /* silent */
+      toast("Status konnte nicht geaendert werden", "error");
     } finally {
       setTogglingId(null);
     }
@@ -93,8 +96,9 @@ export default function TeamPage() {
       const res = await fetch(`/api/agents/${agent.id}`, { method: "DELETE" });
       if (!res.ok) throw new Error();
       setAgents((prev) => prev.filter((a) => a.id !== agent.id));
+      toast("Agent geloescht", "success");
     } catch {
-      /* silent */
+      toast("Agent konnte nicht geloescht werden", "error");
     } finally {
       setDeletingId(null);
     }
@@ -228,6 +232,13 @@ export default function TeamPage() {
                     )}
                     {agent.status === "active" ? "Pausieren" : "Aktivieren"}
                   </button>
+                  <Link
+                    href={`/dashboard/meeting-room?agentId=${agent.id}`}
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-[#000088]/20 px-3 py-1.5 text-xs font-medium text-[#000088] transition-colors hover:bg-[#000088]/5"
+                  >
+                    <MessageSquare className="h-3.5 w-3.5" />
+                    Starten
+                  </Link>
                   <button
                     onClick={() => deleteAgent(agent)}
                     disabled={isDeleting}
