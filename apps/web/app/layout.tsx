@@ -120,6 +120,8 @@ export default function RootLayout({
             }),
           }}
         />
+        {/* Google Search Console Verification */}
+        <meta name="google-site-verification" content="G01gRQjtOuz8tanoRH8X_K2eIsG0ooEQtV2CHCIotNY" />
         {/* Plausible Analytics — no cookies, nDSG-compliant */}
         <script defer data-domain="kaderos.io" src="https://plausible.io/js/script.tagged-events.js"></script>
       </head>
