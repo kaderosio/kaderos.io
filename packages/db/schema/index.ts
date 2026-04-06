@@ -12,3 +12,6 @@ export * from "./meetings";
 export * from "./templates";
 export * from "./connector_credentials";
 export * from "./activity_log";
+export * from "./workflows";
+export * from "./knowledge_documents";
+export * from "./trace_events";

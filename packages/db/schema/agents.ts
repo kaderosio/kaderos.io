@@ -21,6 +21,7 @@ export const agents = pgTable("agents", {
   version: text("version").default("v1"),
 
   config: jsonb("config").default({}),
+  parameters: jsonb("parameters").default({}), // JSON Schema for run parameters
   skills: jsonb("skills").default([]),
   focus: text("focus"),
 
