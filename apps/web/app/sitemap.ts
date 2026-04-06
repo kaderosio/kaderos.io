@@ -54,6 +54,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { slug: "kaderos-vs-crewai-n8n", date: "2026-04-06" },
   ];
 
+  const useCasePages = [
+    "startup",
+    "agentur",
+    "treuhand",
+    "freelancer",
+    "ecommerce",
+  ];
+
   const comparePages = [
     "crewai",
     "autogen",
@@ -89,6 +97,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     ...comparePages.map((slug) => ({
       url: `${base}/compare/${slug}`,
+      lastModified: new Date("2026-04-06"),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
+    {
+      url: `${base}/use-cases`,
+      lastModified: new Date("2026-04-06"),
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+    },
+    ...useCasePages.map((slug) => ({
+      url: `${base}/use-cases/${slug}`,
       lastModified: new Date("2026-04-06"),
       changeFrequency: "monthly" as const,
       priority: 0.7,
