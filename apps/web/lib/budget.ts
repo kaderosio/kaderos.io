@@ -44,17 +44,20 @@ export async function recordCost(
     model: string;
   }
 ): Promise<void> {
-  const { error: insertError } = await supabase.from("cost_entries").insert({
-    budget_id: params.budgetId,
-    agent_id: params.agentId,
-    task_id: params.taskId,
-    amount_chf: params.amountChf,
-    tokens_used: params.tokensUsed,
-    model: params.model,
-  });
+  // cost_entries requires budget_id (NOT NULL) — skip if no budget
+  if (params.budgetId) {
+    const { error: insertError } = await supabase.from("cost_entries").insert({
+      budget_id: params.budgetId,
+      agent_id: params.agentId,
+      task_id: params.taskId,
+      amount_chf: params.amountChf,
+      tokens_used: params.tokensUsed,
+      model: params.model,
+    });
 
-  if (insertError) {
-    console.error("Failed to insert cost_entry:", insertError);
+    if (insertError) {
+      console.error("Failed to insert cost_entry:", insertError);
+    }
   }
 
   if (params.budgetId) {

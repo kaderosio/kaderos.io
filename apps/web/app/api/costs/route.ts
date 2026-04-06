@@ -26,29 +26,31 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
-  const [budgetsResult, costEntriesResult] = await Promise.all([
-    supabase
-      .from("budgets")
-      .select("*, agents:agent_id(name)")
-      .eq("company_id", companyId),
-    supabase
+  // Get budgets for this company
+  const { data: budgets, error: budgetsError } = await supabase
+    .from("budgets")
+    .select("*, agents:agent_id(name)")
+    .eq("company_id", companyId);
+
+  if (budgetsError) {
+    return NextResponse.json({ error: budgetsError.message }, { status: 500 });
+  }
+
+  // Get cost_entries via budget_ids (cost_entries has no company_id column)
+  const budgetIds = (budgets ?? []).map((b: any) => b.id);
+  let costEntries: any[] = [];
+  if (budgetIds.length > 0) {
+    const { data, error } = await supabase
       .from("cost_entries")
-      .select("*")
-      .eq("company_id", companyId)
+      .select("*, agents:agent_id(name)")
+      .in("budget_id", budgetIds)
       .order("created_at", { ascending: false })
-      .limit(100),
-  ]);
-
-  if (budgetsResult.error) {
-    return NextResponse.json({ error: budgetsResult.error.message }, { status: 500 });
+      .limit(100);
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+    costEntries = data ?? [];
   }
 
-  if (costEntriesResult.error) {
-    return NextResponse.json({ error: costEntriesResult.error.message }, { status: 500 });
-  }
-
-  return NextResponse.json({
-    budgets: budgetsResult.data,
-    costEntries: costEntriesResult.data,
-  });
+  return NextResponse.json({ budgets, costEntries });
 }

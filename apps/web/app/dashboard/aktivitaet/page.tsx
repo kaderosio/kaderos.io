@@ -56,7 +56,7 @@ function formatDetails(details: Record<string, unknown>): string {
 
 /* -- Page ----------------------------------------------------------------- */
 
-export default function AktivitaetPage() {
+export default function AktivitätPage() {
   const { companyId, loading } = useCompany();
   const [activities, setActivities] = useState<ActivityEntry[]>([]);
   const [fetching, setFetching] = useState(true);
@@ -70,7 +70,7 @@ export default function AktivitaetPage() {
       const res = await fetch(
         `/api/activity?companyId=${companyId}&limit=100`
       );
-      if (!res.ok) throw new Error("Aktivitaeten konnten nicht geladen werden");
+      if (!res.ok) throw new Error("Aktivitäten konnten nicht geladen werden");
       const data = await res.json();
       setActivities(data.activities ?? []);
     } catch (e: unknown) {
@@ -92,14 +92,14 @@ export default function AktivitaetPage() {
   if (loading || fetching) {
     return (
       <div className="flex h-full items-center justify-center">
-        <p className="text-sm text-gray-400">Aktivitaeten laden...</p>
+        <p className="text-sm text-gray-400">Aktivitäten laden...</p>
       </div>
     );
   }
 
   return (
     <div className="p-4 md:p-6 space-y-6">
-      <h1 className="text-xl font-bold text-gray-900">Aktivitaet</h1>
+      <h1 className="text-xl font-bold text-gray-900">Aktivität</h1>
 
       {/* Error banner */}
       {error && (
@@ -118,7 +118,7 @@ export default function AktivitaetPage() {
       {!error && activities.length === 0 ? (
         <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-gray-200 bg-white py-16">
           <Activity className="h-8 w-8 text-gray-300 mb-2" />
-          <p className="text-sm text-gray-400">Noch keine Aktivitaeten</p>
+          <p className="text-sm text-gray-400">Noch keine Aktivitäten</p>
         </div>
       ) : (
         !error && (
