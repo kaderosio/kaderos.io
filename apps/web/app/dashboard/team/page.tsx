@@ -336,7 +336,7 @@ export default function TeamPage() {
                       value={editForm.systemPrompt}
                       onChange={(e) => setEditForm((f) => ({ ...f, systemPrompt: e.target.value }))}
                       rows={5}
-                      placeholder="System Prompt fuer den Agent..."
+                      placeholder="System Prompt für den Agent..."
                       className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-[#000088]/30 focus:border-[#000088] resize-none"
                     />
                   </div>

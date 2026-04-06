@@ -127,7 +127,7 @@ export default function EntscheidungenPage() {
           Entscheidungen
         </h1>
         <p className="mt-1 text-sm text-gray-500">
-          Agent-Entscheidungen pruefen und genehmigen
+          Agent-Entscheidungen prüfen und genehmigen
         </p>
       </div>
 

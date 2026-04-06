@@ -20,7 +20,7 @@ interface Heartbeat {
 
 const STATUS_STYLES: Record<string, { bg: string; text: string; label: string }> = {
   scheduled: { bg: "bg-blue-100", text: "text-blue-700", label: "Geplant" },
-  running: { bg: "bg-yellow-100", text: "text-yellow-700", label: "Laeuft" },
+  running: { bg: "bg-yellow-100", text: "text-yellow-700", label: "Läuft" },
   completed: { bg: "bg-green-100", text: "text-green-700", label: "Erledigt" },
   failed: { bg: "bg-red-100", text: "text-red-700", label: "Fehlgeschlagen" },
 };

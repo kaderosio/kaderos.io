@@ -358,7 +358,7 @@ function MeetingRoomContent() {
               <div className="text-center py-12">
                 <Zap className="mx-auto h-8 w-8 text-gray-200" />
                 <p className="mt-2 text-xs text-gray-400">
-                  Trace-Events erscheinen hier sobald ein Agent laeuft.
+                  Trace-Events erscheinen hier sobald ein Agent läuft.
                 </p>
               </div>
             ) : (
