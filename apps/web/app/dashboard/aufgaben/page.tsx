@@ -18,14 +18,16 @@ type Task = {
   agent_id: string | null;
   due_date: string | null;
   created_at: string;
+  source?: string | null;
   agents: { name: string; accent_color: string } | null;
 };
 
 const COLUMNS = [
-  { key: "todo", label: "To Do" },
-  { key: "in-progress", label: "In Arbeit" },
-  { key: "review", label: "Review" },
-  { key: "done", label: "Erledigt" },
+  { key: "todo", label: "To Do", color: "" },
+  { key: "in-progress", label: "In Arbeit", color: "" },
+  { key: "review", label: "Review", color: "" },
+  { key: "done", label: "Erledigt", color: "" },
+  { key: "blocked", label: "Blockiert", color: "red" },
 ] as const;
 
 const PRIORITY_STYLE: Record<string, { bg: string; text: string; label: string }> = {
@@ -199,14 +201,15 @@ export default function AufgabenPage() {
       )}
 
       {/* Kanban board */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
         {COLUMNS.map((col) => {
           const colTasks = tasks.filter((t) => t.status === col.key);
+          const isBlocked = col.key === "blocked";
           return (
             <div key={col.key} className="space-y-3">
-              <div className="flex items-center justify-between">
-                <h2 className="text-sm font-semibold text-gray-700">{col.label}</h2>
-                <span className="rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-500">
+              <div className={`flex items-center justify-between ${isBlocked ? "rounded-lg bg-red-50 px-2 py-1" : ""}`}>
+                <h2 className={`text-sm font-semibold ${isBlocked ? "text-red-700" : "text-gray-700"}`}>{col.label}</h2>
+                <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${isBlocked ? "bg-red-100 text-red-600" : "bg-gray-100 text-gray-500"}`}>
                   {colTasks.length}
                 </span>
               </div>
@@ -217,7 +220,7 @@ export default function AufgabenPage() {
                   return (
                     <div
                       key={task.id}
-                      className="rounded-xl border border-gray-200 bg-white p-3 space-y-2 shadow-sm"
+                      className={`rounded-xl border p-3 space-y-2 shadow-sm ${isBlocked ? "border-red-200 bg-red-50/50" : "border-gray-200 bg-white"}`}
                     >
                       <p className="text-sm font-medium text-gray-900 leading-snug">
                         {task.title}
@@ -232,6 +235,11 @@ export default function AufgabenPage() {
                         {task.agents?.name && (
                           <span className="inline-block rounded-full bg-[#000088]/10 px-2 py-0.5 text-[10px] font-medium text-[#000088]">
                             {task.agents.name}
+                          </span>
+                        )}
+                        {task.source && (
+                          <span className="inline-block rounded-full bg-orange-100 px-2 py-0.5 text-[10px] font-semibold text-orange-700">
+                            Auto
                           </span>
                         )}
                         {task.due_date && (

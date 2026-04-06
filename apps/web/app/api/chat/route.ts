@@ -11,6 +11,7 @@ import { createAnthropic } from "@ai-sdk/anthropic";
 import { createOpenAI } from "@ai-sdk/openai";
 import { decrypt } from "@/lib/crypto";
 import { logActivity } from "@/lib/activity";
+import { verifyCompanyOwnership } from "@/lib/auth";
 import { randomUUID } from "crypto";
 
 const PROVIDER_MAP: Record<string, string> = {
@@ -51,6 +52,11 @@ export async function POST(req: NextRequest) {
     .eq("id", agentId)
     .single();
   if (!agent) return new Response("Agent not found", { status: 404 });
+
+  // Verify company ownership
+  if (!(await verifyCompanyOwnership(supabase, agent.company_id, user.id))) {
+    return new Response("Forbidden", { status: 403 });
+  }
 
   // Get API key
   const provider = PROVIDER_MAP[agent.type] || agent.type;

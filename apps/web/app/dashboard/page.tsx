@@ -11,6 +11,7 @@ import {
   Plus,
   UserPlus,
   ArrowRight,
+  RefreshCw,
 } from "lucide-react";
 
 /* ── Types ────────────────────────────────────────────────────────────── */
@@ -82,37 +83,49 @@ export default function DashboardOverview() {
   const [goals, setGoals] = useState<Goal[]>([]);
   const [activities, setActivities] = useState<ActivityEntry[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!companyId) return;
-
-    async function load() {
-      setLoading(true);
-      try {
-        const [aRes, tRes, gRes, actRes] = await Promise.all([
-          fetch(`/api/agents?companyId=${companyId}`),
-          fetch(`/api/tasks?companyId=${companyId}`),
-          fetch(`/api/goals?companyId=${companyId}`),
-          fetch(`/api/activity?companyId=${companyId}&limit=5`),
-        ]);
-        const [aData, tData, gData, actData] = await Promise.all([
-          aRes.json(),
-          tRes.json(),
-          gRes.json(),
-          actRes.json(),
-        ]);
-        setAgents(aData.agents ?? []);
-        setTasks(tData.tasks ?? []);
-        setGoals(gData.goals ?? []);
-        setActivities(actData.activities ?? []);
-      } catch {
-        /* silent — user sees empty state */
-      } finally {
-        setLoading(false);
-      }
-    }
-    load();
+    loadData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [companyId]);
+
+  async function loadData() {
+    setLoading(true);
+    setError(null);
+    try {
+      const [aRes, tRes, gRes, actRes] = await Promise.all([
+        fetch(`/api/agents?companyId=${companyId}`),
+        fetch(`/api/tasks?companyId=${companyId}`),
+        fetch(`/api/goals?companyId=${companyId}`),
+        fetch(`/api/activity?companyId=${companyId}&limit=5`),
+      ]);
+
+      if (!aRes.ok || !tRes.ok || !gRes.ok || !actRes.ok) {
+        throw new Error("Daten konnten nicht geladen werden. Bitte versuche es erneut.");
+      }
+
+      const [aData, tData, gData, actData] = await Promise.all([
+        aRes.json(),
+        tRes.json(),
+        gRes.json(),
+        actRes.json(),
+      ]);
+      setAgents(aData.agents ?? []);
+      setTasks(tData.tasks ?? []);
+      setGoals(gData.goals ?? []);
+      setActivities(actData.activities ?? []);
+    } catch (e: unknown) {
+      const msg =
+        e instanceof Error
+          ? e.message
+          : "Daten konnten nicht geladen werden. Bitte versuche es erneut.";
+      setError(msg);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   const isLoading = companyLoading || loading;
 
@@ -160,8 +173,22 @@ export default function DashboardOverview() {
         </div>
       )}
 
+      {/* Error */}
+      {error && !isLoading && (
+        <div className="mb-8 flex items-center justify-between rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+          <span>{error}</span>
+          <button
+            onClick={loadData}
+            className="ml-3 inline-flex items-center gap-1.5 rounded-md border border-red-300 bg-white px-3 py-1 text-xs font-medium text-red-700 transition-colors hover:bg-red-50"
+          >
+            <RefreshCw className="h-3.5 w-3.5" />
+            Erneut versuchen
+          </button>
+        </div>
+      )}
+
       {/* Content */}
-      {!isLoading && (
+      {!isLoading && !error && (
         <>
           {/* Stat Cards */}
           <div className="mb-8 grid grid-cols-2 gap-4 sm:grid-cols-4">

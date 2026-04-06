@@ -1,5 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { logActivity } from "@/lib/activity";
+import { verifyCompanyOwnership } from "@/lib/auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function PUT(
@@ -25,6 +26,19 @@ export async function PUT(
       { error: "status must be 'approved' or 'denied'" },
       { status: 400 }
     );
+  }
+
+  // Verify ownership via decision's company
+  const { data: decision } = await supabase
+    .from("decisions")
+    .select("company_id")
+    .eq("id", id)
+    .single();
+  if (!decision) {
+    return NextResponse.json({ error: "Not found" }, { status: 404 });
+  }
+  if (!(await verifyCompanyOwnership(supabase, decision.company_id, user.id))) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
   const { data, error } = await supabase

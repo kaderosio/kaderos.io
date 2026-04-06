@@ -3,7 +3,7 @@
 import { useEffect, useState, FormEvent } from "react";
 import { useCompany } from "../layout";
 import { useToast } from "../_components/toast";
-import { Plus, X, Target } from "lucide-react";
+import { Plus, X, Target, Pencil, Trash2, Loader2 } from "lucide-react";
 
 /* ── Types ─────────────────────────────────────────────────────────── */
 
@@ -44,6 +44,18 @@ export default function ZielePage() {
   const [deadline, setDeadline] = useState("");
   const [agentId, setAgentId] = useState("");
   const [submitting, setSubmitting] = useState(false);
+
+  /* Edit state */
+  const [editGoal, setEditGoal] = useState<Goal | null>(null);
+  const [editForm, setEditForm] = useState({
+    title: "",
+    description: "",
+    status: "on-track",
+    deadline: "",
+    progress: 0,
+  });
+  const [editSaving, setEditSaving] = useState(false);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
 
   /* Fetch */
   useEffect(() => {
@@ -92,6 +104,63 @@ export default function ZielePage() {
       toast("Ziel konnte nicht erstellt werden", "error");
     } finally {
       setSubmitting(false);
+    }
+  }
+
+  /* Open edit */
+  function openEditGoal(goal: Goal) {
+    setEditForm({
+      title: goal.title,
+      description: goal.description || "",
+      status: goal.status,
+      deadline: goal.deadline ? goal.deadline.slice(0, 10) : "",
+      progress: goal.progress ?? 0,
+    });
+    setEditGoal(goal);
+  }
+
+  /* Save edit */
+  async function saveEditGoal() {
+    if (!editGoal) return;
+    setEditSaving(true);
+    try {
+      const res = await fetch(`/api/goals/${editGoal.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title: editForm.title,
+          description: editForm.description || null,
+          status: editForm.status,
+          deadline: editForm.deadline || null,
+          progress: editForm.progress,
+        }),
+      });
+      if (!res.ok) throw new Error();
+      // Refresh list
+      const full = await fetch(`/api/goals?companyId=${companyId}`).then((r) => r.json());
+      setGoals(full.goals ?? []);
+      setEditGoal(null);
+      toast("Ziel aktualisiert", "success");
+    } catch {
+      toast("Ziel konnte nicht aktualisiert werden", "error");
+    } finally {
+      setEditSaving(false);
+    }
+  }
+
+  /* Delete goal */
+  async function deleteGoal(goal: Goal) {
+    if (!confirm("Wirklich loeschen?")) return;
+    setDeletingId(goal.id);
+    try {
+      const res = await fetch(`/api/goals/${goal.id}`, { method: "DELETE" });
+      if (!res.ok) throw new Error();
+      setGoals((prev) => prev.filter((g) => g.id !== goal.id));
+      toast("Ziel geloescht", "success");
+    } catch {
+      toast("Ziel konnte nicht geloescht werden", "error");
+    } finally {
+      setDeletingId(null);
     }
   }
 
@@ -180,6 +249,109 @@ export default function ZielePage() {
         </form>
       )}
 
+      {/* Edit Modal */}
+      {editGoal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div
+            className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+            onClick={() => setEditGoal(null)}
+          />
+          <div className="relative w-full max-w-lg rounded-2xl border border-gray-200 bg-white p-6 shadow-xl">
+            <div className="flex items-center justify-between mb-5">
+              <h2 className="text-lg font-bold text-gray-900">Ziel bearbeiten</h2>
+              <button
+                onClick={() => setEditGoal(null)}
+                className="rounded-lg p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition-colors"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            <div className="space-y-4">
+              {/* Title */}
+              <div>
+                <label className="block text-xs font-medium text-gray-500 mb-1">Titel</label>
+                <input
+                  type="text"
+                  value={editForm.title}
+                  onChange={(e) => setEditForm((f) => ({ ...f, title: e.target.value }))}
+                  className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#000088]/30 focus:border-[#000088]"
+                />
+              </div>
+
+              {/* Description */}
+              <div>
+                <label className="block text-xs font-medium text-gray-500 mb-1">Beschreibung</label>
+                <textarea
+                  value={editForm.description}
+                  onChange={(e) => setEditForm((f) => ({ ...f, description: e.target.value }))}
+                  rows={3}
+                  className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#000088]/30 focus:border-[#000088] resize-none"
+                />
+              </div>
+
+              {/* Status + Deadline row */}
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-medium text-gray-500 mb-1">Status</label>
+                  <select
+                    value={editForm.status}
+                    onChange={(e) => setEditForm((f) => ({ ...f, status: e.target.value }))}
+                    className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#000088]/30"
+                  >
+                    <option value="on-track">On Track</option>
+                    <option value="at-risk">Gefaehrdet</option>
+                    <option value="behind">Im Rueckstand</option>
+                    <option value="completed">Abgeschlossen</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-gray-500 mb-1">Deadline</label>
+                  <input
+                    type="date"
+                    value={editForm.deadline}
+                    onChange={(e) => setEditForm((f) => ({ ...f, deadline: e.target.value }))}
+                    className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#000088]/30"
+                  />
+                </div>
+              </div>
+
+              {/* Progress */}
+              <div>
+                <label className="block text-xs font-medium text-gray-500 mb-1">
+                  Fortschritt: {editForm.progress}%
+                </label>
+                <input
+                  type="range"
+                  min={0}
+                  max={100}
+                  value={editForm.progress}
+                  onChange={(e) => setEditForm((f) => ({ ...f, progress: Number(e.target.value) }))}
+                  className="w-full accent-[#000088]"
+                />
+              </div>
+            </div>
+
+            {/* Actions */}
+            <div className="mt-6 flex items-center justify-end gap-3">
+              <button
+                onClick={() => setEditGoal(null)}
+                className="rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+              >
+                Abbrechen
+              </button>
+              <button
+                onClick={saveEditGoal}
+                disabled={editSaving || !editForm.title.trim()}
+                className="rounded-lg bg-[#000088] px-5 py-2 text-sm font-medium text-white hover:bg-[#0000aa] disabled:opacity-50 transition-colors"
+              >
+                {editSaving ? "Speichern..." : "Speichern"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Goals list */}
       {goals.length === 0 ? (
         <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-gray-200 bg-white py-16">
@@ -209,6 +381,25 @@ export default function ZielePage() {
                     >
                       {st.label}
                     </span>
+                    <button
+                      onClick={() => openEditGoal(goal)}
+                      className="inline-flex items-center gap-1 rounded-lg border border-gray-200 px-2.5 py-1 text-[11px] font-medium text-gray-600 hover:bg-gray-50 transition-colors"
+                    >
+                      <Pencil className="h-3 w-3" />
+                      Bearbeiten
+                    </button>
+                    <button
+                      onClick={() => deleteGoal(goal)}
+                      disabled={deletingId === goal.id}
+                      className="inline-flex items-center gap-1 rounded-lg border border-red-200 px-2.5 py-1 text-[11px] font-medium text-red-600 hover:bg-red-50 transition-colors disabled:opacity-50"
+                    >
+                      {deletingId === goal.id ? (
+                        <Loader2 className="h-3 w-3 animate-spin" />
+                      ) : (
+                        <Trash2 className="h-3 w-3" />
+                      )}
+                      Loeschen
+                    </button>
                   </div>
                 </div>
 

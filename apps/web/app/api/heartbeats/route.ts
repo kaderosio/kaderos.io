@@ -1,5 +1,4 @@
 import { createClient } from "@/utils/supabase/server";
-import { verifyCompanyOwnership } from "@/lib/auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
@@ -22,22 +21,15 @@ export async function GET(req: NextRequest) {
     );
   }
 
-  if (!(await verifyCompanyOwnership(supabase, companyId, user.id))) {
-    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-  }
-
-  const limit = parseInt(req.nextUrl.searchParams.get("limit") || "50", 10);
-
   const { data, error } = await supabase
-    .from("activity_log")
-    .select("*")
+    .from("heartbeats")
+    .select("*, agents(name, accent_color, role)")
     .eq("company_id", companyId)
-    .order("created_at", { ascending: false })
-    .limit(limit);
+    .order("created_at", { ascending: false });
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
-  return NextResponse.json({ activities: data });
+  return NextResponse.json({ heartbeats: data });
 }

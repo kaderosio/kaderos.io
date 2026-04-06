@@ -1,5 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { logActivity } from "@/lib/activity";
+import { verifyCompanyOwnership } from "@/lib/auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(
@@ -46,6 +47,11 @@ export async function POST(
       { error: "Source agent not found" },
       { status: 404 }
     );
+  }
+
+  // Verify company ownership via source agent
+  if (!(await verifyCompanyOwnership(supabase, sourceAgent.company_id, user.id))) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
   // Validate target agent

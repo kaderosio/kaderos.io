@@ -1,5 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { logActivity } from "@/lib/activity";
+import { verifyCompanyOwnership } from "@/lib/auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function PUT(
@@ -15,6 +16,19 @@ export async function PUT(
 
   if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  // Verify ownership via goal's company
+  const { data: goal } = await supabase
+    .from("goals")
+    .select("company_id")
+    .eq("id", id)
+    .single();
+  if (!goal) {
+    return NextResponse.json({ error: "Not found" }, { status: 404 });
+  }
+  if (!(await verifyCompanyOwnership(supabase, goal.company_id, user.id))) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
   const body = await req.json();
@@ -84,6 +98,19 @@ export async function DELETE(
 
   if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  // Verify ownership via goal's company
+  const { data: goalToDelete } = await supabase
+    .from("goals")
+    .select("company_id")
+    .eq("id", id)
+    .single();
+  if (!goalToDelete) {
+    return NextResponse.json({ error: "Not found" }, { status: 404 });
+  }
+  if (!(await verifyCompanyOwnership(supabase, goalToDelete.company_id, user.id))) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
   const { error } = await supabase

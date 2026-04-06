@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getAdapter } from "@/lib/adapters/registry";
 import { decrypt } from "@/lib/crypto";
 import { logActivity } from "@/lib/activity";
+import { verifyCompanyOwnership } from "@/lib/auth";
 import { randomUUID } from "crypto";
 import { checkBudget, recordCost, USD_TO_CHF } from "@/lib/budget";
 
@@ -46,6 +47,11 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
   const { data: agent, error: agentError } = await supabase
     .from("agents").select("*").eq("id", id).single();
   if (agentError || !agent) return NextResponse.json({ error: "Agent not found" }, { status: 404 });
+
+  // Verify company ownership
+  if (!(await verifyCompanyOwnership(supabase, agent.company_id, user.id))) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
 
   // 1b. Budget check
   const budgetCheck = await checkBudget(supabase, id, agent.company_id);

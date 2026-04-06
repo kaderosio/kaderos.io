@@ -1,5 +1,4 @@
 import { createClient } from "@/utils/supabase/server";
-import { verifyCompanyOwnership } from "@/lib/auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function PUT(
@@ -18,27 +17,33 @@ export async function PUT(
   }
 
   const body = await req.json();
-  const { name } = body;
+  const update: Record<string, unknown> = {};
 
-  if (!name?.trim()) {
-    return NextResponse.json({ error: "name is required" }, { status: 400 });
+  if (typeof body.isEnabled === "boolean") {
+    update.is_enabled = body.isEnabled;
   }
 
-  // Verify ownership
-  if (!(await verifyCompanyOwnership(supabase, id, user.id))) {
-    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  if (typeof body.cronExpression === "string") {
+    update.cron_expression = body.cronExpression;
+  }
+
+  if (Object.keys(update).length === 0) {
+    return NextResponse.json(
+      { error: "Nothing to update" },
+      { status: 400 }
+    );
   }
 
   const { data, error } = await supabase
-    .from("companies")
-    .update({ name: name.trim(), updated_at: new Date().toISOString() })
+    .from("heartbeats")
+    .update(update)
     .eq("id", id)
-    .select()
+    .select("*, agents(name, accent_color, role)")
     .single();
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
-  return NextResponse.json({ company: data });
+  return NextResponse.json({ heartbeat: data });
 }

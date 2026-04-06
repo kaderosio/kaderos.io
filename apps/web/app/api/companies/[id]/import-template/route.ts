@@ -1,5 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { logActivity } from "@/lib/activity";
+import { verifyCompanyOwnership } from "@/lib/auth";
 import { templates } from "@/lib/templates";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -18,6 +19,12 @@ export async function POST(
   }
 
   const { id: companyId } = await params;
+
+  // Verify company ownership
+  if (!(await verifyCompanyOwnership(supabase, companyId, user.id))) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+
   const body = await req.json();
   const { templateId } = body;
 

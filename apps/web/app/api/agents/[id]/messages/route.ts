@@ -1,5 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { logActivity } from "@/lib/activity";
+import { verifyCompanyOwnership } from "@/lib/auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
@@ -24,6 +25,10 @@ export async function GET(
       { error: "companyId is required" },
       { status: 400 }
     );
+  }
+
+  if (!(await verifyCompanyOwnership(supabase, companyId, user.id))) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
   const limit = parseInt(
@@ -69,6 +74,10 @@ export async function POST(
       { error: "companyId and content are required" },
       { status: 400 }
     );
+  }
+
+  if (!(await verifyCompanyOwnership(supabase, companyId, user.id))) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
   const { data, error } = await supabase

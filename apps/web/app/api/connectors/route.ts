@@ -1,5 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { encrypt, sha256 } from "@/lib/crypto";
+import { verifyCompanyOwnership } from "@/lib/auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
@@ -14,6 +15,12 @@ export async function GET(req: NextRequest) {
   }
 
   const companyId = req.nextUrl.searchParams.get("companyId");
+
+  if (companyId) {
+    if (!(await verifyCompanyOwnership(supabase, companyId, user.id))) {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+  }
 
   let query = supabase
     .from("connector_credentials")
@@ -54,6 +61,10 @@ export async function POST(req: NextRequest) {
       { error: "companyId, provider, and value are required" },
       { status: 400 }
     );
+  }
+
+  if (!(await verifyCompanyOwnership(supabase, companyId, user.id))) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
   const encrypted = encrypt(value);
@@ -105,6 +116,20 @@ export async function DELETE(req: NextRequest) {
       { error: "Connector id is required" },
       { status: 400 }
     );
+  }
+
+  // Verify ownership via connector's company
+  const { data: connector } = await supabase
+    .from("connector_credentials")
+    .select("company_id")
+    .eq("id", id)
+    .eq("user_id", user.id)
+    .single();
+  if (!connector) {
+    return NextResponse.json({ error: "Connector not found" }, { status: 404 });
+  }
+  if (!(await verifyCompanyOwnership(supabase, connector.company_id, user.id))) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
   const { data, error } = await supabase

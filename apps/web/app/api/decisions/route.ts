@@ -1,5 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { logActivity } from "@/lib/activity";
+import { verifyCompanyOwnership } from "@/lib/auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
@@ -29,6 +30,10 @@ export async function GET(req: NextRequest) {
     .select("*, agents:agent_id(name, accent_color)")
     .eq("company_id", companyId)
     .order("requested_at", { ascending: false });
+
+  if (!(await verifyCompanyOwnership(supabase, companyId, user.id))) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
 
   if (status) {
     query = query.eq("status", status);
@@ -62,6 +67,10 @@ export async function POST(req: NextRequest) {
       { error: "companyId, agentId, request, and confidence are required" },
       { status: 400 }
     );
+  }
+
+  if (!(await verifyCompanyOwnership(supabase, companyId, user.id))) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
   const autoApproved = confidence >= 80;
