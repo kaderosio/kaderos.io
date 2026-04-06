@@ -4,6 +4,54 @@ export const metadata = {
   title: "Agent Brain — 7-Schichten Gedächtnis | KaderOS",
   description:
     "Kein LLM. Reine Mathematik. 7 Schichten Gedächtnis für AI Agents die sich erinnern, vernetzen, lernen und vorhersagen. Der Kern von KaderOS.",
+  other: {
+    "script:ld+json": JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "Was ist der Agent Brain?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Der Agent Brain ist ein 7-Schichten Gedächtnis-Layer für AI Agents. Er speichert, verbindet und erinnert — damit jeder Agent ein permanentes Gedächtnis hat. Kein LLM. Reine Mathematik: pgvector, spaCy NER, Graph Traversal.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Welche 7 Schichten hat der Agent Brain?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "1. Perception Gate (bewertet Emotion, Neuheit, Dringlichkeit), 2. Working Memory (7-Item Buffer), 3. Episodisches Gedächtnis (mit Reconsolidation), 4. Knowledge Graph (Entitäten + Beziehungen), 5. Prozedurales Gedächtnis (Muster ab 3x Wiederholung), 6. Predictive Engine (proaktive Alerts alle 60 Min), 7. Dream Cycle (Nacht-Job um 02:00 — vergessen, verdichten, kreativ verbinden).",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Braucht der Agent Brain ein LLM?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Nein. Der Agent Brain braucht kein Sprachmodell. Er nutzt sentence-transformers für Embeddings (384 Dimensionen, multilingual), spaCy für Entity Extraction und PostgreSQL/pgvector für Vektor-Suche. Alles lokal, kein API-Call zu OpenAI oder Anthropic.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Was kostet der Agent Brain?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Der Agent Brain kostet ca. CHF 5 pro Monat im Betrieb. Supabase Free Tier (CHF 0), Neo4j Aura Free Tier (CHF 0), Railway Starter (~CHF 5/Monat). Kein GPU nötig.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Was ist der Dream Cycle?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Der Dream Cycle läuft jede Nacht um 02:00 Uhr. Er macht vier Dinge: 1. Ebbinghaus Decay (Unwichtiges verblasst), 2. Consolidation (ähnliche Erinnerungen zusammenführen), 3. Kreative Verbindungssuche (unverbundene Entitäten prüfen), 4. Neue Regeln ableiten. Das Äquivalent des menschlichen REM-Schlafs.",
+          },
+        },
+      ],
+    }),
+  },
 };
 
 const LAYERS = [
