@@ -417,43 +417,145 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ---- SECTION 5.5: BRAIN / AGENT MEMORY ---- */}
-      <section className="py-20 sm:py-28 px-4 sm:px-6 bg-[#FAFAFA]">
+      {/* ---- SECTION 5.5: BRAIN / AGENT MEMORY — THE USP ---- */}
+      <section className="py-24 sm:py-32 px-4 sm:px-6 bg-gradient-to-b from-[#000088] to-[#000066] text-white">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-14">
-            <div className="text-[12px] font-semibold text-[#000088] uppercase tracking-widest mb-3">Agent Brain</div>
-            <h2 className="text-[28px] sm:text-[40px] font-bold tracking-tight mb-4">
-              Andere AI-Tools starten jede Session bei null.<br />
-              <span className="gradient-text">Deine nicht.</span>
+          {/* Hero Statement */}
+          <div className="text-center mb-16">
+            <div className="text-[12px] font-semibold text-white/60 uppercase tracking-widest mb-4">Das Herzstück</div>
+            <h2 className="text-[32px] sm:text-[52px] font-extrabold tracking-tight mb-6 leading-[1.1]">
+              Ein Gedächtnis das nicht vergisst.<br />
+              Ein System das täglich besser wird.
             </h2>
-            <p className="text-[15px] text-[#6E6E73] max-w-2xl mx-auto">
-              KaderOS hat einen eingebauten Agent Brain — 7 Schichten Gedächtnis, inspiriert vom menschlichen Gehirn. Kein LLM. Reine Mathematik.
+            <p className="text-[17px] text-white/70 max-w-2xl mx-auto leading-relaxed">
+              Die meisten AI-Tools bauen eine bessere Festplatte. Der Agent Brain baut einen lebendigen Knowledge Graph.
+              Er zieht Verbindungen die niemand definiert hat. Er denkt voraus. Und er lernt jede Nacht.
+            </p>
+            <p className="text-[14px] text-white/50 mt-4">
+              Kein LLM. Kein API-Call zu OpenAI. Reine Datenbankarbeit und Mathematik. CHF 5/Monat Betriebskosten.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {/* 7 Layers Visual */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-16">
             {[
-              { icon: <Brain size={22} />, title: "Erinnern", desc: "Dein Kader weiss was letzte Woche passiert ist. Ohne dass du es nochmal erklärst.", color: "#000088" },
-              { icon: <Globe size={22} />, title: "Vernetzen", desc: "\"Müller\" → Mieter + Seefeldstrasse + 3 offene Tickets. Automatisch.", color: "#0891B2" },
-              { icon: <BarChart3 size={22} />, title: "Lernen", desc: "Nach 3× dem gleichen Muster erstellt dein Kader eigene Regeln. Ohne Training.", color: "#059669" },
-              { icon: <Activity size={22} />, title: "Vorhersagen", desc: "Proaktive Alerts bevor Probleme eskalieren. Dein Kader sieht was kommt.", color: "#7C3AED" },
-            ].map((f, i) => (
-              <div key={i} className="bg-white rounded-2xl p-6 border border-[#E5E5EA] hover:shadow-lg hover:-translate-y-0.5 transition-all">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style={{ backgroundColor: `${f.color}10`, color: f.color }}>
-                  {f.icon}
-                </div>
-                <h3 className="text-[15px] font-bold text-[#1D1D1F] mb-2">{f.title}</h3>
-                <p className="text-[13px] text-[#6E6E73] leading-relaxed">{f.desc}</p>
+              { num: "01", title: "Perception Gate", desc: "Bewertet jede Info: Emotion, Neuheit, Dringlichkeit, Vertrauen. Der Türhüter.", color: "#4d4dff" },
+              { num: "02", title: "Working Memory", desc: "7-Item Buffer wie beim Menschen. Was überlebt, wird konsolidiert.", color: "#5c5cff" },
+              { num: "03", title: "Episodisches Gedächtnis", desc: "Konkrete Erinnerungen. Reconsolidation: verändern sich beim Abrufen.", color: "#6b6bff" },
+              { num: "04", title: "Knowledge Graph", desc: "Lebendiges Netz aus Entitäten und Beziehungen. Wächst exponentiell.", color: "#7a7aff" },
+              { num: "05", title: "Prozedurales Gedächtnis", desc: "Muster durch Wiederholung. Ab 3× wird es zur Regel.", color: "#8989ff" },
+              { num: "06", title: "Predictive Engine", desc: "Proaktive Alerts alle 60 Min. Warnt bevor Probleme eskalieren.", color: "#9898ff" },
+              { num: "07", title: "Dream Cycle", desc: "02:00 nachts: Vergessen, Verdichten, kreative Verbindungen entdecken.", color: "#a7a7ff" },
+            ].map((layer, i) => (
+              <div key={i} className={`rounded-2xl p-5 border border-white/10 bg-white/5 backdrop-blur hover:bg-white/10 transition-all ${i === 6 ? "sm:col-span-2 lg:col-span-4 lg:max-w-md lg:mx-auto" : ""}`}>
+                <div className="text-[11px] font-mono text-white/40 mb-2">SCHICHT {layer.num}</div>
+                <h3 className="text-[15px] font-bold mb-1">{layer.title}</h3>
+                <p className="text-[12px] text-white/60 leading-relaxed">{layer.desc}</p>
               </div>
             ))}
           </div>
 
-          <p className="text-center text-[12px] text-[#86868B] mt-8">
-            7 Schichten: Perception Gate → Working Memory → Episodisch → Knowledge Graph → Prozedural → Predictive → Dream Cycle.{" "}
-            <a href="https://github.com/kaderosio/kaderos.io" target="_blank" rel="noopener noreferrer" className="text-[#000088] hover:underline">
-              Mehr auf GitHub →
-            </a>
-          </p>
+          {/* Dream Cycle Highlight */}
+          <div className="rounded-3xl border border-white/10 bg-white/5 p-8 sm:p-10 mb-16">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+              <div>
+                <div className="text-[12px] font-semibold text-white/50 uppercase tracking-widest mb-3">Was um 02:00 nachts passiert</div>
+                <h3 className="text-[24px] sm:text-[28px] font-bold mb-4">Dein Kader träumt.</h3>
+                <p className="text-[15px] text-white/70 leading-relaxed mb-4">
+                  Nicht wie ein Mensch. Aber ähnlich. Der Dream Cycle nimmt zufällige Paare von Erinnerungen und sucht
+                  nicht-offensichtliche Verbindungen. Objekt A hat immer Probleme im Winter. Objekt B auch.
+                  Beide haben denselben Verantwortlichen. Eine Verbindung die tagsüber niemand gezogen hat.
+                </p>
+                <p className="text-[14px] text-white/50">
+                  Das ist das Äquivalent des menschlichen REM-Schlafs. Menschen lösen Probleme im Schlaf
+                  weil das Gehirn ungestört Verbindungen testen kann.
+                </p>
+              </div>
+              <div className="space-y-3">
+                {[
+                  { label: "Vergessen", desc: "Ebbinghaus-Kurve. Unwichtiges verblasst. Wichtiges bleibt." },
+                  { label: "Verdichten", desc: "Ähnliche Erinnerungen (92%+) werden zusammengeführt." },
+                  { label: "Entdecken", desc: "Kreative Verbindungssuche zwischen unverbundenen Entitäten." },
+                  { label: "Ableiten", desc: "Neue Regeln entstehen. Wandern ins prozedurale Gedächtnis." },
+                ].map((item, i) => (
+                  <div key={i} className="flex gap-3 items-start rounded-xl bg-white/5 p-4">
+                    <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0 text-[11px] font-bold">{i + 1}</div>
+                    <div>
+                      <div className="text-[13px] font-semibold">{item.label}</div>
+                      <div className="text-[12px] text-white/50">{item.desc}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Timeline: How it becomes human */}
+          <div className="mb-16">
+            <h3 className="text-[20px] font-bold text-center mb-8">So wird dein Kader mit der Zeit besser</h3>
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+              {[
+                { time: "Tag 1", desc: "Speichert alles. Erste Verbindungen." },
+                { time: "Woche 1", desc: "Kennt alle Kontakte. Erste Muster." },
+                { time: "Monat 1", desc: "500+ Verbindungen. Erste Alerts." },
+                { time: "Monat 3", desc: "70%+ korrekte Vorhersagen." },
+                { time: "Jahr 1", desc: "Unersetzbar. Institutionelles Wissen." },
+              ].map((step, i) => (
+                <div key={i} className="text-center rounded-xl bg-white/5 border border-white/10 p-4">
+                  <div className="text-[13px] font-bold text-white/90 mb-1">{step.time}</div>
+                  <div className="text-[11px] text-white/50 leading-relaxed">{step.desc}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Comparison: What competitors DON'T have */}
+          <div className="mb-16">
+            <h3 className="text-[20px] font-bold text-center mb-6">Kein anderes Produkt hat das.</h3>
+            <div className="overflow-x-auto">
+              <table className="w-full text-[12px]">
+                <thead>
+                  <tr className="border-b border-white/20">
+                    <th className="text-left py-2 px-3 font-semibold text-white/60">Feature</th>
+                    <th className="text-center py-2 px-3 font-bold text-white">KaderOS</th>
+                    <th className="text-center py-2 px-3 font-semibold text-white/40">Mem0</th>
+                    <th className="text-center py-2 px-3 font-semibold text-white/40">Zep</th>
+                    <th className="text-center py-2 px-3 font-semibold text-white/40">CrewAI</th>
+                    <th className="text-center py-2 px-3 font-semibold text-white/40">MemGPT</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    { feat: "Knowledge Graph", k: true, m: false, z: false, c: false, mg: false },
+                    { feat: "Emotion Scoring", k: true, m: false, z: false, c: false, mg: false },
+                    { feat: "Ebbinghaus Vergessen", k: true, m: false, z: false, c: false, mg: false },
+                    { feat: "Reconsolidation", k: true, m: false, z: false, c: false, mg: false },
+                    { feat: "Dream Cycle", k: true, m: false, z: false, c: false, mg: false },
+                    { feat: "Predictive Engine", k: true, m: false, z: false, c: false, mg: false },
+                    { feat: "Kein LLM nötig", k: true, m: false, z: true, c: false, mg: false },
+                    { feat: "CHF 5/Mo Betrieb", k: true, m: false, z: false, c: false, mg: false },
+                  ].map((row, i) => (
+                    <tr key={i} className="border-b border-white/5">
+                      <td className="py-2 px-3 text-white/70">{row.feat}</td>
+                      <td className="py-2 px-3 text-center text-green-400 font-bold">{row.k ? "✓" : "—"}</td>
+                      <td className="py-2 px-3 text-center text-white/20">{row.m ? "✓" : "—"}</td>
+                      <td className="py-2 px-3 text-center text-white/20">{row.z ? "✓" : "—"}</td>
+                      <td className="py-2 px-3 text-center text-white/20">{row.c ? "✓" : "—"}</td>
+                      <td className="py-2 px-3 text-center text-white/20">{row.mg ? "✓" : "—"}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* CTA */}
+          <div className="text-center">
+            <Link href="/brain" className="inline-flex items-center gap-2 px-6 py-3 bg-white text-[#000088] rounded-xl font-semibold text-[14px] hover:bg-white/90 transition">
+              Mehr über den Agent Brain <ArrowRight size={16} />
+            </Link>
+            <p className="text-[12px] text-white/40 mt-3">Open Source. AGPLv3. Alles auf GitHub.</p>
+          </div>
         </div>
       </section>
 
