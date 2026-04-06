@@ -12,6 +12,7 @@ const PROVIDER_MAP: Record<string, string> = {
   claude: "anthropic",
   gpt: "openai",
   mistral: "mistral",
+  deepl: "deepl",
 };
 
 function calculateNextRun(cronExpression: string): Date {

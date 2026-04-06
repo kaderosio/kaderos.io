@@ -17,6 +17,7 @@ import { randomUUID } from "crypto";
 const PROVIDER_MAP: Record<string, string> = {
   claude: "anthropic",
   gpt: "openai",
+  deepl: "deepl",
 };
 
 const MODEL_MAP: Record<string, string> = {

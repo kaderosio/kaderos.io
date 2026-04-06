@@ -50,7 +50,11 @@ async function testOpenai(apiKey: string): Promise<TestResult> {
 }
 
 async function testDeepl(apiKey: string): Promise<TestResult> {
-  const res = await fetch("https://api-free.deepl.com/v2/usage", {
+  const isFreeKey = apiKey.endsWith(":fx");
+  const baseUrl = isFreeKey
+    ? "https://api-free.deepl.com"
+    : "https://api.deepl.com";
+  const res = await fetch(`${baseUrl}/v2/usage`, {
     headers: { Authorization: `DeepL-Auth-Key ${apiKey}` },
   });
 

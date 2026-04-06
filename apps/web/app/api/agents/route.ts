@@ -1,6 +1,7 @@
 import { createClient } from "@/utils/supabase/server";
 import { logActivity } from "@/lib/activity";
 import { verifyCompanyOwnership } from "@/lib/auth";
+import { PLANS, PlanKey } from "@/lib/stripe";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
@@ -64,6 +65,36 @@ export async function POST(req: NextRequest) {
   if (!(await verifyCompanyOwnership(supabase, companyId, user.id))) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
+
+  // ── Agent limit enforcement ──────────────────────────────────────
+  const { data: company } = await supabase
+    .from("companies")
+    .select("settings")
+    .eq("id", companyId)
+    .single();
+
+  const plan: PlanKey = (company?.settings?.plan as PlanKey) || "community";
+  const planConfig = PLANS[plan];
+  const agentLimit = planConfig.agents;
+
+  // -1 means unlimited (agency plan)
+  if (agentLimit !== -1) {
+    const { count } = await supabase
+      .from("agents")
+      .select("id", { count: "exact", head: true })
+      .eq("company_id", companyId);
+
+    if ((count ?? 0) >= agentLimit) {
+      const nextPlan = plan === "community" ? "Pro" : plan === "pro" ? "Team" : "Agency";
+      return NextResponse.json(
+        {
+          error: `Agent-Limit erreicht (${agentLimit}). Upgrade auf ${nextPlan}.`,
+        },
+        { status: 403 }
+      );
+    }
+  }
+  // ─────────────────────────────────────────────────────────────────
 
   const { data, error } = await supabase
     .from("agents")

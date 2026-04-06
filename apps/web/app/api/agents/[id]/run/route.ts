@@ -11,6 +11,7 @@ const PROVIDER_MAP: Record<string, string> = {
   claude: "anthropic",
   gpt: "openai",
   mistral: "mistral",
+  deepl: "deepl",
 };
 
 export async function POST(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
