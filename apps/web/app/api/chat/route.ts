@@ -130,6 +130,27 @@ export async function POST(req: NextRequest) {
               runId,
             },
           });
+
+          // Trace event
+          try {
+            await supabase.from("trace_events").insert({
+              company_id: agent.company_id,
+              agent_id: agent.id,
+              run_id: runId,
+              event_type: "llm_call",
+              input_tokens: usage?.inputTokens ?? null,
+              output_tokens: usage?.outputTokens ?? null,
+              model: MODEL_MAP[agent.type],
+              adapter_type: agent.type,
+              cost_chf: null,
+              duration_ms: null,
+              input_preview: null,
+              output_preview: null,
+              metadata: { chat: true },
+            });
+          } catch (traceErr) {
+            console.error("Failed to insert trace_event:", traceErr);
+          }
         },
       });
 

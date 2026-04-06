@@ -208,6 +208,7 @@ export async function GET(request: NextRequest) {
       const runId = randomUUID();
       const prompt = `Aufgabe: ${task.title}\n\nBeschreibung: ${task.description || "Keine weitere Beschreibung."}\n\nBitte erledige diese Aufgabe und gib eine klare Zusammenfassung deiner Arbeit.`;
 
+      const runStartTime = Date.now();
       const result = await adapter.execute({
         runId,
         agent: {
@@ -220,6 +221,27 @@ export async function GET(request: NextRequest) {
         prompt,
         apiKey,
       });
+
+      // Trace event
+      try {
+        await supabase.from("trace_events").insert({
+          company_id: agent.company_id,
+          agent_id: agent.id,
+          run_id: runId,
+          event_type: result.success ? "llm_call" : "error",
+          input_tokens: result.usage?.inputTokens ?? null,
+          output_tokens: result.usage?.outputTokens ?? null,
+          model: result.usage?.model ?? agent.type,
+          adapter_type: agent.type,
+          cost_chf: result.costUsd ? (result.costUsd * USD_TO_CHF).toFixed(4) : null,
+          duration_ms: Date.now() - runStartTime,
+          input_preview: prompt.substring(0, 200),
+          output_preview: result.output?.substring(0, 200) ?? null,
+          metadata: { taskId: task?.id, heartbeat: true },
+        });
+      } catch (traceErr) {
+        console.error("Failed to insert trace_event:", traceErr);
+      }
 
       if (result.success) {
         await supabase

@@ -21,7 +21,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
   if (authError || !user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const body = await req.json();
-  const { prompt: bodyPrompt, taskId } = body;
+  const { prompt: bodyPrompt, taskId, parameters } = body;
 
   // Load task if taskId provided
   let task: Record<string, any> | null = null;
@@ -43,6 +43,14 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
     : bodyPrompt;
 
   if (!prompt) return NextResponse.json({ error: "prompt required" }, { status: 400 });
+
+  // Interpolate parameters into prompt
+  let finalPrompt = prompt;
+  if (parameters && typeof parameters === 'object') {
+    for (const [key, value] of Object.entries(parameters)) {
+      finalPrompt = finalPrompt.replace(new RegExp(`\\{${key}\\}`, 'g'), String(value));
+    }
+  }
 
   // 1. Get agent
   const { data: agent, error: agentError } = await supabase
@@ -129,6 +137,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
   }
 
   // 5. Execute adapter
+  const startTime = Date.now();
   const result = await adapter.execute({
     runId,
     agent: {
@@ -138,9 +147,31 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
       systemPrompt: agent.system_prompt,
       config: agent.config || {},
     },
-    prompt,
+    prompt: finalPrompt,
     apiKey,
   });
+  const durationMs = Date.now() - startTime;
+
+  // Trace event
+  try {
+    await supabase.from("trace_events").insert({
+      company_id: agent.company_id,
+      agent_id: id,
+      run_id: runId,
+      event_type: result.success ? "llm_call" : "error",
+      input_tokens: result.usage?.inputTokens ?? null,
+      output_tokens: result.usage?.outputTokens ?? null,
+      model: result.usage?.model ?? agent.type,
+      adapter_type: agent.type,
+      cost_chf: result.costUsd ? (result.costUsd * USD_TO_CHF).toFixed(4) : null,
+      duration_ms: durationMs,
+      input_preview: finalPrompt.substring(0, 200),
+      output_preview: result.output?.substring(0, 200) ?? null,
+      metadata: { taskId: taskId || null, success: result.success },
+    });
+  } catch (traceErr) {
+    console.error("Failed to insert trace_event:", traceErr);
+  }
 
   // 6. Update heartbeat run
   if (heartbeat) {
