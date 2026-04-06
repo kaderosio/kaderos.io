@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Zap, Loader2, BarChart3, TrendingUp } from "lucide-react";
+import { Zap, Loader2, BarChart3, TrendingUp, Play, X } from "lucide-react";
 import { useCompany } from "../layout";
 import { useToast } from "../_components/toast";
 
@@ -35,7 +35,7 @@ function cronToHuman(cron: string): string {
   const hour = parts[1];
 
   if (hour === "*" && minute === "*") return "Jede Minute";
-  if (hour === "*") return `Stuendlich um :${minute.padStart(2, "0")}`;
+  if (hour === "*") return `Stündlich um :${minute.padStart(2, "0")}`;
   if (hour !== "*" && minute !== "*") {
     return `Taeglich ${hour.padStart(2, "0")}:${minute.padStart(2, "0")}`;
   }
@@ -70,6 +70,8 @@ export default function AutomationPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [togglingId, setTogglingId] = useState<string | null>(null);
+  const [runningId, setRunningId] = useState<string | null>(null);
+  const [confirmRunHb, setConfirmRunHb] = useState<Heartbeat | null>(null);
 
   useEffect(() => {
     if (!companyId) return;
@@ -104,9 +106,36 @@ export default function AutomationPage() {
         "success"
       );
     } catch {
-      toast("Status konnte nicht geaendert werden", "error");
+      toast("Status konnte nicht geändert werden", "error");
     } finally {
       setTogglingId(null);
+    }
+  }
+
+  async function runAgent(hb: Heartbeat) {
+    setConfirmRunHb(null);
+    setRunningId(hb.agent_id);
+    try {
+      const res = await fetch(`/api/agents/${hb.agent_id}/run`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt: "Führe deine nächste offene Aufgabe aus." }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({ error: "Unbekannter Fehler" }));
+        throw new Error(data.error || "Fehler beim Ausführen");
+      }
+      toast("Agent hat Task erledigt", "success");
+      // Refresh heartbeat list
+      const refresh = await fetch(`/api/heartbeats?companyId=${companyId}`);
+      if (refresh.ok) {
+        const d = await refresh.json();
+        setHeartbeats(d.heartbeats ?? []);
+      }
+    } catch (e: any) {
+      toast(e.message || "Fehler beim Ausführen", "error");
+    } finally {
+      setRunningId(null);
     }
   }
 
@@ -265,6 +294,19 @@ export default function AutomationPage() {
 
                       <div className="flex shrink-0 items-center gap-3">
                         <button
+                          onClick={() => setConfirmRunHb(hb)}
+                          disabled={runningId === hb.agent_id}
+                          className="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 px-2.5 py-1.5 text-xs font-medium text-gray-700 transition-colors hover:bg-gray-50 disabled:opacity-50"
+                          title="Jetzt ausführen"
+                        >
+                          {runningId === hb.agent_id ? (
+                            <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                          ) : (
+                            <Play className="h-3.5 w-3.5" />
+                          )}
+                          <span className="hidden sm:inline">Jetzt ausführen</span>
+                        </button>
+                        <button
                           onClick={() => toggleEnabled(hb)}
                           disabled={isToggling}
                           className="relative inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full transition-colors disabled:opacity-50"
@@ -295,6 +337,43 @@ export default function AutomationPage() {
             </div>
           )}
         </>
+      )}
+
+      {/* Confirm Run Modal */}
+      {confirmRunHb && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+          <div className="w-full max-w-sm rounded-xl border border-gray-200 bg-white p-6 shadow-xl">
+            <div className="flex items-start justify-between">
+              <h3 className="text-base font-semibold text-gray-900">
+                Agent manuell ausführen?
+              </h3>
+              <button
+                onClick={() => setConfirmRunHb(null)}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+            <p className="mt-2 text-sm text-gray-600">
+              <span className="font-medium">{confirmRunHb.agents?.name ?? "Agent"}</span> wird
+              sofort mit der nächsten offenen Aufgabe gestartet.
+            </p>
+            <div className="mt-5 flex items-center justify-end gap-2">
+              <button
+                onClick={() => setConfirmRunHb(null)}
+                className="rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+              >
+                Abbrechen
+              </button>
+              <button
+                onClick={() => runAgent(confirmRunHb)}
+                className="rounded-lg bg-[#000088] px-4 py-2 text-sm font-medium text-white hover:bg-[#0000aa]"
+              >
+                Ausführen
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

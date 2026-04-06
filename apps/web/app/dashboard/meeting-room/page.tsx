@@ -16,6 +16,8 @@ import {
   Activity,
   Zap,
   Clock,
+  CheckCircle2,
+  AlertCircle,
 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -30,12 +32,18 @@ type Agent = {
 };
 
 type TraceEvent = {
-  event: string;
-  runId?: string;
-  agentName?: string;
-  agentRole?: string;
-  tokens?: number;
-  ts: number;
+  id: string;
+  status: "running" | "completed" | "error";
+  startedAt: number;
+  completedAt?: number;
+  model: string;
+  agentName: string;
+};
+
+const MODEL_LABELS: Record<string, string> = {
+  gpt: "GPT-4o",
+  claude: "Claude Sonnet",
+  mistral: "Mistral",
 };
 
 function MeetingRoomContent() {
@@ -53,6 +61,7 @@ function MeetingRoomContent() {
   const [traceEvents, setTraceEvents] = useState<TraceEvent[]>([]);
   const [chatError, setChatError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const activeTraceIdRef = useRef<string | null>(null);
 
   // Ref for agentId — transport body reads this dynamically
   const agentIdRef = useRef(selectedAgentId);
@@ -100,6 +109,48 @@ function MeetingRoomContent() {
 
   const isStreaming = status === "streaming" || status === "submitted";
 
+  // Wrap sendMessage to create trace events
+  const sendMessageWithTrace = useCallback(
+    (opts: { text: string }) => {
+      const traceId = Math.random().toString(36).slice(2);
+      activeTraceIdRef.current = traceId;
+      const agentName = selectedAgent?.name ?? "Agent";
+      const model = MODEL_LABELS[selectedAgent?.type ?? ""] ?? selectedAgent?.type?.toUpperCase() ?? "LLM";
+      setTraceEvents((prev) => [
+        ...prev,
+        {
+          id: traceId,
+          status: "running",
+          startedAt: Date.now(),
+          model,
+          agentName,
+        },
+      ]);
+      sendMessage(opts);
+    },
+    [sendMessage, selectedAgent]
+  );
+
+  // Complete trace when streaming finishes
+  const prevStatusRef = useRef(status);
+  useEffect(() => {
+    const wasStreaming = prevStatusRef.current === "streaming" || prevStatusRef.current === "submitted";
+    const nowReady = status === "ready" || status === "error";
+    if (wasStreaming && nowReady && activeTraceIdRef.current) {
+      const finalStatus = status === "error" ? "error" : "completed";
+      const traceId = activeTraceIdRef.current;
+      activeTraceIdRef.current = null;
+      setTraceEvents((prev) =>
+        prev.map((t) =>
+          t.id === traceId
+            ? { ...t, status: finalStatus as "completed" | "error", completedAt: Date.now() }
+            : t
+        )
+      );
+    }
+    prevStatusRef.current = status;
+  }, [status]);
+
   // Auto-scroll
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -126,10 +177,10 @@ function MeetingRoomContent() {
       e.preventDefault();
       if (!input.trim() || isStreaming || !selectedAgentId) return;
       setChatError(null);
-      sendMessage({ text: input });
+      sendMessageWithTrace({ text: input });
       setInput("");
     },
-    [input, isStreaming, selectedAgentId, sendMessage]
+    [input, isStreaming, selectedAgentId, sendMessageWithTrace]
   );
 
   if (companyLoading || loadingAgents) {
@@ -310,7 +361,7 @@ function MeetingRoomContent() {
                 if (e.key === "Enter" && !e.shiftKey) {
                   e.preventDefault();
                   if (input.trim() && !isStreaming) {
-                    sendMessage({ text: input });
+                    sendMessageWithTrace({ text: input });
                     setInput("");
                   }
                 }
@@ -363,31 +414,67 @@ function MeetingRoomContent() {
               </div>
             ) : (
               <div className="space-y-3">
-                {traceEvents.map((event, i) => (
-                  <div
-                    key={i}
-                    className="rounded-lg border border-gray-100 bg-gray-50 p-3"
-                  >
-                    <div className="flex items-center gap-2">
-                      {event.event === "run_start" && (
-                        <Zap className="h-3.5 w-3.5 text-green-500" />
-                      )}
-                      {event.event === "run_complete" && (
-                        <Activity className="h-3.5 w-3.5 text-blue-500" />
-                      )}
-                      <span className="text-xs font-medium text-gray-700">
-                        {event.event === "run_start" &&
-                          `${event.agentName} gestartet`}
-                        {event.event === "run_complete" &&
-                          `Fertig — ${event.tokens} Tokens`}
-                      </span>
+                {[...traceEvents].reverse().map((event) => {
+                  const duration = event.completedAt
+                    ? ((event.completedAt - event.startedAt) / 1000).toFixed(1)
+                    : null;
+
+                  return (
+                    <div
+                      key={event.id}
+                      className={`rounded-lg border p-3 ${
+                        event.status === "running"
+                          ? "border-yellow-200 bg-yellow-50"
+                          : event.status === "error"
+                            ? "border-red-200 bg-red-50"
+                            : "border-green-200 bg-green-50"
+                      }`}
+                    >
+                      {/* Status row */}
+                      <div className="flex items-center gap-2">
+                        {event.status === "running" && (
+                          <Loader2 className="h-3.5 w-3.5 animate-spin text-yellow-600" />
+                        )}
+                        {event.status === "completed" && (
+                          <CheckCircle2 className="h-3.5 w-3.5 text-green-600" />
+                        )}
+                        {event.status === "error" && (
+                          <AlertCircle className="h-3.5 w-3.5 text-red-600" />
+                        )}
+                        <span
+                          className={`text-xs font-semibold ${
+                            event.status === "running"
+                              ? "text-yellow-700"
+                              : event.status === "error"
+                                ? "text-red-700"
+                                : "text-green-700"
+                          }`}
+                        >
+                          {event.status === "running" && "Denkt nach..."}
+                          {event.status === "completed" &&
+                            `Erledigt in ${duration}s`}
+                          {event.status === "error" && "Fehler"}
+                        </span>
+                      </div>
+
+                      {/* Agent name */}
+                      <p className="mt-1.5 text-xs font-medium text-gray-700">
+                        {event.agentName}
+                      </p>
+
+                      {/* Meta row */}
+                      <div className="mt-1.5 flex items-center gap-2">
+                        <span className="inline-flex items-center rounded-md bg-white/70 px-1.5 py-0.5 text-[10px] font-semibold text-gray-600 ring-1 ring-gray-200/60">
+                          {event.model}
+                        </span>
+                        <span className="flex items-center gap-1 text-[10px] text-gray-400">
+                          <Clock className="h-2.5 w-2.5" />
+                          {new Date(event.startedAt).toLocaleTimeString("de-CH")}
+                        </span>
+                      </div>
                     </div>
-                    <div className="mt-1 flex items-center gap-1 text-[10px] text-gray-400">
-                      <Clock className="h-2.5 w-2.5" />
-                      {new Date(event.ts).toLocaleTimeString("de-CH")}
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             )}
           </div>

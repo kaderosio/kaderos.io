@@ -55,7 +55,7 @@ const CATEGORIES: Category[] = [
   {
     label: "SWISS",
     providers: [
-      { id: "deepl", name: "DeepL", description: "Uebersetzungs-API" },
+      { id: "deepl", name: "DeepL", description: "Übersetzungs-API" },
       {
         id: "bexio",
         name: "Bexio",

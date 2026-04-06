@@ -150,15 +150,15 @@ export default function ZielePage() {
 
   /* Delete goal */
   async function deleteGoal(goal: Goal) {
-    if (!confirm("Wirklich loeschen?")) return;
+    if (!confirm("Wirklich löschen?")) return;
     setDeletingId(goal.id);
     try {
       const res = await fetch(`/api/goals/${goal.id}`, { method: "DELETE" });
       if (!res.ok) throw new Error();
       setGoals((prev) => prev.filter((g) => g.id !== goal.id));
-      toast("Ziel geloescht", "success");
+      toast("Ziel gelöscht", "success");
     } catch {
-      toast("Ziel konnte nicht geloescht werden", "error");
+      toast("Ziel konnte nicht gelöscht werden", "error");
     } finally {
       setDeletingId(null);
     }
@@ -300,8 +300,8 @@ export default function ZielePage() {
                     className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#000088]/30"
                   >
                     <option value="on-track">On Track</option>
-                    <option value="at-risk">Gefaehrdet</option>
-                    <option value="behind">Im Rueckstand</option>
+                    <option value="at-risk">Gefährdet</option>
+                    <option value="behind">Im Rückstand</option>
                     <option value="completed">Abgeschlossen</option>
                   </select>
                 </div>
@@ -398,7 +398,7 @@ export default function ZielePage() {
                       ) : (
                         <Trash2 className="h-3 w-3" />
                       )}
-                      Loeschen
+                      Löschen
                     </button>
                   </div>
                 </div>

@@ -213,7 +213,7 @@ export default function NewAgentPage() {
             rows={5}
             value={systemPrompt}
             onChange={(e) => setSystemPrompt(e.target.value)}
-            placeholder="Beschreibe die Persoenlichkeit und Aufgaben des Agenten..."
+            placeholder="Beschreibe die Persönlichkeit und Aufgaben des Agenten..."
             className="w-full rounded-lg border border-gray-200 bg-white px-3.5 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 outline-none transition-colors focus:border-[#000088] focus:ring-2 focus:ring-[#000088]/10 resize-none"
           />
           <p className="mt-1.5 text-xs text-gray-400">

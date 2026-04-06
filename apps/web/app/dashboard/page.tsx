@@ -12,6 +12,9 @@ import {
   UserPlus,
   ArrowRight,
   RefreshCw,
+  AlertTriangle,
+  Wallet,
+  Zap,
 } from "lucide-react";
 
 /* ── Types ────────────────────────────────────────────────────────────── */
@@ -38,6 +41,26 @@ type ActivityEntry = {
   action: string;
   agent_name?: string;
   created_at: string;
+};
+
+type Decision = {
+  id: string;
+  request: string;
+  status: string;
+  agents: { name: string; accent_color: string } | null;
+  requested_at: string;
+};
+
+type Budget = {
+  id: string;
+  spent_chf: number;
+  agents: { name: string } | null;
+};
+
+type Heartbeat = {
+  id: string;
+  next_run_at: string | null;
+  agents: { name: string; accent_color: string; role: string } | null;
 };
 
 /* ── Helpers ──────────────────────────────────────────────────────────── */
@@ -82,6 +105,9 @@ export default function DashboardOverview() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [goals, setGoals] = useState<Goal[]>([]);
   const [activities, setActivities] = useState<ActivityEntry[]>([]);
+  const [decisions, setDecisions] = useState<Decision[]>([]);
+  const [budgets, setBudgets] = useState<Budget[]>([]);
+  const [heartbeats, setHeartbeats] = useState<Heartbeat[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -95,27 +121,36 @@ export default function DashboardOverview() {
     setLoading(true);
     setError(null);
     try {
-      const [aRes, tRes, gRes, actRes] = await Promise.all([
+      const [aRes, tRes, gRes, actRes, decRes, costRes, hbRes] = await Promise.all([
         fetch(`/api/agents?companyId=${companyId}`),
         fetch(`/api/tasks?companyId=${companyId}`),
         fetch(`/api/goals?companyId=${companyId}`),
         fetch(`/api/activity?companyId=${companyId}&limit=5`),
+        fetch(`/api/decisions?companyId=${companyId}&status=pending`),
+        fetch(`/api/costs?companyId=${companyId}`),
+        fetch(`/api/heartbeats?companyId=${companyId}`),
       ]);
 
       if (!aRes.ok || !tRes.ok || !gRes.ok || !actRes.ok) {
         throw new Error("Daten konnten nicht geladen werden. Bitte versuche es erneut.");
       }
 
-      const [aData, tData, gData, actData] = await Promise.all([
+      const [aData, tData, gData, actData, decData, costData, hbData] = await Promise.all([
         aRes.json(),
         tRes.json(),
         gRes.json(),
         actRes.json(),
+        decRes.ok ? decRes.json() : { decisions: [] },
+        costRes.ok ? costRes.json() : { budgets: [] },
+        hbRes.ok ? hbRes.json() : { heartbeats: [] },
       ]);
       setAgents(aData.agents ?? []);
       setTasks(tData.tasks ?? []);
       setGoals(gData.goals ?? []);
       setActivities(actData.activities ?? []);
+      setDecisions(decData.decisions ?? []);
+      setBudgets(costData.budgets ?? []);
+      setHeartbeats(hbData.heartbeats ?? []);
     } catch (e: unknown) {
       const msg =
         e instanceof Error
@@ -131,11 +166,13 @@ export default function DashboardOverview() {
 
   /* ── Stat Cards ─────────────────────────────────────────────────── */
 
+  const totalSpent = budgets.reduce((sum, b) => sum + (b.spent_chf ?? 0), 0);
+
   const stats = [
-    { label: "Agents", value: agents.length, icon: Users, color: "text-[#000088]" },
-    { label: "Aufgaben", value: tasks.length, icon: ClipboardList, color: "text-cyan-600" },
-    { label: "Ziele", value: goals.length, icon: Target, color: "text-emerald-600" },
-    { label: "Aktivitäten", value: activities.length, icon: Activity, color: "text-amber-600" },
+    { label: "Agents", value: String(agents.length), icon: Users, color: "text-[#000088]" },
+    { label: "Aufgaben", value: String(tasks.length), icon: ClipboardList, color: "text-cyan-600" },
+    { label: "Ziele", value: String(goals.length), icon: Target, color: "text-emerald-600" },
+    { label: "Kosten", value: `CHF ${totalSpent.toFixed(2)}`, icon: Wallet, color: "text-amber-600" },
   ];
 
   /* ── Render ─────────────────────────────────────────────────────── */
@@ -212,6 +249,87 @@ export default function DashboardOverview() {
               );
             })}
           </div>
+
+          {/* Next Heartbeat Banner */}
+          {(() => {
+            const nextHb = heartbeats
+              .filter((h) => h.next_run_at)
+              .sort(
+                (a, b) =>
+                  new Date(a.next_run_at!).getTime() - new Date(b.next_run_at!).getTime()
+              )[0];
+            if (!nextHb) return null;
+            const nextDate = new Date(nextHb.next_run_at!);
+            const formatted = nextDate.toLocaleString("de-CH", {
+              weekday: "short",
+              day: "2-digit",
+              month: "2-digit",
+              hour: "2-digit",
+              minute: "2-digit",
+            });
+            return (
+              <div className="mb-8 flex items-center gap-3 rounded-xl border border-[#000088]/20 bg-[#000088]/5 px-5 py-3">
+                <Zap className="h-4 w-4 text-[#000088]" />
+                <p className="text-sm text-[#000088]">
+                  <span className="font-medium">N&auml;chster automatischer Run:</span>{" "}
+                  {formatted}
+                  {nextHb.agents?.name && (
+                    <span className="text-[#000088]/70"> &middot; {nextHb.agents.name}</span>
+                  )}
+                </p>
+              </div>
+            );
+          })()}
+
+          {heartbeats.length === 0 && (
+            <div className="mb-8 flex items-center gap-3 rounded-xl border border-gray-200 bg-gray-50 px-5 py-3">
+              <Zap className="h-4 w-4 text-gray-400" />
+              <p className="text-sm text-gray-500">Keine Automationen aktiv</p>
+            </div>
+          )}
+
+          {/* Pending Decisions Widget */}
+          {decisions.length > 0 && (
+            <div className="mb-8">
+              <div className="rounded-xl border border-amber-200 bg-amber-50 p-5">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-2">
+                    <AlertTriangle className="h-4 w-4 text-amber-600" />
+                    <h2 className="text-base font-semibold text-amber-900">
+                      Offene Entscheidungen
+                    </h2>
+                    <span className="rounded-full bg-amber-200 px-2 py-0.5 text-xs font-semibold text-amber-800">
+                      {decisions.length}
+                    </span>
+                  </div>
+                  <Link
+                    href="/dashboard/entscheidungen"
+                    className="flex items-center gap-1 text-sm font-medium text-amber-700 hover:text-amber-900 hover:underline"
+                  >
+                    Alle anzeigen
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                </div>
+                <div className="space-y-2">
+                  {decisions.slice(0, 3).map((d) => (
+                    <div
+                      key={d.id}
+                      className="flex items-start gap-3 rounded-lg bg-white border border-amber-100 px-4 py-3"
+                    >
+                      <div className="min-w-0 flex-1">
+                        <p className="text-sm text-gray-900 line-clamp-2">{d.request}</p>
+                        {d.agents?.name && (
+                          <p className="mt-1 text-xs text-gray-500">
+                            von <span className="font-medium text-gray-700">{d.agents.name}</span>
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Empty State */}
           {agents.length === 0 && (

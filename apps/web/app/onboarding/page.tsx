@@ -70,6 +70,14 @@ const TEMPLATES: Template[] = [
   },
 ];
 
+const AGENT_NAMES: Record<string, string[]> = {
+  "side-hustle": ["Alex", "Robin"],
+  startup: ["Vega", "Nova", "Axel", "Luna"],
+  agentur: ["Max", "Mia", "Leo", "Sam", "Zoe"],
+  freelancer: ["Aria", "Finn", "Nora"],
+  ecommerce: ["Rico", "Lena", "Timo", "Sara"],
+};
+
 /* ── Page ─────────────────────────────────────────────────────────────── */
 
 export default function OnboardingPage() {
@@ -205,8 +213,8 @@ export default function OnboardingPage() {
       <p className="mx-auto mt-2 max-w-sm text-sm text-gray-500">
         Du kannst Agents jederzeit hinzufügen oder entfernen.
       </p>
-      <div className="mx-auto mt-8 grid max-w-lg gap-3">
-        {TEMPLATES.map((t) => {
+      <div className="mx-auto mt-8 grid max-w-2xl grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {TEMPLATES.filter((t) => t.id !== "leer").map((t) => {
           const Icon = t.icon;
           const selected = selectedTemplate === t.id;
           return (
@@ -214,29 +222,51 @@ export default function OnboardingPage() {
               key={t.id}
               type="button"
               onClick={() => setSelectedTemplate(t.id)}
-              className={`flex items-center gap-4 rounded-xl border px-5 py-4 text-left transition-all ${
+              className={`flex flex-col items-start rounded-xl border p-5 text-left transition-all ${
                 selected
                   ? "border-[#000088] bg-[#000088]/5 ring-2 ring-[#000088]/20"
                   : "border-gray-200 bg-white hover:border-gray-300"
               }`}
             >
-              <div
-                className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ${
-                  selected ? "bg-[#000088] text-white" : "bg-gray-100 text-gray-500"
-                }`}
-              >
-                <Icon className="h-5 w-5" />
+              <div className="flex w-full items-center gap-3">
+                <div
+                  className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ${
+                    selected ? "bg-[#000088] text-white" : "bg-gray-100 text-gray-500"
+                  }`}
+                >
+                  <Icon className="h-5 w-5" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-gray-900">
+                    {t.label}
+                  </p>
+                  <p className="text-xs text-gray-400">{t.agents} Agents</p>
+                </div>
               </div>
-              <div className="flex-1">
-                <p className="text-sm font-semibold text-gray-900">
-                  {t.label}
-                </p>
-                <p className="text-xs text-gray-500">{t.description}</p>
+              <p className="mt-3 text-xs text-gray-500">{t.description}</p>
+              <div className="mt-3 flex flex-wrap gap-1">
+                {AGENT_NAMES[t.id]?.map((name) => (
+                  <span
+                    key={name}
+                    className="rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-medium text-gray-600"
+                  >
+                    {name}
+                  </span>
+                ))}
               </div>
             </button>
           );
         })}
       </div>
+      <button
+        type="button"
+        onClick={() => setSelectedTemplate("leer")}
+        className={`mx-auto mt-4 block text-sm font-medium underline decoration-gray-300 underline-offset-2 transition-colors ${
+          selectedTemplate === "leer" ? "text-[#000088]" : "text-gray-500 hover:text-gray-700"
+        }`}
+      >
+        Ohne Template starten
+      </button>
     </div>
   );
 
@@ -310,7 +340,7 @@ export default function OnboardingPage() {
 
       {progressBar}
 
-      <div className="w-full max-w-xl">
+      <div className="w-full max-w-2xl">
         {step === 1 && step1}
         {step === 2 && step2}
         {step === 3 && step3}

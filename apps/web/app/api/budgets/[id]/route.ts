@@ -1,5 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { logActivity } from "@/lib/activity";
+import { verifyCompanyOwnership } from "@/lib/auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function PUT(
@@ -19,6 +20,21 @@ export async function PUT(
   const { id } = await params;
   const body = await req.json();
   const { monthlyLimitChf, warningThreshold, isPaused } = body;
+
+  // Load budget to get company_id, then verify ownership
+  const { data: budget } = await supabase
+    .from("budgets")
+    .select("company_id")
+    .eq("id", id)
+    .single();
+
+  if (!budget) {
+    return NextResponse.json({ error: "Budget not found" }, { status: 404 });
+  }
+
+  if (!(await verifyCompanyOwnership(supabase, budget.company_id, user.id))) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
 
   const updates: Record<string, unknown> = {
     updated_at: new Date().toISOString(),

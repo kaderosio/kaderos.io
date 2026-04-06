@@ -3,11 +3,13 @@
 import { useEffect, useState, FormEvent } from "react";
 import { useCompany } from "../layout";
 import { useToast } from "../_components/toast";
-import { Plus, Calendar, X } from "lucide-react";
+import { Plus, Calendar, X, Save, MessageSquare } from "lucide-react";
 
 /* ── Types ─────────────────────────────────────────────────────────── */
 
 type Agent = { id: string; name: string; accent_color?: string };
+
+type Goal = { id: string; title: string };
 
 type Task = {
   id: string;
@@ -16,8 +18,10 @@ type Task = {
   priority: "high" | "medium" | "low";
   status: string;
   agent_id: string | null;
+  goal_id: string | null;
   due_date: string | null;
   created_at: string;
+  updated_at: string | null;
   source?: string | null;
   agents: { name: string; accent_color: string } | null;
 };
@@ -43,14 +47,72 @@ export default function AufgabenPage() {
   const { toast } = useToast();
   const [tasks, setTasks] = useState<Task[]>([]);
   const [agents, setAgents] = useState<Agent[]>([]);
+  const [goals, setGoals] = useState<Goal[]>([]);
   const [fetching, setFetching] = useState(true);
   const [showForm, setShowForm] = useState(false);
+
+  /* Detail panel state */
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
+  const [editTitle, setEditTitle] = useState("");
+  const [editDescription, setEditDescription] = useState("");
+  const [editStatus, setEditStatus] = useState("");
+  const [editPriority, setEditPriority] = useState("");
+  const [editAgentId, setEditAgentId] = useState("");
+  const [saving, setSaving] = useState(false);
 
   /* Form state */
   const [title, setTitle] = useState("");
   const [priority, setPriority] = useState("medium");
   const [agentId, setAgentId] = useState("");
   const [submitting, setSubmitting] = useState(false);
+
+  /* Open detail panel */
+  function openDetail(task: Task) {
+    setSelectedTask(task);
+    setEditTitle(task.title);
+    setEditDescription(task.description ?? "");
+    setEditStatus(task.status);
+    setEditPriority(task.priority);
+    setEditAgentId(task.agent_id ?? "");
+  }
+
+  function closeDetail() {
+    setSelectedTask(null);
+  }
+
+  /* Save task changes */
+  async function handleSave() {
+    if (!selectedTask) return;
+    setSaving(true);
+    try {
+      const res = await fetch(`/api/tasks/${selectedTask.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title: editTitle.trim(),
+          description: editDescription.trim() || null,
+          status: editStatus,
+          priority: editPriority,
+          agentId: editAgentId || null,
+        }),
+      });
+      if (res.ok) {
+        /* Re-fetch to get joined agent data */
+        const full = await fetch(`/api/tasks?companyId=${companyId}`).then((r) => r.json());
+        const updatedTasks: Task[] = full.tasks ?? [];
+        setTasks(updatedTasks);
+        const updated = updatedTasks.find((t: Task) => t.id === selectedTask.id);
+        if (updated) setSelectedTask(updated);
+        toast("Aufgabe gespeichert", "success");
+      } else {
+        toast("Speichern fehlgeschlagen", "error");
+      }
+    } catch {
+      toast("Speichern fehlgeschlagen", "error");
+    } finally {
+      setSaving(false);
+    }
+  }
 
   /* Fetch */
   useEffect(() => {
@@ -59,10 +121,12 @@ export default function AufgabenPage() {
     Promise.all([
       fetch(`/api/tasks?companyId=${companyId}`).then((r) => r.json()),
       fetch(`/api/agents?companyId=${companyId}`).then((r) => r.json()),
+      fetch(`/api/goals?companyId=${companyId}`).then((r) => r.json()),
     ])
-      .then(([tasksRes, agentsRes]) => {
+      .then(([tasksRes, agentsRes, goalsRes]) => {
         setTasks(tasksRes.tasks ?? []);
         setAgents(agentsRes.agents ?? []);
+        setGoals(goalsRes.goals ?? []);
       })
       .finally(() => setFetching(false));
   }, [companyId, loading]);
@@ -220,7 +284,8 @@ export default function AufgabenPage() {
                   return (
                     <div
                       key={task.id}
-                      className={`rounded-xl border p-3 space-y-2 shadow-sm ${isBlocked ? "border-red-200 bg-red-50/50" : "border-gray-200 bg-white"}`}
+                      onClick={() => openDetail(task)}
+                      className={`rounded-xl border p-3 space-y-2 shadow-sm cursor-pointer hover:shadow-md transition-shadow ${isBlocked ? "border-red-200 bg-red-50/50" : "border-gray-200 bg-white"}`}
                     >
                       <p className="text-sm font-medium text-gray-900 leading-snug">
                         {task.title}
@@ -255,7 +320,10 @@ export default function AufgabenPage() {
                         {COLUMNS.filter((c) => c.key !== task.status).map((c) => (
                           <button
                             key={c.key}
-                            onClick={() => moveTask(task.id, c.key)}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              moveTask(task.id, c.key);
+                            }}
                             className="rounded-md border border-gray-200 px-2 py-0.5 text-[10px] text-gray-500 hover:bg-gray-50 hover:text-gray-700 transition-colors"
                           >
                             {c.label}
@@ -275,6 +343,204 @@ export default function AufgabenPage() {
             </div>
           );
         })}
+      </div>
+
+      {/* ── Task Detail Slide-in Panel ────────────────────────────────── */}
+
+      {/* Backdrop */}
+      {selectedTask && (
+        <div
+          className="fixed inset-0 bg-black/20 z-40"
+          onClick={closeDetail}
+        />
+      )}
+
+      <div
+        className={`fixed inset-y-0 right-0 w-full sm:w-[480px] bg-white shadow-xl border-l border-gray-200 z-50 transform transition-transform duration-300 ease-in-out ${
+          selectedTask ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        {selectedTask && (
+          <div className="flex h-full flex-col">
+            {/* Panel Header */}
+            <div className="flex items-center justify-between border-b border-gray-200 px-6 py-4">
+              <h2 className="text-base font-semibold text-gray-900">Aufgabe bearbeiten</h2>
+              <button
+                onClick={closeDetail}
+                className="rounded-lg p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition-colors"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            {/* Panel Body */}
+            <div className="flex-1 overflow-y-auto px-6 py-5 space-y-5">
+              {/* Title */}
+              <div>
+                <label className="block text-xs font-medium text-gray-500 mb-1">Titel</label>
+                <input
+                  type="text"
+                  value={editTitle}
+                  onChange={(e) => setEditTitle(e.target.value)}
+                  className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm font-medium text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#000088]/30 focus:border-[#000088]"
+                />
+              </div>
+
+              {/* Description */}
+              <div>
+                <label className="block text-xs font-medium text-gray-500 mb-1">Beschreibung</label>
+                <textarea
+                  value={editDescription}
+                  onChange={(e) => setEditDescription(e.target.value)}
+                  rows={4}
+                  placeholder="Beschreibung hinzufügen..."
+                  className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#000088]/30 focus:border-[#000088] resize-none"
+                />
+              </div>
+
+              {/* Status + Priority row */}
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-medium text-gray-500 mb-1">Status</label>
+                  <select
+                    value={editStatus}
+                    onChange={(e) => setEditStatus(e.target.value)}
+                    className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#000088]/30"
+                  >
+                    {COLUMNS.map((c) => (
+                      <option key={c.key} value={c.key}>
+                        {c.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-gray-500 mb-1">Priorit&auml;t</label>
+                  <select
+                    value={editPriority}
+                    onChange={(e) => setEditPriority(e.target.value)}
+                    className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#000088]/30"
+                  >
+                    <option value="high">Hoch</option>
+                    <option value="medium">Mittel</option>
+                    <option value="low">Niedrig</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Assigned Agent */}
+              <div>
+                <label className="block text-xs font-medium text-gray-500 mb-1">Zugewiesener Agent</label>
+                <select
+                  value={editAgentId}
+                  onChange={(e) => setEditAgentId(e.target.value)}
+                  className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#000088]/30"
+                >
+                  <option value="">Nicht zugewiesen</option>
+                  {agents.map((a) => (
+                    <option key={a.id} value={a.id}>
+                      {a.name}
+                    </option>
+                  ))}
+                </select>
+                {selectedTask.agents?.name && (
+                  <div className="mt-2 flex items-center gap-2">
+                    <span
+                      className="inline-flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-bold text-white"
+                      style={{ backgroundColor: selectedTask.agents.accent_color || "#000088" }}
+                    >
+                      {selectedTask.agents.name.charAt(0).toUpperCase()}
+                    </span>
+                    <span className="text-sm text-gray-700">{selectedTask.agents.name}</span>
+                  </div>
+                )}
+              </div>
+
+              {/* Linked Goal */}
+              <div>
+                <label className="block text-xs font-medium text-gray-500 mb-1">Ziel</label>
+                {selectedTask.goal_id ? (
+                  <div className="rounded-lg bg-emerald-50 border border-emerald-200 px-3 py-2">
+                    <p className="text-sm text-emerald-700 font-medium">
+                      {goals.find((g) => g.id === selectedTask.goal_id)?.title ?? "Verknüpftes Ziel"}
+                    </p>
+                  </div>
+                ) : (
+                  <p className="text-sm text-gray-400">Kein Ziel verknüpft</p>
+                )}
+              </div>
+
+              {/* Timestamps */}
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-medium text-gray-500 mb-1">Erstellt</label>
+                  <p className="text-sm text-gray-700">
+                    {new Date(selectedTask.created_at).toLocaleString("de-CH", {
+                      day: "2-digit",
+                      month: "2-digit",
+                      year: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </p>
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-gray-500 mb-1">Aktualisiert</label>
+                  <p className="text-sm text-gray-700">
+                    {selectedTask.updated_at
+                      ? new Date(selectedTask.updated_at).toLocaleString("de-CH", {
+                          day: "2-digit",
+                          month: "2-digit",
+                          year: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })
+                      : "–"}
+                  </p>
+                </div>
+              </div>
+
+              {/* Source badge */}
+              {selectedTask.source && (
+                <div>
+                  <label className="block text-xs font-medium text-gray-500 mb-1">Quelle</label>
+                  <span className="inline-block rounded-full bg-orange-100 px-2.5 py-1 text-xs font-semibold text-orange-700">
+                    Automatisch erstellt
+                  </span>
+                </div>
+              )}
+
+              {/* Agent Output Section */}
+              <div className="border-t border-gray-200 pt-5">
+                <div className="flex items-center gap-2 mb-3">
+                  <MessageSquare className="h-4 w-4 text-gray-400" />
+                  <label className="text-xs font-medium text-gray-500">Agent-Antwort</label>
+                </div>
+                <div className="rounded-lg bg-gray-50 border border-gray-200 px-4 py-5 text-center">
+                  <p className="text-sm text-gray-400">Noch keine Agent-Antwort</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Panel Footer */}
+            <div className="border-t border-gray-200 px-6 py-4 flex items-center justify-end gap-3">
+              <button
+                onClick={closeDetail}
+                className="rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors"
+              >
+                Abbrechen
+              </button>
+              <button
+                onClick={handleSave}
+                disabled={saving || !editTitle.trim()}
+                className="inline-flex items-center gap-2 rounded-lg bg-[#000088] px-4 py-2 text-sm font-medium text-white hover:bg-[#000066] disabled:opacity-50 transition-colors"
+              >
+                <Save className="h-4 w-4" />
+                {saving ? "Speichern..." : "Speichern"}
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

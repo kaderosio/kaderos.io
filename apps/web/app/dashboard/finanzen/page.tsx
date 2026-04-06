@@ -130,11 +130,11 @@ export default function FinanzenPage() {
     if (!companyId) return;
     const limit = parseFloat(modalLimit);
     if (isNaN(limit) || limit <= 0) {
-      toast("Bitte gib ein gueltiges Limit ein", "error");
+      toast("Bitte gib ein gültiges Limit ein", "error");
       return;
     }
     if (!modalAgentId) {
-      toast("Bitte waehle einen Agenten", "error");
+      toast("Bitte wähle einen Agenten", "error");
       return;
     }
 

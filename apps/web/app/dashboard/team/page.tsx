@@ -99,7 +99,7 @@ export default function TeamPage() {
       const { agent: updated } = await res.json();
       setAgents((prev) => prev.map((a) => (a.id === agent.id ? updated : a)));
     } catch {
-      toast("Status konnte nicht geaendert werden", "error");
+      toast("Status konnte nicht geändert werden", "error");
     } finally {
       setTogglingId(null);
     }
@@ -152,15 +152,15 @@ export default function TeamPage() {
 
   /* Delete agent */
   async function deleteAgent(agent: Agent) {
-    if (!confirm(`"${agent.name}" wirklich loeschen?`)) return;
+    if (!confirm(`"${agent.name}" wirklich löschen?`)) return;
     setDeletingId(agent.id);
     try {
       const res = await fetch(`/api/agents/${agent.id}`, { method: "DELETE" });
       if (!res.ok) throw new Error();
       setAgents((prev) => prev.filter((a) => a.id !== agent.id));
-      toast("Agent geloescht", "success");
+      toast("Agent gelöscht", "success");
     } catch {
-      toast("Agent konnte nicht geloescht werden", "error");
+      toast("Agent konnte nicht gelöscht werden", "error");
     } finally {
       setDeletingId(null);
     }
@@ -455,7 +455,7 @@ export default function TeamPage() {
                     ) : (
                       <Trash2 className="h-3.5 w-3.5" />
                     )}
-                    Loeschen
+                    Löschen
                   </button>
                 </div>
               </div>

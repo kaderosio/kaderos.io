@@ -1,5 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { logActivity } from "@/lib/activity";
+import { verifyCompanyOwnership } from "@/lib/auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
@@ -20,6 +21,11 @@ export async function GET(req: NextRequest) {
       { error: "companyId is required" },
       { status: 400 }
     );
+  }
+
+  // Verify company ownership
+  if (!(await verifyCompanyOwnership(supabase, companyId, user.id))) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
   const { data, error } = await supabase
@@ -54,6 +60,11 @@ export async function POST(req: NextRequest) {
       { error: "companyId, agentId, and monthlyLimitChf are required" },
       { status: 400 }
     );
+  }
+
+  // Verify company ownership
+  if (!(await verifyCompanyOwnership(supabase, companyId, user.id))) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
   const effectivePeriod = period || new Date().toISOString().slice(0, 7);
