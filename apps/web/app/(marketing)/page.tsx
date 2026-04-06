@@ -68,7 +68,7 @@ function WaitlistForm({ variant = "default" }: { variant?: "default" | "hero" })
       </div>
       {refCode && (
         <div className="text-[12px] text-[#86868B]">
-          Teile deinen Link -- rueck 10 Plaetze vor pro Referral:<br />
+          Teile deinen Link -- rück 10 Plätze vor pro Referral:<br />
           <button onClick={() => navigator.clipboard.writeText(`https://kaderos.io/?ref=${refCode}`)}
             className="mt-1 px-3 py-1 bg-[#F5F5F7] rounded-lg text-[#000088] font-medium hover:bg-[#E5E5EA] transition-colors">
             kaderos.io?ref={refCode} -- kopieren
@@ -107,10 +107,10 @@ function PlatformTabs() {
       icon: Zap,
       title: "Workflows, Heartbeat Engine, Scheduling",
       points: [
-        "Heartbeat Engine: Automatische taegliche Agent-Runs",
+        "Heartbeat Engine: Automatische tägliche Agent-Runs",
         "Multi-Step Workflows mit State und Conditions",
         "Task Delegation zwischen Agents",
-        "Cron-basiertes Scheduling fuer wiederkehrende Aufgaben",
+        "Cron-basiertes Scheduling für wiederkehrende Aufgaben",
       ],
     },
     {
@@ -121,7 +121,7 @@ function PlatformTabs() {
         "Visual Agent Builder mit 6 Konfigurations-Tabs",
         "12+ Connectors: Claude, GPT, Mistral, DeepL, GitHub, Notion",
         "Knowledge Base: Dokumente als Agent-Kontext",
-        "Templates fuer Schweizer Branchen",
+        "Templates für Schweizer Branchen",
       ],
     },
     {
@@ -131,7 +131,7 @@ function PlatformTabs() {
       points: [
         "Execution Trace: Jeder Schritt nachvollziehbar",
         "Activity Log: Wer hat was gemacht, wann, warum",
-        "Confidence Scoring fuer autonome Entscheidungen",
+        "Confidence Scoring für autonome Entscheidungen",
         "Token- und Kosten-Breakdown pro Run",
       ],
     },
@@ -200,11 +200,11 @@ export default function LandingPage() {
         <div className="relative max-w-4xl mx-auto text-center">
           <h1 className="s2 text-[32px] sm:text-[56px] md:text-[72px] leading-[1.05] font-extrabold tracking-tight mb-6">
             Dein AI-Team.<br />
-            <span className="gradient-text">Fuer dein Unternehmen.</span>
+            <span className="gradient-text">Für dein Unternehmen.</span>
           </h1>
 
           <p className="s3 text-[18px] sm:text-[24px] text-[#6E6E73] max-w-2xl mx-auto mb-10 leading-snug font-semibold tracking-tight">
-            4 Agents. CHF 49 pro Monat. Arbeiten waehrend du schlaefst.
+            4 Agents. CHF 49 pro Monat. Arbeiten während du schläfst.
           </p>
 
           {/* CTAs */}
@@ -264,7 +264,7 @@ export default function LandingPage() {
               {
                 step: "01",
                 title: "Team aufstellen",
-                desc: "Waehle ein Template oder erstelle deine Agents manuell. Solo Founder, Agency, Treuhand -- in unter 5 Minuten.",
+                desc: "Wähle ein Template oder erstelle deine Agents manuell. Solo Founder, Agency, Treuhand -- in unter 5 Minuten.",
                 icon: Users,
                 color: "#000088",
               },
@@ -278,7 +278,7 @@ export default function LandingPage() {
               {
                 step: "03",
                 title: "Automatisch arbeiten lassen",
-                desc: "Dein Team arbeitet im Hintergrund. Jeden Tag. Die Heartbeat Engine sorgt dafuer, dass nichts liegenbleibt.",
+                desc: "Dein Team arbeitet im Hintergrund. Jeden Tag. Die Heartbeat Engine sorgt dafür, dass nichts liegenbleibt.",
                 icon: Zap,
                 color: "#059669",
               },
@@ -303,7 +303,7 @@ export default function LandingPage() {
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
             <div className="text-[12px] font-semibold text-[#000088] uppercase tracking-widest mb-3">Warum KaderOS</div>
-            <h2 className="text-[28px] sm:text-[40px] font-bold tracking-tight">Einfach. Vertrauenswuerdig. Skalierbar. Swiss.</h2>
+            <h2 className="text-[28px] sm:text-[40px] font-bold tracking-tight">Einfach. Vertrauenswürdig. Skalierbar. Swiss.</h2>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -332,7 +332,7 @@ export default function LandingPage() {
               <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-5 bg-[#059669]/10">
                 <ShieldCheck size={22} className="text-[#059669]" />
               </div>
-              <h3 className="text-[18px] font-bold mb-4">Vertrauenswuerdig</h3>
+              <h3 className="text-[18px] font-bold mb-4">Vertrauenswürdig</h3>
               <ul className="space-y-3">
                 {[
                   "Jede Entscheidung geloggt (Confidence Scoring)",
@@ -357,7 +357,7 @@ export default function LandingPage() {
                 {[
                   "Von 1 bis 25+ Agents",
                   "Workflows: Multi-Step Automatisierung",
-                  "Heartbeat Engine: Automatische taegliche Runs",
+                  "Heartbeat Engine: Automatische tägliche Runs",
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-2.5 text-[14px] text-[#6E6E73]">
                     <Check size={16} className="text-[#0891B2] mt-0.5 shrink-0" />
@@ -375,7 +375,7 @@ export default function LandingPage() {
               <h3 className="text-[18px] font-bold mb-4">Swiss DNA</h3>
               <ul className="space-y-3">
                 {[
-                  "Deutsch-first. Nicht uebersetzt.",
+                  "Deutsch-first. Nicht übersetzt.",
                   "CHF. Nicht umgerechnet.",
                   "nDSG-konform. Swiss Hosting.",
                   "Bexio, DeepL, QR-Rechnung (coming soon)",
@@ -397,7 +397,7 @@ export default function LandingPage() {
           <div className="text-center mb-14">
             <div className="text-[12px] font-semibold text-[#000088] uppercase tracking-widest mb-3">Plattform</div>
             <h2 className="text-[28px] sm:text-[40px] font-bold tracking-tight mb-4">Alles was du brauchst. In einem Dashboard.</h2>
-            <p className="text-[15px] text-[#6E6E73]">4 Saeulen. Von Orchestrierung bis Skalierung.</p>
+            <p className="text-[15px] text-[#6E6E73]">4 Säulen. Von Orchestrierung bis Skalierung.</p>
           </div>
 
           <PlatformTabs />
@@ -446,7 +446,7 @@ export default function LandingPage() {
               </button>
               <button onClick={() => setAnnual(true)}
                 className={`px-5 py-2 rounded-lg text-[13px] font-medium transition-all flex items-center gap-2 ${annual ? "bg-white text-[#1D1D1F] shadow-sm" : "text-[#6E6E73]"}`}>
-                Jaehrlich <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#059669]/10 text-[#059669] font-semibold">-20%</span>
+                Jährlich <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#059669]/10 text-[#059669] font-semibold">-20%</span>
               </button>
             </div>
           </div>
@@ -454,7 +454,7 @@ export default function LandingPage() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-8">
             {[
               {
-                name: "Community", price: 0, annual: 0, per: "fuer immer", agents: "3 Agents",
+                name: "Community", price: 0, annual: 0, per: "für immer", agents: "3 Agents",
                 feats: ["Org Chart + Tasks + Goals", "Meeting Room", "1 Unternehmen", "Community Support", "Open Source"],
                 pop: false,
               },
@@ -498,7 +498,7 @@ export default function LandingPage() {
           <div className="text-center space-y-2">
             <p className="text-[12px] text-[#86868B]">Alle Preise in CHF. Keine versteckten Kosten. BYOK -- deine API-Keys, deine Kosten.</p>
             <Link href="/pricing" className="inline-flex items-center gap-1 text-[13px] text-[#000088] font-semibold hover:underline">
-              Alle Preise und Plaene ansehen <ChevronRight size={14} />
+              Alle Preise und Pläne ansehen <ChevronRight size={14} />
             </Link>
           </div>
         </div>
@@ -520,14 +520,14 @@ export default function LandingPage() {
               <div className="text-[14px] font-bold text-[#059669] uppercase tracking-widest mb-6">Was KaderOS ist</div>
               <ul className="space-y-4">
                 {[
-                  "Betriebssystem fuer dein AI-Team",
-                  "Open Source (AGPLv3) -- pruefbar",
+                  "Betriebssystem für dein AI-Team",
+                  "Open Source (AGPLv3) -- prüfbar",
                   "BYOK -- deine Keys, deine Kosten",
                   "Cloud-Login auf kaderos.io",
                   "nDSG-konform mit Audit Trail",
                   "CHF-native Budgets pro Agent",
                   "Deutsch-native UI",
-                  "Templates fuer Schweizer Branchen",
+                  "Templates für Schweizer Branchen",
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-3 text-[14px] text-[#1D1D1F]">
                     <Check size={16} className="text-[#059669] mt-0.5 shrink-0" />
@@ -543,7 +543,7 @@ export default function LandingPage() {
               <ul className="space-y-4">
                 {[
                   "Kein ChatGPT-Wrapper",
-                  "Kein US-Tool mit uebersetztem UI",
+                  "Kein US-Tool mit übersetztem UI",
                   "Kein CLI -- alles im Browser",
                   "Kein Python-Code wie CrewAI",
                   "Keine Black Box -- Code ist offen",
@@ -567,10 +567,10 @@ export default function LandingPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-white via-[#000088]/[0.02] to-white" />
         <div className="relative max-w-2xl mx-auto text-center">
           <h2 className="text-[32px] sm:text-[48px] font-extrabold tracking-tight mb-6">
-            Bereit fuer dein AI-Team?
+            Bereit für dein AI-Team?
           </h2>
           <p className="text-[16px] text-[#6E6E73] mb-10 leading-relaxed">
-            Starte kostenlos mit 3 Agents. Kein Kreditkarte noetig.
+            Starte kostenlos mit 3 Agents. Keine Kreditkarte nötig.
           </p>
           <Link href="/signup"
             className="inline-flex items-center gap-2 px-10 py-4 bg-[#000088] text-white text-[16px] font-semibold rounded-xl hover:bg-[#000066] hover:shadow-xl transition-all">

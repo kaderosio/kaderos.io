@@ -15,26 +15,37 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/agb",
   ];
 
-  const blogSlugs = [
-    "ai-agents-schweiz", "ai-team-aufbauen", "ndsg-ai-konform",
-    "ai-kosten-kmu", "crewai-vs-kaderos", "ai-automatisierung-agentur",
-    "zukunft-arbeit-schweiz", "open-source-ai-tools",
-    "ai-onboarding-guide", "kmu-digitalisierung-2026", "ai-budget-planen",
-    "ai-governance-kmu", "solo-founder-ai-stack", "ai-agent-vs-chatbot",
-    "schweizer-startups-ai", "ai-risiken-kmu", "produktivitaet-ai-tools",
-    "ai-mitarbeiter-zukunft",
+  const blogPosts: { slug: string; date: string }[] = [
+    { slug: "ai-agents-schweiz", date: "2026-03-28" },
+    { slug: "ai-team-aufbauen", date: "2026-03-28" },
+    { slug: "ndsg-ai-konform", date: "2026-03-29" },
+    { slug: "ai-kosten-kmu", date: "2026-03-29" },
+    { slug: "crewai-vs-kaderos", date: "2026-03-30" },
+    { slug: "ai-automatisierung-agentur", date: "2026-03-30" },
+    { slug: "zukunft-arbeit-schweiz", date: "2026-03-30" },
+    { slug: "open-source-ai-tools", date: "2026-03-31" },
+    { slug: "ai-onboarding-guide", date: "2026-03-31" },
+    { slug: "kmu-digitalisierung-2026", date: "2026-03-31" },
+    { slug: "ai-budget-planen", date: "2026-04-01" },
+    { slug: "ai-governance-kmu", date: "2026-04-01" },
+    { slug: "solo-founder-ai-stack", date: "2026-04-01" },
+    { slug: "ai-agent-vs-chatbot", date: "2026-04-02" },
+    { slug: "schweizer-startups-ai", date: "2026-04-02" },
+    { slug: "ai-risiken-kmu", date: "2026-04-02" },
+    { slug: "produktivitaet-ai-tools", date: "2026-04-02" },
+    { slug: "ai-mitarbeiter-zukunft", date: "2026-04-03" },
   ];
 
   return [
     ...pages.map((p) => ({
       url: `${base}${p}`,
-      lastModified: new Date(),
+      lastModified: new Date("2026-04-03"),
       changeFrequency: "weekly" as const,
-      priority: p === "" ? 1 : 0.7,
+      priority: p === "" ? 1 : p === "/pricing" ? 0.9 : 0.7,
     })),
-    ...blogSlugs.map((slug) => ({
+    ...blogPosts.map(({ slug, date }) => ({
       url: `${base}/blog/${slug}`,
-      lastModified: new Date(),
+      lastModified: new Date(date),
       changeFrequency: "monthly" as const,
       priority: 0.6,
     })),

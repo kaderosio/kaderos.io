@@ -89,7 +89,7 @@ function Footer() {
               <span className="text-[14px] font-semibold">KaderOS</span>
             </Link>
             <p className="text-[12px] text-[#86868B] leading-relaxed">
-              Das Betriebssystem fuer dein AI-Team. Open Source. Swiss Made.
+              Das Betriebssystem für dein AI-Team. Open Source. Swiss Made.
             </p>
           </div>
           {[

@@ -6,27 +6,27 @@ import Link from "next/link";
 
 const PLANS = [
   {
-    name: "Community", price: 0, annual: 0, per: "fuer immer", agents: "3 Agents",
+    name: "Community", price: 0, annual: 0, per: "für immer", agents: "3 Agents",
     desc: "Perfekt zum Ausprobieren. Dein erster Kader -- kostenlos.",
     feats: ["Org Chart + Tasks + Goals", "Meeting Room (3 Agents)", "1 Unternehmen", "Community Support", "Open Source Code"],
     cta: "Kostenlos starten", pop: false,
   },
   {
     name: "Pro", price: 49, annual: 39, per: "/Monat", agents: "10 Agents",
-    desc: "Fuer Solo-Founders die ernst machen. Dein komplettes AI-Team.",
+    desc: "Für Solo-Founders die ernst machen. Dein komplettes AI-Team.",
     feats: ["Alles aus Community", "Budget-Tracking in CHF", "Audit Trail & Execution Trace", "5 Swiss Kader Templates", "Email Support innert 24h"],
     cta: "Kostenlos starten", pop: true,
   },
   {
     name: "Team", price: 149, annual: 119, per: "/Monat", agents: "25 Agents",
-    desc: "Fuer wachsende Teams. Mehrere Firmen, volle Kontrolle.",
-    feats: ["Alles aus Pro", "Multi-Company (isoliert)", "Priority Support innert 4h", "Eigene Templates erstellen", "API Access fuer Automationen"],
+    desc: "Für wachsende Teams. Mehrere Firmen, volle Kontrolle.",
+    feats: ["Alles aus Pro", "Multi-Company (isoliert)", "Priority Support innert 4h", "Eigene Templates erstellen", "API Access für Automationen"],
     cta: "Kostenlos starten", pop: false,
   },
   {
     name: "Agency", price: 349, annual: 279, per: "/Monat", agents: "Unbegrenzt",
-    desc: "Fuer Agencies und Treuhaender. Mandanten-faehig.",
-    feats: ["Alles aus Team", "Mandanten komplett isoliert", "Persoenlicher Ansprechpartner", "Eigene Connectors", "SLA 99.9% Verfuegbarkeit"],
+    desc: "Für Agencies und Treuhänder. Mandanten-fähig.",
+    feats: ["Alles aus Team", "Mandanten komplett isoliert", "Persönlicher Ansprechpartner", "Eigene Connectors", "SLA 99.9% Verfügbarkeit"],
     cta: "Kostenlos starten", pop: false,
   },
 ];
@@ -57,12 +57,12 @@ function CellValue({ value }: { value: string | boolean | null }) {
 
 const FAQ = [
   { q: "Was passiert mit meinen Daten?", a: "Deine Daten werden sicher in der Cloud gespeichert. KaderOS ist nDSG-konform. BYOK bedeutet: Deine API-Keys gehen direkt an den Provider -- wir sehen sie nie im Klartext." },
-  { q: "Kann ich jederzeit kuendigen?", a: "Ja. Monatlich kuendbar. Keine Mindestlaufzeit. Nach Kuendigung funktioniert dein Kader im Community-Modus weiter (3 Agents)." },
-  { q: "Was kostet ein Agent wirklich?", a: "Die KaderOS-Lizenz plus deine eigenen API-Kosten (typisch CHF 10-30/Monat je nach Nutzung). BYOK -- du bezahlst direkt beim Provider. Keine versteckten Aufschlaege." },
-  { q: "Brauche ich technisches Know-how?", a: "Nein. KaderOS laeuft komplett im Browser. Kein Terminal, kein Code. Templates und der Agent Builder fuehren dich durch alles." },
-  { q: "Welche AI-Modelle werden unterstuetzt?", a: "Claude (Anthropic), GPT (OpenAI), Mistral, und jeder OpenAI-kompatible Endpoint. Du bringst deinen eigenen API-Key mit." },
-  { q: "Gibt es einen jaehrlichen Rabatt?", a: "Ja. Bei jaehrlicher Zahlung sparst du 20% -- das sind bis zu CHF 840/Jahr beim Agency-Plan." },
-  { q: "Was ist der Unterschied zu CrewAI?", a: "KaderOS ist fuer den Schweizer Markt gebaut: nDSG-konform, CHF-Budgets, Deutsch-native UI, Swiss Connectors (Bexio, QR-Rechnung). Kein Python-Code noetig -- alles im Browser." },
+  { q: "Kann ich jederzeit kündigen?", a: "Ja. Monatlich kündbar. Keine Mindestlaufzeit. Nach Kündigung funktioniert dein Kader im Community-Modus weiter (3 Agents)." },
+  { q: "Was kostet ein Agent wirklich?", a: "Die KaderOS-Lizenz plus deine eigenen API-Kosten (typisch CHF 10-30/Monat je nach Nutzung). BYOK -- du bezahlst direkt beim Provider. Keine versteckten Aufschläge." },
+  { q: "Brauche ich technisches Know-how?", a: "Nein. KaderOS läuft komplett im Browser. Kein Terminal, kein Code. Templates und der Agent Builder führen dich durch alles." },
+  { q: "Welche AI-Modelle werden unterstützt?", a: "Claude (Anthropic), GPT (OpenAI), Mistral, und jeder OpenAI-kompatible Endpoint. Du bringst deinen eigenen API-Key mit." },
+  { q: "Gibt es einen jährlichen Rabatt?", a: "Ja. Bei jährlicher Zahlung sparst du 20% -- das sind bis zu CHF 840/Jahr beim Agency-Plan." },
+  { q: "Was ist der Unterschied zu CrewAI?", a: "KaderOS ist für den Schweizer Markt gebaut: nDSG-konform, CHF-Budgets, Deutsch-native UI, Swiss Connectors (Bexio, QR-Rechnung). Kein Python-Code nötig -- alles im Browser." },
 ];
 
 export default function PricingPageClient() {
@@ -89,7 +89,7 @@ export default function PricingPageClient() {
           </button>
           <button onClick={() => setAnnual(true)}
             className={`px-5 py-2 rounded-lg text-[13px] font-medium transition-all flex items-center gap-2 ${annual ? "bg-white text-[#1D1D1F] shadow-sm" : "text-[#6E6E73]"}`}>
-            Jaehrlich <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#059669]/10 text-[#059669] font-semibold">-20%</span>
+            Jährlich <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#059669]/10 text-[#059669] font-semibold">-20%</span>
           </button>
         </div>
       </div>
@@ -127,7 +127,7 @@ export default function PricingPageClient() {
       {/* Enterprise CTA */}
       <div className="max-w-3xl mx-auto text-center mb-20 p-8 rounded-2xl bg-[#FAFAFA] border border-[#E5E5EA]">
         <h3 className="text-[20px] font-bold mb-2">Brauchst du mehr?</h3>
-        <p className="text-[14px] text-[#6E6E73] mb-5">Persoenliche Einrichtung, Custom Templates, API-Integration -- ab CHF 3&apos;000.</p>
+        <p className="text-[14px] text-[#6E6E73] mb-5">Persönliche Einrichtung, Custom Templates, API-Integration -- ab CHF 3&apos;000.</p>
         <Link href="/enterprise" className="inline-flex items-center gap-2 px-6 py-3 bg-[#000088] text-white text-[13px] font-semibold rounded-xl hover:bg-[#000066] hover:shadow-lg transition-all">
           Enterprise ansehen <ArrowRight size={14} />
         </Link>
@@ -165,7 +165,7 @@ export default function PricingPageClient() {
 
       {/* FAQ */}
       <div className="max-w-3xl mx-auto">
-        <h2 className="text-[28px] font-bold text-center mb-10">Haeufige Fragen</h2>
+        <h2 className="text-[28px] font-bold text-center mb-10">Häufige Fragen</h2>
         <div className="space-y-3">
           {FAQ.map((f, i) => (
             <div key={i} className="border border-[#E5E5EA] rounded-xl overflow-hidden">
@@ -184,7 +184,7 @@ export default function PricingPageClient() {
 
       {/* Bottom CTA */}
       <div className="max-w-2xl mx-auto text-center mt-20">
-        <h2 className="text-[30px] font-bold mb-4">Bereit fuer dein AI-Team?</h2>
+        <h2 className="text-[30px] font-bold mb-4">Bereit für dein AI-Team?</h2>
         <p className="text-[15px] text-[#6E6E73] mb-8">Starte kostenlos mit 3 Agents. Upgrade jederzeit.</p>
         <Link href="/signup" className="inline-flex items-center gap-2 px-8 py-3.5 bg-[#000088] text-white text-[14px] font-semibold rounded-xl hover:shadow-lg hover:bg-[#000066] transition-all">
           Kostenlos starten <ArrowRight size={16} />

@@ -10,10 +10,10 @@ export default function EnterprisePage() {
       <div className="max-w-4xl mx-auto text-center mb-20">
         <div className="text-[12px] font-semibold text-[#000088] uppercase tracking-widest mb-4">Enterprise</div>
         <h1 className="text-[36px] sm:text-[48px] font-extrabold tracking-tight mb-5">
-          AI-Teams fuer groessere<br /><span className="gradient-text">Unternehmen.</span>
+          AI-Teams für grössere<br /><span className="gradient-text">Unternehmen.</span>
         </h1>
         <p className="text-[17px] text-[#6E6E73] max-w-2xl mx-auto leading-relaxed">
-          Persoenliche Einrichtung. Massgeschneiderte Templates. Schweizer Support.
+          Persönliche Einrichtung. Massgeschneiderte Templates. Schweizer Support.
         </p>
       </div>
 
@@ -23,14 +23,14 @@ export default function EnterprisePage() {
           {
             icon: Users,
             title: "Onboarding",
-            desc: "Wir richten dein AI-Team ein. Du lehnst dich zurueck. Analyse deiner Prozesse, Agent-Konfiguration, Go-Live Begleitung.",
+            desc: "Wir richten dein AI-Team ein. Du lehnst dich zurück. Analyse deiner Prozesse, Agent-Konfiguration, Go-Live Begleitung.",
             price: "CHF 3'000",
             color: "#000088",
           },
           {
             icon: FileCode,
             title: "Custom Templates",
-            desc: "Agent-Teams fuer deine Branche. Massgeschneiderte Rollen, Prompts und Workflows -- genau auf dein Business zugeschnitten.",
+            desc: "Agent-Teams für deine Branche. Massgeschneiderte Rollen, Prompts und Workflows -- genau auf dein Business zugeschnitten.",
             price: "CHF 5'000 - 15'000",
             color: "#059669",
           },
@@ -59,7 +59,7 @@ export default function EnterprisePage() {
         <h2 className="text-[24px] font-bold text-center mb-10">Was du bekommst</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {[
-            "Persoenlicher Ansprechpartner in der Schweiz",
+            "Persönlicher Ansprechpartner in der Schweiz",
             "Analyse deiner bestehenden Prozesse",
             "Agent-Konfiguration nach deinen Anforderungen",
             "Go-Live Begleitung und Schulung",
@@ -89,7 +89,7 @@ export default function EnterprisePage() {
           </a>
           <Link href="/pricing"
             className="inline-flex items-center gap-2 px-8 py-3.5 bg-white text-[#000088] text-[14px] font-semibold rounded-xl border-2 border-[#000088] hover:bg-[#000088]/5 transition-all">
-            Self-Service Plaene ansehen <ArrowRight size={16} />
+            Self-Service Pläne ansehen <ArrowRight size={16} />
           </Link>
         </div>
       </div>

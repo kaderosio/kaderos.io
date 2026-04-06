@@ -85,7 +85,7 @@ const TABS = [
   { key: "profil", label: "Profil", icon: User },
   { key: "konfiguration", label: "Konfiguration", icon: Settings },
   { key: "wissensbasis", label: "Wissensbasis", icon: BookOpen },
-  { key: "gedaechtnis", label: "Ged\u00e4chtnis", icon: Brain },
+  { key: "gedaechtnis", label: "Gedächtnis", icon: Brain },
   { key: "budget", label: "Budget & Automation", icon: Wallet },
   { key: "statistiken", label: "Statistiken", icon: BarChart3 },
 ] as const;
@@ -106,9 +106,9 @@ const MODEL_OPTIONS = [
 ];
 
 const CRON_OPTIONS = [
-  { value: "0 8 * * *", label: "T\u00e4glich 08:00" },
-  { value: "0 * * * *", label: "St\u00fcndlich" },
-  { value: "0 8 * * 1", label: "W\u00f6chentlich Montag 08:00" },
+  { value: "0 8 * * *", label: "Täglich 08:00" },
+  { value: "0 * * * *", label: "Stündlich" },
+  { value: "0 8 * * 1", label: "Wöchentlich Montag 08:00" },
 ];
 
 /* ── Page ────────────────────────────────────────────────────────────── */
@@ -447,7 +447,7 @@ export default function AgentDetailPage() {
           className="mb-6 inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-900"
         >
           <ArrowLeft className="h-4 w-4" />
-          Zur\u00fcck zum Team
+          Zurück zum Team
         </Link>
         <div className="rounded-xl border border-red-200 bg-red-50 px-5 py-4 text-sm text-red-700">
           {error || "Agent nicht gefunden"}
@@ -470,7 +470,7 @@ export default function AgentDetailPage() {
         className="mb-6 inline-flex items-center gap-1.5 text-sm text-gray-500 transition-colors hover:text-gray-900"
       >
         <ArrowLeft className="h-4 w-4" />
-        Zur\u00fcck zum Team
+        Zurück zum Team
       </Link>
 
       {/* Agent header */}
@@ -617,7 +617,7 @@ export default function AgentDetailPage() {
                 onChange={(e) => setConfigForm((f) => ({ ...f, systemPrompt: e.target.value }))}
                 rows={10}
                 className="w-full rounded-lg border border-gray-200 px-3.5 py-2.5 font-mono text-sm focus:border-[#000088] focus:outline-none focus:ring-2 focus:ring-[#000088]/10 resize-none"
-                placeholder="System Prompt f\u00fcr den Agent..."
+                placeholder="System Prompt für den Agent..."
               />
             </div>
 
@@ -694,7 +694,7 @@ export default function AgentDetailPage() {
                   value={configForm.newSkill}
                   onChange={(e) => setConfigForm((f) => ({ ...f, newSkill: e.target.value }))}
                   onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), addSkill())}
-                  placeholder="Neuen Skill hinzuf\u00fcgen..."
+                  placeholder="Neuen Skill hinzufügen..."
                   className="flex-1 rounded-lg border border-gray-200 px-3.5 py-2 text-sm focus:border-[#000088] focus:outline-none focus:ring-2 focus:ring-[#000088]/10"
                 />
                 <button
@@ -710,7 +710,7 @@ export default function AgentDetailPage() {
             <div>
               <h3 className="text-sm font-semibold text-gray-900">Run-Parameter</h3>
               <p className="mb-3 text-xs text-gray-500">
-                Definiere Eingabefelder die beim Starten ausgef\u00fcllt werden.
+                Definiere Eingabefelder die beim Starten ausgefüllt werden.
               </p>
               <div className="space-y-2">
                 {configForm.parameters.map((param, i) => (
@@ -754,7 +754,7 @@ export default function AgentDetailPage() {
                 className="mt-2 inline-flex items-center gap-1.5 rounded-lg border border-dashed border-gray-300 px-3 py-2 text-xs font-medium text-gray-600 transition-colors hover:border-gray-400 hover:text-gray-800"
               >
                 <Plus className="h-3.5 w-3.5" />
-                Parameter hinzuf\u00fcgen
+                Parameter hinzufügen
               </button>
             </div>
 
@@ -802,7 +802,7 @@ export default function AgentDetailPage() {
                     <tr>
                       <th className="px-4 py-2.5 text-left text-xs font-medium text-gray-500">Name</th>
                       <th className="px-4 py-2.5 text-left text-xs font-medium text-gray-500">Typ</th>
-                      <th className="px-4 py-2.5 text-left text-xs font-medium text-gray-500">Gr\u00f6sse</th>
+                      <th className="px-4 py-2.5 text-left text-xs font-medium text-gray-500">Grösse</th>
                       <th className="px-4 py-2.5 text-left text-xs font-medium text-gray-500">Status</th>
                       <th className="px-4 py-2.5 text-left text-xs font-medium text-gray-500">Hochgeladen</th>
                     </tr>
@@ -820,14 +820,14 @@ export default function AgentDetailPage() {
           </div>
         )}
 
-        {/* ── Tab 4: Ged\u00e4chtnis ──────────────────────────────────── */}
+        {/* ── Tab 4: Gedächtnis ──────────────────────────────────── */}
         {activeTab === "gedaechtnis" && (
           <div className="space-y-6">
             {/* Info banner */}
             <div className="flex items-start gap-3 rounded-lg border border-blue-200 bg-blue-50 px-4 py-3">
               <Info className="mt-0.5 h-4 w-4 shrink-0 text-blue-600" />
               <p className="text-sm text-blue-700">
-                Brain Integration kommt bald — Dein Agent wird sich an Gespr\u00e4che erinnern.
+                Brain Integration kommt bald — Dein Agent wird sich an Gespräche erinnern.
               </p>
             </div>
 
@@ -993,7 +993,7 @@ export default function AgentDetailPage() {
                   {/* Info cards */}
                   <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
                     <div className="rounded-lg border border-gray-200 bg-gray-50 p-3">
-                      <p className="text-[11px] font-medium text-gray-500">N\u00e4chster Run</p>
+                      <p className="text-[11px] font-medium text-gray-500">Nächster Run</p>
                       <p className="mt-1 text-sm font-semibold text-gray-900">
                         {heartbeat.next_run_at
                           ? new Date(heartbeat.next_run_at).toLocaleString("de-CH")
@@ -1040,7 +1040,7 @@ export default function AgentDetailPage() {
                       className="inline-flex items-center gap-2 rounded-lg border border-[#000088]/20 px-5 py-2.5 text-sm font-medium text-[#000088] transition-colors hover:bg-[#000088]/5"
                     >
                       <Play className="h-4 w-4" />
-                      Jetzt ausf\u00fchren
+                      Jetzt ausführen
                     </Link>
                   </div>
                 </div>
@@ -1090,7 +1090,7 @@ export default function AgentDetailPage() {
               <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
                 <div className="flex items-center gap-2">
                   <Clock className="h-4 w-4 text-gray-400" />
-                  <p className="text-xs font-medium text-gray-500">\u00d8 Kosten/Run</p>
+                  <p className="text-xs font-medium text-gray-500">Ø Kosten/Run</p>
                 </div>
                 <p className="mt-2 text-2xl font-bold text-gray-900">
                   {budgetData && heartbeat && heartbeat.total_runs > 0
@@ -1117,7 +1117,7 @@ export default function AgentDetailPage() {
                   <tbody>
                     <tr>
                       <td colSpan={5} className="px-4 py-8 text-center text-gray-400">
-                        Noch keine Runs — starte den Agent \u00fcber Automation oder Meeting Room.
+                        Noch keine Runs — starte den Agent über Automation oder Meeting Room.
                       </td>
                     </tr>
                   </tbody>
