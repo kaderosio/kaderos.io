@@ -32,6 +32,15 @@ function AnimNum({ target, suffix = "" }: { target: number; suffix?: string }) {
   return <span ref={ref}>{count.toLocaleString("de-CH")}{suffix}</span>;
 }
 
+// -- WAITLIST COUNT --
+function WaitlistCount() {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    fetch("/api/waitlist").then(r => r.json()).then(d => { if (d.count) setCount(d.count); }).catch(() => {});
+  }, []);
+  return <>{count > 0 ? count : "..."}</>;
+}
+
 // -- WAITLIST FORM (secondary) --
 function WaitlistForm({ variant = "default" }: { variant?: "default" | "hero" }) {
   const [email, setEmail] = useState("");
@@ -211,7 +220,7 @@ export default function LandingPage() {
           <div className="s4 flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
             <Link href="/signup"
               className="px-8 py-4 bg-[#000088] text-white text-[15px] font-semibold rounded-xl hover:bg-[#000066] hover:shadow-xl transition-all flex items-center gap-2">
-              Kostenlos starten <ArrowRight size={18} />
+              Platz sichern <ArrowRight size={18} />
             </Link>
             <Link href="/login"
               className="px-8 py-4 bg-white text-[#000088] text-[15px] font-semibold rounded-xl border-2 border-[#000088] hover:bg-[#000088]/5 transition-all flex items-center gap-2">
@@ -228,7 +237,7 @@ export default function LandingPage() {
       {/* ---- SECTION 2: SOCIAL PROOF BAR ---- */}
       <section className="py-8 sm:py-10 px-4 sm:px-6 border-y border-[#F5F5F7] bg-[#FAFAFA]">
         <div className="max-w-4xl mx-auto">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8 text-center">
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-6 sm:gap-8 text-center">
             <div>
               <div className="text-[13px] font-bold text-[#1D1D1F] mb-1">Swiss Made</div>
               <div className="text-[11px] text-[#86868B]">Software</div>
@@ -238,6 +247,10 @@ export default function LandingPage() {
               <div className="text-[11px] text-[#86868B]">
                 <a href="https://github.com/kaderosio/kaderos.io" target="_blank" rel="noopener noreferrer" className="hover:text-[#000088] transition-colors">auf GitHub</a>
               </div>
+            </div>
+            <div>
+              <div className="text-[13px] font-bold text-[#000088] mb-1"><WaitlistCount /> Gründer</div>
+              <div className="text-[11px] text-[#86868B]">auf der Waitlist</div>
             </div>
             <div>
               <div className="text-[13px] font-bold text-[#1D1D1F] mb-1">27 API Endpoints</div>
@@ -401,6 +414,46 @@ export default function LandingPage() {
           </div>
 
           <PlatformTabs />
+        </div>
+      </section>
+
+      {/* ---- SECTION 5.5: BRAIN / AGENT MEMORY ---- */}
+      <section className="py-20 sm:py-28 px-4 sm:px-6 bg-[#FAFAFA]">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-14">
+            <div className="text-[12px] font-semibold text-[#000088] uppercase tracking-widest mb-3">Agent Brain</div>
+            <h2 className="text-[28px] sm:text-[40px] font-bold tracking-tight mb-4">
+              Andere AI-Tools starten jede Session bei null.<br />
+              <span className="gradient-text">Deine nicht.</span>
+            </h2>
+            <p className="text-[15px] text-[#6E6E73] max-w-2xl mx-auto">
+              KaderOS hat einen eingebauten Agent Brain — 7 Schichten Gedächtnis, inspiriert vom menschlichen Gehirn. Kein LLM. Reine Mathematik.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {[
+              { icon: <Brain size={22} />, title: "Erinnern", desc: "Dein Kader weiss was letzte Woche passiert ist. Ohne dass du es nochmal erklärst.", color: "#000088" },
+              { icon: <Globe size={22} />, title: "Vernetzen", desc: "\"Müller\" → Mieter + Seefeldstrasse + 3 offene Tickets. Automatisch.", color: "#0891B2" },
+              { icon: <BarChart3 size={22} />, title: "Lernen", desc: "Nach 3× dem gleichen Muster erstellt dein Kader eigene Regeln. Ohne Training.", color: "#059669" },
+              { icon: <Activity size={22} />, title: "Vorhersagen", desc: "Proaktive Alerts bevor Probleme eskalieren. Dein Kader sieht was kommt.", color: "#7C3AED" },
+            ].map((f, i) => (
+              <div key={i} className="bg-white rounded-2xl p-6 border border-[#E5E5EA] hover:shadow-lg hover:-translate-y-0.5 transition-all">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style={{ backgroundColor: `${f.color}10`, color: f.color }}>
+                  {f.icon}
+                </div>
+                <h3 className="text-[15px] font-bold text-[#1D1D1F] mb-2">{f.title}</h3>
+                <p className="text-[13px] text-[#6E6E73] leading-relaxed">{f.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <p className="text-center text-[12px] text-[#86868B] mt-8">
+            7 Schichten: Perception Gate → Working Memory → Episodisch → Knowledge Graph → Prozedural → Predictive → Dream Cycle.{" "}
+            <a href="https://github.com/kaderosio/kaderos.io" target="_blank" rel="noopener noreferrer" className="text-[#000088] hover:underline">
+              Mehr auf GitHub →
+            </a>
+          </p>
         </div>
       </section>
 
@@ -574,7 +627,7 @@ export default function LandingPage() {
           </p>
           <Link href="/signup"
             className="inline-flex items-center gap-2 px-10 py-4 bg-[#000088] text-white text-[16px] font-semibold rounded-xl hover:bg-[#000066] hover:shadow-xl transition-all">
-            Kostenlos starten <ArrowRight size={18} />
+            Platz sichern <ArrowRight size={18} />
           </Link>
           <div className="flex items-center justify-center gap-6 mt-8">
             <a href="https://github.com/kaderosio/kaderos.io" target="_blank" rel="noopener noreferrer"

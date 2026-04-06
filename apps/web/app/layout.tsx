@@ -18,23 +18,24 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "KaderOS — Dein nächster Mitarbeiter ist kein Mensch.",
+    default: "KaderOS — Dein AI-Team. Für dein Unternehmen.",
     template: "%s | KaderOS",
   },
-  description: "Bau ein Unternehmen aus AI Agents. Open Source. Lokal. Swiss Made. CHF 0 bis CHF 349/Monat.",
+  description: "Das AI-Betriebssystem für Schweizer Unternehmen. 4 Kader-Mitglieder. CHF 49/Monat. Arbeiten während du schläfst. Open Source. Swiss Made.",
   metadataBase: new URL("https://kaderos.io"),
+  keywords: ["AI Betriebssystem", "KI für KMU", "AI Team", "Swiss Made AI", "KaderOS", "AI Agents Schweiz", "nDSG AI", "Open Source AI"],
   openGraph: {
     type: "website",
     locale: "de_CH",
     url: "https://kaderos.io",
     siteName: "KaderOS",
-    title: "KaderOS — Dein nächster Mitarbeiter ist kein Mensch.",
-    description: "Bau ein Unternehmen aus AI Agents. Open Source. Lokal. Swiss Made.",
+    title: "KaderOS — Dein AI-Team. Für dein Unternehmen.",
+    description: "4 Kader-Mitglieder. CHF 49/Monat. Arbeiten während du schläfst. Mit 7-Schichten-Gedächtnis. Swiss Made. Open Source.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "KaderOS — Dein nächster Mitarbeiter ist kein Mensch.",
-    description: "Bau ein Unternehmen aus AI Agents. Open Source. Lokal. Swiss Made.",
+    title: "KaderOS — Dein AI-Team. Für dein Unternehmen.",
+    description: "4 Kader-Mitglieder. CHF 49/Monat. Arbeiten während du schläfst. Swiss Made. Open Source.",
   },
   robots: {
     index: true,

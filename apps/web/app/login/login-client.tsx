@@ -22,6 +22,7 @@ function LoginForm() {
   const router = useRouter();
   const redirect = searchParams.get("redirect") || "/dashboard";
   const message = searchParams.get("message");
+  const expired = searchParams.get("expired");
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -114,6 +115,23 @@ function LoginForm() {
             boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
           }}
         >
+          {expired === "true" && (
+            <div
+              style={{
+                padding: "10px 14px",
+                borderRadius: 10,
+                backgroundColor: "#FFFBEB",
+                border: "1px solid #FDE68A",
+                color: "#B45309",
+                fontSize: 14,
+                marginBottom: 16,
+                textAlign: "left",
+              }}
+            >
+              Deine Session ist abgelaufen. Bitte melde dich erneut an.
+            </div>
+          )}
+
           {message === "password-reset" && (
             <div
               style={{

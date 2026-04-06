@@ -87,7 +87,18 @@ export default function DashboardLayout({
   useEffect(() => {
     async function load() {
       try {
+        const supabase = createClient();
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) {
+          router.replace("/login");
+          return;
+        }
+
         const res = await fetch("/api/companies");
+        if (res.status === 401) {
+          window.location.href = "/login?expired=true";
+          return;
+        }
         if (!res.ok) return;
         const { companies } = await res.json();
         if (companies?.length) {
@@ -101,7 +112,19 @@ export default function DashboardLayout({
       }
     }
     load();
-  }, []);
+
+    // Listen for auth state changes (session expiry, sign out)
+    const supabase = createClient();
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
+      if (event === "SIGNED_OUT" || event === "TOKEN_REFRESHED") {
+        if (event === "SIGNED_OUT") {
+          router.replace("/login");
+        }
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [router]);
 
   async function handleLogout() {
     const supabase = createClient();
