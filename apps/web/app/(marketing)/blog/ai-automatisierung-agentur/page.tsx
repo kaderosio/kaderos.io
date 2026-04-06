@@ -167,6 +167,16 @@ export default function BlogPost() {
           Fünf Workflows. Fünf Agents. Ein System, das orchestriert. Das ist die Zukunft der Agenturarbeit. Und die Zukunft beginnt nicht nächstes Jahr. Sie beginnt diese Woche.
         </p>
 
+
+        <div className="mt-12 p-6 rounded-2xl bg-[#F5F5F7]">
+          <h3 className="text-[16px] font-bold mb-3">Weiterlesen</h3>
+          <ul className="space-y-2">
+            <li><Link href="/blog/bexio-ai-automatisierung" className="text-[14px] text-[#000088] hover:underline">Bexio + AI: Buchhaltung automatisieren</Link></li>
+            <li><Link href="/blog/produktivitaet-ai-tools" className="text-[14px] text-[#000088] hover:underline">Produktivität mit AI: 10 Tools die wirklich Zeit sparen</Link></li>
+            <li><Link href="/blog/ai-team-aufbauen" className="text-[14px] text-[#000088] hover:underline">Wie du ein AI-Team aufbaust — ohne ein einziges Bewerbungsgespräch</Link></li>
+          </ul>
+        </div>
+
         <div className="mt-16 p-8 rounded-2xl bg-gradient-to-br from-[#000088]/5 to-white border border-[#000088]/10">
           <h3 className="text-[20px] font-bold text-[#1D1D1F] mb-3">
             Dein AI-Team für die Agentur

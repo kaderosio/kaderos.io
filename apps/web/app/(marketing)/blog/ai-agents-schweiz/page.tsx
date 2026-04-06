@@ -125,6 +125,16 @@ export default function BlogPost() {
           Und vor allem: Agents wählen, die deine Sprache sprechen. Dein Recht kennen. Und in deiner Währung rechnen.
         </p>
 
+
+        <div className="mt-12 p-6 rounded-2xl bg-[#F5F5F7]">
+          <h3 className="text-[16px] font-bold mb-3">Weiterlesen</h3>
+          <ul className="space-y-2">
+            <li><Link href="/blog/ai-agent-vs-chatbot" className="text-[14px] text-[#000088] hover:underline">AI Agent vs Chatbot: Was ist der Unterschied?</Link></li>
+            <li><Link href="/blog/ai-agents-schweiz-2026" className="text-[14px] text-[#000088] hover:underline">AI Agents in der Schweiz: Von Copilots zu Kader</Link></li>
+            <li><Link href="/blog/ai-fuer-kmu-schweiz" className="text-[14px] text-[#000088] hover:underline">AI für KMU Schweiz: Was funktioniert 2026</Link></li>
+          </ul>
+        </div>
+
         <div className="mt-16 p-8 rounded-2xl bg-gradient-to-br from-[#000088]/5 to-white border border-[#000088]/10">
           <h3 className="text-[20px] font-bold text-[#1D1D1F] mb-3">
             Bereit, dein erstes Kader aufzubauen?

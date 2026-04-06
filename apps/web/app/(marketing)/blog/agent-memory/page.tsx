@@ -160,6 +160,16 @@ export default function BlogPost() {
           Für CHF 49 pro Monat bekommt dein KMU ein Kader mit Gedächtnis. Lokal gehostet. Swiss Made. Ohne Daten, die dein Unternehmen verlassen.
         </p>
 
+
+        <div className="mt-12 p-6 rounded-2xl bg-[#F5F5F7]">
+          <h3 className="text-[16px] font-bold mb-3">Weiterlesen</h3>
+          <ul className="space-y-2">
+            <li><Link href="/blog/pgvector-vs-pinecone" className="text-[14px] text-[#000088] hover:underline">pgvector vs. Pinecone: Warum wir PostgreSQL für Agent Memory nutzen</Link></li>
+            <li><Link href="/blog/confidence-gate-erklaert" className="text-[14px] text-[#000088] hover:underline">Confidence Gate: Wann dein Agent autonom handelt</Link></li>
+            <li><Link href="/blog/ai-agents-schweiz" className="text-[14px] text-[#000088] hover:underline">AI Agents für Schweizer KMU: Was sie können und was nicht</Link></li>
+          </ul>
+        </div>
+
         <div className="mt-16 p-8 rounded-2xl bg-gradient-to-br from-[#000088]/5 to-white border border-[#000088]/10">
           <h3 className="text-[20px] font-bold text-[#1D1D1F] mb-3">
             Dein Kader wartet

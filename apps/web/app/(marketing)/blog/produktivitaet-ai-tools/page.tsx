@@ -203,6 +203,16 @@ export default function BlogPost() {
           Dann das nächste.
         </p>
       </div>
+
+        <div className="mt-12 p-6 rounded-2xl bg-[#F5F5F7]">
+          <h3 className="text-[16px] font-bold mb-3">Weiterlesen</h3>
+          <ul className="space-y-2">
+            <li><Link href="/blog/solo-founder-ai-stack" className="text-[14px] text-[#000088] hover:underline">Der perfekte AI Stack für Solo-Founders 2026</Link></li>
+            <li><Link href="/blog/open-source-ai-tools" className="text-[14px] text-[#000088] hover:underline">Die besten Open Source AI Tools 2026 für Schweizer Unternehmen</Link></li>
+            <li><Link href="/blog/ai-automatisierung-agentur" className="text-[14px] text-[#000088] hover:underline">AI Automatisierung für Agenturen: 5 Workflows die sofort funktionieren</Link></li>
+          </ul>
+        </div>
+
       <div className="mt-16 p-8 rounded-2xl bg-[#FAFAFA] border border-[#E5E5EA] text-center">
         <h3 className="text-[20px] font-bold mb-2">
           Bereit für dein AI-Team?

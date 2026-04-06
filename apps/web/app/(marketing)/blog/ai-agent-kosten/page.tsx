@@ -184,6 +184,16 @@ export default function BlogPost() {
           Die Frage ist nicht, ob du dir einen AI-Kader leisten kannst. Die Frage ist, ob du dir leisten kannst, darauf zu verzichten.
         </p>
 
+
+        <div className="mt-12 p-6 rounded-2xl bg-[#F5F5F7]">
+          <h3 className="text-[16px] font-bold mb-3">Weiterlesen</h3>
+          <ul className="space-y-2">
+            <li><Link href="/blog/ai-kosten-kmu" className="text-[14px] text-[#000088] hover:underline">Was kostet AI wirklich? Ein ehrlicher Vergleich für KMU</Link></li>
+            <li><Link href="/blog/ai-budget-planen" className="text-[14px] text-[#000088] hover:underline">AI Budget planen: So kalkulierst du realistisch</Link></li>
+            <li><Link href="/blog/zukunft-arbeit-schweiz" className="text-[14px] text-[#000088] hover:underline">Die Zukunft der Arbeit in der Schweiz: AI Agents statt Headcount</Link></li>
+          </ul>
+        </div>
+
         <div className="mt-16 p-8 rounded-2xl bg-gradient-to-br from-[#000088]/5 to-white border border-[#000088]/10">
           <h3 className="text-[20px] font-bold text-[#1D1D1F] mb-3">
             Dein nächster Schritt

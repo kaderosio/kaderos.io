@@ -77,6 +77,16 @@ export default function BlogPost() {
           Der Shift von Copilots zu AI-Teams ist keine Frage des Ob, sondern des Wann. Schweizer KMU, die jetzt anfangen, haben einen Vorsprung, der in 12 Monaten nicht mehr aufholbar ist. Bau dein Kader. Heute.
         </p>
 
+
+        <div className="mt-12 p-6 rounded-2xl bg-[#F5F5F7]">
+          <h3 className="text-[16px] font-bold mb-3">Weiterlesen</h3>
+          <ul className="space-y-2">
+            <li><Link href="/blog/ai-agents-schweiz" className="text-[14px] text-[#000088] hover:underline">AI Agents für Schweizer KMU: Was sie können und was nicht</Link></li>
+            <li><Link href="/blog/ai-team-aufbauen" className="text-[14px] text-[#000088] hover:underline">Wie du ein AI-Team aufbaust — ohne ein einziges Bewerbungsgespräch</Link></li>
+            <li><Link href="/blog/warum-kaderos" className="text-[14px] text-[#000088] hover:underline">Warum wir KaderOS bauen</Link></li>
+          </ul>
+        </div>
+
         <div className="mt-16 p-8 rounded-2xl bg-gradient-to-br from-[#000088]/5 to-white border border-[#000088]/10">
           <h3 className="text-[20px] font-bold text-[#1D1D1F] mb-3">
             Von Copilot zu Kader

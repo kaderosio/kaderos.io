@@ -136,6 +136,16 @@ export default function BlogPost() {
           55&apos;654 Neugründungen allein 2025. Diese neuen Unternehmen wachsen mit AI auf. Sie kennen nichts anderes. Wenn du als etabliertes KMU jetzt nicht nachrüstest, konkurrierst du bald mit Startups, die ab Tag eins ein AI-Kader haben.
         </p>
 
+
+        <div className="mt-12 p-6 rounded-2xl bg-[#F5F5F7]">
+          <h3 className="text-[16px] font-bold mb-3">Weiterlesen</h3>
+          <ul className="space-y-2">
+            <li><Link href="/blog/ai-kosten-kmu" className="text-[14px] text-[#000088] hover:underline">Was kostet AI wirklich? Ein ehrlicher Vergleich für KMU</Link></li>
+            <li><Link href="/blog/ai-agents-schweiz" className="text-[14px] text-[#000088] hover:underline">AI Agents für Schweizer KMU: Was sie können und was nicht</Link></li>
+            <li><Link href="/blog/ndsg-ai-schweiz" className="text-[14px] text-[#000088] hover:underline">nDSG und AI: Was Schweizer Firmen wissen müssen</Link></li>
+          </ul>
+        </div>
+
         <div className="mt-16 p-8 rounded-2xl bg-gradient-to-br from-[#000088]/5 to-white border border-[#000088]/10">
           <h3 className="text-[20px] font-bold text-[#1D1D1F] mb-3">
             Platz sichern

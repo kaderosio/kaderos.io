@@ -167,6 +167,16 @@ export default function BlogPost() {
           Fang mit einer Rolle an. Definiere sie klar. Miss die Ergebnisse. Und bau von dort aus weiter. Das ist kein Hype. Das ist eine neue Art, Unternehmen zu führen.
         </p>
 
+
+        <div className="mt-12 p-6 rounded-2xl bg-[#F5F5F7]">
+          <h3 className="text-[16px] font-bold mb-3">Weiterlesen</h3>
+          <ul className="space-y-2">
+            <li><Link href="/blog/solo-founder-ai-team" className="text-[14px] text-[#000088] hover:underline">Als Solo-Founder ein 4-köpfiges AI-Team aufbauen</Link></li>
+            <li><Link href="/blog/ai-onboarding-guide" className="text-[14px] text-[#000088] hover:underline">AI Onboarding: So machst du dein Team in 7 Tagen AI-ready</Link></li>
+            <li><Link href="/blog/ai-agents-schweiz-2026" className="text-[14px] text-[#000088] hover:underline">AI Agents in der Schweiz: Von Copilots zu Kader</Link></li>
+          </ul>
+        </div>
+
         <div className="mt-16 p-8 rounded-2xl bg-gradient-to-br from-[#000088]/5 to-white border border-[#000088]/10">
           <h3 className="text-[20px] font-bold text-[#1D1D1F] mb-3">
             Bau dein AI-Team auf — mit KaderOS

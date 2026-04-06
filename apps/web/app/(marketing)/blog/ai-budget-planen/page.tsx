@@ -182,6 +182,16 @@ export default function BlogPost() {
           Wochen. Aber nur, wenn du planst — nicht rätst.
         </p>
       </div>
+
+        <div className="mt-12 p-6 rounded-2xl bg-[#F5F5F7]">
+          <h3 className="text-[16px] font-bold mb-3">Weiterlesen</h3>
+          <ul className="space-y-2">
+            <li><Link href="/blog/ai-kosten-kmu" className="text-[14px] text-[#000088] hover:underline">Was kostet AI wirklich? Ein ehrlicher Vergleich für KMU</Link></li>
+            <li><Link href="/blog/ai-agent-kosten" className="text-[14px] text-[#000088] hover:underline">Was kostet ein AI-Agent vs. ein Mitarbeiter?</Link></li>
+            <li><Link href="/blog/ai-team-aufbauen" className="text-[14px] text-[#000088] hover:underline">Wie du ein AI-Team aufbaust — ohne ein einziges Bewerbungsgespräch</Link></li>
+          </ul>
+        </div>
+
       <div className="mt-16 p-8 rounded-2xl bg-[#FAFAFA] border border-[#E5E5EA] text-center">
         <h3 className="text-[20px] font-bold mb-2">
           Bereit für dein AI-Team?

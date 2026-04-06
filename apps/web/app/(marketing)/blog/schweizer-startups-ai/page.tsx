@@ -175,6 +175,16 @@ export default function BlogPost() {
           Theorie. Im Alltag. Mit echten Kunden und echten Ergebnissen.
         </p>
       </div>
+
+        <div className="mt-12 p-6 rounded-2xl bg-[#F5F5F7]">
+          <h3 className="text-[16px] font-bold mb-3">Weiterlesen</h3>
+          <ul className="space-y-2">
+            <li><Link href="/blog/ai-fuer-kmu-schweiz" className="text-[14px] text-[#000088] hover:underline">AI für KMU Schweiz: Was funktioniert 2026</Link></li>
+            <li><Link href="/blog/ai-agents-schweiz" className="text-[14px] text-[#000088] hover:underline">AI Agents für Schweizer KMU: Was sie können und was nicht</Link></li>
+            <li><Link href="/blog/kmu-digitalisierung-2026" className="text-[14px] text-[#000088] hover:underline">KMU Digitalisierung 2026: Was sich wirklich lohnt</Link></li>
+          </ul>
+        </div>
+
       <div className="mt-16 p-8 rounded-2xl bg-[#FAFAFA] border border-[#E5E5EA] text-center">
         <h3 className="text-[20px] font-bold mb-2">
           Bereit für dein AI-Team?

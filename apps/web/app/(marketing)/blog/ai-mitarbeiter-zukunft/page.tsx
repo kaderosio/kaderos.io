@@ -201,6 +201,16 @@ export default function BlogPost() {
           Jetzt.
         </p>
       </div>
+
+        <div className="mt-12 p-6 rounded-2xl bg-[#F5F5F7]">
+          <h3 className="text-[16px] font-bold mb-3">Weiterlesen</h3>
+          <ul className="space-y-2">
+            <li><Link href="/blog/ai-agent-vs-chatbot" className="text-[14px] text-[#000088] hover:underline">AI Agent vs Chatbot: Was ist der Unterschied?</Link></li>
+            <li><Link href="/blog/ai-team-aufbauen" className="text-[14px] text-[#000088] hover:underline">Wie du ein AI-Team aufbaust — ohne ein einziges Bewerbungsgespräch</Link></li>
+            <li><Link href="/blog/zukunft-arbeit-schweiz" className="text-[14px] text-[#000088] hover:underline">Die Zukunft der Arbeit in der Schweiz: AI Agents statt Headcount</Link></li>
+          </ul>
+        </div>
+
       <div className="mt-16 p-8 rounded-2xl bg-[#FAFAFA] border border-[#E5E5EA] text-center">
         <h3 className="text-[20px] font-bold mb-2">
           Bereit für dein AI-Team?

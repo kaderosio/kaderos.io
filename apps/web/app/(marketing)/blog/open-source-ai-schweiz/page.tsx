@@ -161,6 +161,16 @@ export default function BlogPost() {
           Open Source ist kein Trend. Es ist die Grundlage für Unternehmen, die ihre Daten, ihre Prozesse und ihre Zukunft selbst kontrollieren wollen.
         </p>
 
+
+        <div className="mt-12 p-6 rounded-2xl bg-[#F5F5F7]">
+          <h3 className="text-[16px] font-bold mb-3">Weiterlesen</h3>
+          <ul className="space-y-2">
+            <li><Link href="/blog/open-source-ai-tools" className="text-[14px] text-[#000088] hover:underline">Die besten Open Source AI Tools 2026 für Schweizer Unternehmen</Link></li>
+            <li><Link href="/blog/pgvector-vs-pinecone" className="text-[14px] text-[#000088] hover:underline">pgvector vs. Pinecone: Warum wir PostgreSQL für Agent Memory nutzen</Link></li>
+            <li><Link href="/blog/solo-founder-ai-stack" className="text-[14px] text-[#000088] hover:underline">Der perfekte AI Stack für Solo-Founders 2026</Link></li>
+          </ul>
+        </div>
+
         <div className="mt-16 p-8 rounded-2xl bg-gradient-to-br from-[#000088]/5 to-white border border-[#000088]/10">
           <h3 className="text-[20px] font-bold text-[#1D1D1F] mb-3">
             Platz sichern

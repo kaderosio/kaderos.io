@@ -92,6 +92,16 @@ export default function BlogPost() {
           Als Solo-Founder bist du nicht allein. Nicht mehr. Bau dir ein Team, das für dich arbeitet, während du schläfst. Ein Team, das nie kündigt, nie krank ist und nie nach einer Gehaltserhöhung fragt. Dein Kader wartet.
         </p>
 
+
+        <div className="mt-12 p-6 rounded-2xl bg-[#F5F5F7]">
+          <h3 className="text-[16px] font-bold mb-3">Weiterlesen</h3>
+          <ul className="space-y-2">
+            <li><Link href="/blog/solo-founder-ai-stack" className="text-[14px] text-[#000088] hover:underline">Der perfekte AI Stack für Solo-Founders 2026</Link></li>
+            <li><Link href="/blog/ai-team-aufbauen" className="text-[14px] text-[#000088] hover:underline">Wie du ein AI-Team aufbaust — ohne ein einziges Bewerbungsgespräch</Link></li>
+            <li><Link href="/blog/ai-agent-kosten" className="text-[14px] text-[#000088] hover:underline">Was kostet ein AI-Agent vs. ein Mitarbeiter?</Link></li>
+          </ul>
+        </div>
+
         <div className="mt-16 p-8 rounded-2xl bg-gradient-to-br from-[#000088]/5 to-white border border-[#000088]/10">
           <h3 className="text-[20px] font-bold text-[#1D1D1F] mb-3">
             Dein AI-Team wartet

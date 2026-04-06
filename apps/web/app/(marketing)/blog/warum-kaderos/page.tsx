@@ -74,6 +74,16 @@ export default function BlogPost() {
           KaderOS ist die Plattform dafür. Swiss Made. Open Source. Für Unternehmer, die verstehen, dass der nächste Mitarbeiter kein Mensch sein muss.
         </p>
 
+
+        <div className="mt-12 p-6 rounded-2xl bg-[#F5F5F7]">
+          <h3 className="text-[16px] font-bold mb-3">Weiterlesen</h3>
+          <ul className="space-y-2">
+            <li><Link href="/blog/ai-fuer-kmu-schweiz" className="text-[14px] text-[#000088] hover:underline">AI für KMU Schweiz: Was funktioniert 2026</Link></li>
+            <li><Link href="/blog/crewai-vs-kaderos" className="text-[14px] text-[#000088] hover:underline">CrewAI vs KaderOS: Welches AI-Framework passt zu dir?</Link></li>
+            <li><Link href="/blog/agent-memory" className="text-[14px] text-[#000088] hover:underline">Agent Memory: Warum dein AI-Team ein Gehirn braucht</Link></li>
+          </ul>
+        </div>
+
         <div className="mt-16 p-8 rounded-2xl bg-gradient-to-br from-[#000088]/5 to-white border border-[#000088]/10">
           <h3 className="text-[20px] font-bold text-[#1D1D1F] mb-3">
             Bereit, dein Kader aufzubauen?

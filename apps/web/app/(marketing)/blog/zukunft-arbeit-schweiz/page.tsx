@@ -150,6 +150,16 @@ export default function BlogPost() {
           Die Frage ist nicht ob. Die Frage ist wann. Und die Antwort ist: jetzt.
         </p>
 
+
+        <div className="mt-12 p-6 rounded-2xl bg-[#F5F5F7]">
+          <h3 className="text-[16px] font-bold mb-3">Weiterlesen</h3>
+          <ul className="space-y-2">
+            <li><Link href="/blog/ai-mitarbeiter-zukunft" className="text-[14px] text-[#000088] hover:underline">AI Mitarbeiter: Hype oder die Zukunft deines Teams?</Link></li>
+            <li><Link href="/blog/ai-agent-kosten" className="text-[14px] text-[#000088] hover:underline">Was kostet ein AI-Agent vs. ein Mitarbeiter?</Link></li>
+            <li><Link href="/blog/ai-team-aufbauen" className="text-[14px] text-[#000088] hover:underline">Wie du ein AI-Team aufbaust — ohne ein einziges Bewerbungsgespräch</Link></li>
+          </ul>
+        </div>
+
         <div className="mt-16 p-8 rounded-2xl bg-gradient-to-br from-[#000088]/5 to-white border border-[#000088]/10">
           <h3 className="text-[20px] font-bold text-[#1D1D1F] mb-3">
             Bau dein Kader der Zukunft

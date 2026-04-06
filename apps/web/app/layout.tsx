@@ -96,7 +96,7 @@ export default function RootLayout({
                   offers: [
                     {
                       "@type": "Offer",
-                      name: "Community",
+                      name: "Free",
                       price: "0",
                       priceCurrency: "CHF",
                     },
@@ -109,15 +109,8 @@ export default function RootLayout({
                     },
                     {
                       "@type": "Offer",
-                      name: "Team",
-                      price: "149",
-                      priceCurrency: "CHF",
-                      billingIncrement: "P1M",
-                    },
-                    {
-                      "@type": "Offer",
-                      name: "Agency",
-                      price: "349",
+                      name: "Business",
+                      price: "199",
                       priceCurrency: "CHF",
                       billingIncrement: "P1M",
                     },
@@ -127,6 +120,8 @@ export default function RootLayout({
             }),
           }}
         />
+        {/* Plausible Analytics — no cookies, nDSG-compliant */}
+        <script defer data-domain="kaderos.io" src="https://plausible.io/js/script.tagged-events.js"></script>
       </head>
       <body>{children}</body>
     </html>

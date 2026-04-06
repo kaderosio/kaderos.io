@@ -130,6 +130,16 @@ export default function BlogPost() {
           Nicht weil Bexio schlecht ist. Sondern weil Bexio ein Tool ist. Und ein Tool braucht jemanden, der es bedient. Dein Kader bedient es für dich. Autonom. Lokal. In CHF.
         </p>
 
+
+        <div className="mt-12 p-6 rounded-2xl bg-[#F5F5F7]">
+          <h3 className="text-[16px] font-bold mb-3">Weiterlesen</h3>
+          <ul className="space-y-2">
+            <li><Link href="/blog/ai-automatisierung-agentur" className="text-[14px] text-[#000088] hover:underline">AI Automatisierung für Agenturen: 5 Workflows die sofort funktionieren</Link></li>
+            <li><Link href="/blog/kmu-digitalisierung-2026" className="text-[14px] text-[#000088] hover:underline">KMU Digitalisierung 2026: Was sich wirklich lohnt</Link></li>
+            <li><Link href="/blog/ai-fuer-kmu-schweiz" className="text-[14px] text-[#000088] hover:underline">AI für KMU Schweiz: Was funktioniert 2026</Link></li>
+          </ul>
+        </div>
+
         <div className="mt-16 p-8 rounded-2xl bg-gradient-to-br from-[#000088]/5 to-white border border-[#000088]/10">
           <h3 className="text-[20px] font-bold text-[#1D1D1F] mb-3">
             Dabei sein, wenn die Bexio-Integration live geht?

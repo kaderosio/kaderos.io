@@ -1,0 +1,126 @@
+[
+  {
+    "id": "v001",
+    "template": "T1-dashboard",
+    "duration_seconds": 8,
+    "hook": "4 Agents. 1 Dashboard. 0 Employees.",
+    "scenes": [
+      { "frame_range": [0, 30], "visual": "Black screen, hook text fades in centered, white on black" },
+      { "frame_range": [30, 180], "visual": "Dashboard morphs in with 3D perspective tilt, showing 4 agent cards" },
+      { "frame_range": [180, 360], "visual": "Smooth zoom into agent status indicators, green dots pulsing" },
+      { "frame_range": [360, 480], "visual": "Logo + kaderos.io CTA, subtle pulse" }
+    ],
+    "caption": "4 Agents. 1 Dashboard. 0 Employees.\n\nDein AI-Kader. CHF 49/Monat. kaderos.io",
+    "hashtags": "#KaderOS #AIAgents #Dashboard #StartupSchweiz #Automation #AIBusiness #SwissMade #FutureOfWork"
+  },
+  {
+    "id": "v002",
+    "template": "T2-zahlen-punch",
+    "duration_seconds": 10,
+    "hook": "Was kostet ein 4-Personen C-Level Team?",
+    "punch_number": "CHF 588'000",
+    "counter_hook": "Was kostet das gleiche bei KaderOS?",
+    "counter_number": "CHF 49",
+    "suffix": "/Monat",
+    "scenes": [
+      { "frame_range": [0, 90], "visual": "Question text fades in, muted color" },
+      { "frame_range": [90, 180], "visual": "CHF 588'000 SLAMS in red, shockwave ring" },
+      { "frame_range": [180, 270], "visual": "Counter question fades in" },
+      { "frame_range": [270, 390], "visual": "CHF 49 slams in green, shockwave, /Monat subtitle" },
+      { "frame_range": [390, 480], "visual": "Multiplier badge: 999× günstiger" },
+      { "frame_range": [480, 600], "visual": "Logo + kaderos.io" }
+    ],
+    "caption": "CHF 588'000 vs CHF 49.\n\n999× günstiger. Gleiche Rollen.\nDein nächster Mitarbeiter ist kein Mensch.\n\nkaderos.io",
+    "hashtags": "#KaderOS #StartupKosten #AIvsHuman #Gründen #SwissStartup #KMU #AIAgents #FutureOfWork"
+  },
+  {
+    "id": "v003",
+    "template": "T5-terminal",
+    "duration_seconds": 12,
+    "hook": "One command. Full team.",
+    "command": "npx kaderos onboard",
+    "output_lines": [
+      { "text": "✓ Kader erkannt: \"Agentur Zürich\"", "color": "green" },
+      { "text": "✓ Max (CTO) — deployed", "color": "cyan" },
+      { "text": "✓ Aura (CMO) — deployed", "color": "green" },
+      { "text": "✓ Vega (CFO) — deployed", "color": "orange" },
+      { "text": "✓ Orion (CEO) — deployed", "color": "purple" },
+      { "text": "🚀 Dein AI-Kader ist einsatzbereit.", "color": "primary" }
+    ],
+    "scenes": [
+      { "frame_range": [0, 60], "visual": "Hook text centered on black" },
+      { "frame_range": [60, 120], "visual": "Terminal window appears with 3D tilt" },
+      { "frame_range": [120, 240], "visual": "Command types character by character" },
+      { "frame_range": [240, 540], "visual": "Output lines appear one by one with checkmarks" },
+      { "frame_range": [540, 660], "visual": "Rocket emoji line pulses" },
+      { "frame_range": [660, 720], "visual": "Logo + kaderos.io" }
+    ],
+    "caption": "One command. Full team.\n\nnpx kaderos onboard\n4 AI Agents deployed in 30 Sekunden.\n\nkaderos.io — Link in Bio",
+    "hashtags": "#KaderOS #Terminal #DevLife #AIAgents #Automation #npx #OpenSource #SwissMade"
+  },
+  {
+    "id": "v004",
+    "template": "T2-zahlen-punch",
+    "duration_seconds": 8,
+    "hook": "Krankheitstage pro Jahr:",
+    "punch_number": "0",
+    "counter_hook": "Arbeitszeit pro Tag:",
+    "counter_number": "24/7",
+    "suffix": "",
+    "scenes": [
+      { "frame_range": [0, 60], "visual": "Question in muted text" },
+      { "frame_range": [60, 150], "visual": "0 slams in with shockwave" },
+      { "frame_range": [150, 210], "visual": "Second question" },
+      { "frame_range": [210, 300], "visual": "24/7 slams in" },
+      { "frame_range": [300, 390], "visual": "Subtext: Keine Ferien. Kein Burnout. Kein Drama." },
+      { "frame_range": [390, 480], "visual": "Logo + kaderos.io" }
+    ],
+    "caption": "Krankheitstage: 0\nArbeitszeit: 24/7\nKeine Ferien. Kein Burnout. Kein Drama.\n\nkaderos.io",
+    "hashtags": "#KaderOS #AIAgents #247 #NoBurnout #StartupLife #Automation #SwissMade #FutureOfWork"
+  },
+  {
+    "id": "v005",
+    "template": "apple-startup",
+    "duration_seconds": 40,
+    "style": "Apple Ad × Startup — ultra-clean, minimal, cinematic, soft ambient",
+    "hook": "Du startest nicht mit Kontrolle.",
+    "scenes": [
+      { "time": "00:00–00:06", "name": "Solitude", "visual": "Gründer allein, MacBook glow, 47 ungelesene Nachrichten", "voiceover": "Du startest nicht mit Kontrolle." },
+      { "time": "00:06–00:12", "name": "Complexity", "visual": "Trackpad, Tabs, müde Augen — precise Apple-style cuts", "voiceover": "Du startest mit Komplexität." },
+      { "time": "00:12–00:18", "name": "Transformation", "visual": "Interface morpht in futuristisches AI-Dashboard, Agent-Nodes erscheinen", "voiceover": "Und dann… wird es einfacher." },
+      { "time": "00:18–00:28", "name": "Autonomy", "visual": "Dolly-out, Licht kalt→warm, Dashboard läuft autonom", "voiceover": "Wenn Systeme beginnen, selbst zu denken." },
+      { "time": "00:28–00:36", "name": "Claim", "visual": "Push-in, direkter Blick, clean background", "voiceover": "Dann arbeitest du nicht mehr im System. Das System arbeitet für dich." },
+      { "time": "00:36–00:40", "name": "Logo", "visual": "Fade to black, KaderOS Logo + Tagline + kaderos.io", "voiceover": null }
+    ],
+    "caption": "Du startest nicht mit Kontrolle.\nDu startest mit Komplexität.\n\nUnd dann wird es einfacher.\nDas System arbeitet für dich.\n\nkaderos.io — Link in Bio",
+    "hashtags": "#KaderOS #AppleStyle #AIAgents #StartupSchweiz #Automation #SwissMade #FutureOfWork #Cinematic"
+  },
+  {
+    "id": "v006",
+    "template": "T6-die-rechnung",
+    "duration_seconds": 24,
+    "fps": 60,
+    "style": "Dark Cinematic × Rapid-Fire × Documentary Hybrid",
+    "hook": "Du willst gründen. Hier ist die Rechnung.",
+    "costs": {
+      "ceo": 220000,
+      "cto": 180000,
+      "cmo": 150000,
+      "cfo": 140000,
+      "total": 588000
+    },
+    "kaderos_price": 49,
+    "scenes": [
+      { "frame_range": [0, 90], "name": "Cold Open", "visual": "Dark blurred footage, film grain. 'Du willst gründen.' flickers in with light flash." },
+      { "frame_range": [90, 420], "name": "Die Rechnung", "visual": "5 costs slam in one by one, each bigger and redder. Continuous zoom. Glitch flashes between. Screen shake on impact." },
+      { "frame_range": [420, 540], "name": "Overload", "visual": "All numbers visible, overlapping, chaotic. Chromatic aberration. Rapid flickers. Red vignette intensifies." },
+      { "frame_range": [540, 600], "name": "Blackout", "visual": "Abrupt cut to black. Silence. Cursor blinks alone." },
+      { "frame_range": [600, 780], "name": "The Command", "visual": "Terminal types 'npx kaderos onboard'. Each keystroke pulses. 5 output lines cascade." },
+      { "frame_range": [780, 960], "name": "Explosion", "visual": "Beat drops. White flash. Dashboard erupts with light leaks, 4 agent cards, particles." },
+      { "frame_range": [960, 1200], "name": "The Price", "visual": "CHF 49/Monat massive. CHF 588'000 struck through. Shockwave ring. 999x badge." },
+      { "frame_range": [1200, 1440], "name": "Closer", "visual": "KaderOS logo with atmospheric glow. Tagline fades in. Film grain until end." }
+    ],
+    "caption": "Du willst gründen?\nHier ist die Rechnung. 💀\n\nCEO: CHF 220'000\nCTO: CHF 180'000\nCMO: CHF 150'000\nCFO: CHF 140'000\n= CHF 588'000/Jahr\n\nOder: CHF 49/Monat.\n999× günstiger.\n\nkaderos.io",
+    "hashtags": "#startup #ai #schweiz #kaderos #gründen #kosten #team #KMU #AIAgents #SwissMade"
+  }
+]

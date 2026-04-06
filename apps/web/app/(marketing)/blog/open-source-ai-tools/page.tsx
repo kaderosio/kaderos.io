@@ -213,6 +213,16 @@ export default function BlogPost() {
           Die gute Nachricht: Du musst dich nicht entscheiden. Starte mit einem Managed-Service, lerne, was funktioniert, und migriere später zu Open Source, wenn du bereit bist.
         </p>
 
+
+        <div className="mt-12 p-6 rounded-2xl bg-[#F5F5F7]">
+          <h3 className="text-[16px] font-bold mb-3">Weiterlesen</h3>
+          <ul className="space-y-2">
+            <li><Link href="/blog/open-source-ai-schweiz" className="text-[14px] text-[#000088] hover:underline">Open Source AI Tools für Schweizer Startups</Link></li>
+            <li><Link href="/blog/crewai-vs-kaderos" className="text-[14px] text-[#000088] hover:underline">CrewAI vs KaderOS: Welches AI-Framework passt zu dir?</Link></li>
+            <li><Link href="/blog/pgvector-vs-pinecone" className="text-[14px] text-[#000088] hover:underline">pgvector vs. Pinecone: Warum wir PostgreSQL für Agent Memory nutzen</Link></li>
+          </ul>
+        </div>
+
         <div className="mt-16 p-8 rounded-2xl bg-gradient-to-br from-[#000088]/5 to-white border border-[#000088]/10">
           <h3 className="text-[20px] font-bold text-[#1D1D1F] mb-3">
             Open Source meets Orchestrierung

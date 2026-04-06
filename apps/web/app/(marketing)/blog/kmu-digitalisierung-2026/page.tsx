@@ -152,6 +152,16 @@ export default function BlogPost() {
           Und dann entscheide, was als nächstes kommt.
         </p>
       </div>
+
+        <div className="mt-12 p-6 rounded-2xl bg-[#F5F5F7]">
+          <h3 className="text-[16px] font-bold mb-3">Weiterlesen</h3>
+          <ul className="space-y-2">
+            <li><Link href="/blog/ai-fuer-kmu-schweiz" className="text-[14px] text-[#000088] hover:underline">AI für KMU Schweiz: Was funktioniert 2026</Link></li>
+            <li><Link href="/blog/bexio-ai-automatisierung" className="text-[14px] text-[#000088] hover:underline">Bexio + AI: Buchhaltung automatisieren</Link></li>
+            <li><Link href="/blog/ai-budget-planen" className="text-[14px] text-[#000088] hover:underline">AI Budget planen: So kalkulierst du realistisch</Link></li>
+          </ul>
+        </div>
+
       <div className="mt-16 p-8 rounded-2xl bg-[#FAFAFA] border border-[#E5E5EA] text-center">
         <h3 className="text-[20px] font-bold mb-2">
           Bereit für dein AI-Team?

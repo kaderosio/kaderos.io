@@ -130,6 +130,16 @@ export default function BlogPost() {
           KaderOS gibt dir die Struktur. BYOK, Audit Trail, Workspace-Isolation, Open Source, Self-Hosting. Nicht weil es nett klingt. Weil es notwendig ist.
         </p>
 
+
+        <div className="mt-12 p-6 rounded-2xl bg-[#F5F5F7]">
+          <h3 className="text-[16px] font-bold mb-3">Weiterlesen</h3>
+          <ul className="space-y-2">
+            <li><Link href="/blog/ndsg-ai-compliance" className="text-[14px] text-[#000088] hover:underline">nDSG und AI: Was du wissen musst</Link></li>
+            <li><Link href="/blog/ndsg-ai-konform" className="text-[14px] text-[#000088] hover:underline">nDSG und AI: So setzt du KI datenschutzkonform ein</Link></li>
+            <li><Link href="/blog/ai-governance-kmu" className="text-[14px] text-[#000088] hover:underline">AI Governance für KMU: Regeln ohne Bürokratie</Link></li>
+          </ul>
+        </div>
+
         <div className="mt-16 p-8 rounded-2xl bg-gradient-to-br from-[#000088]/5 to-white border border-[#000088]/10">
           <h3 className="text-[20px] font-bold text-[#1D1D1F] mb-3">
             Bereit, AI datenschutzkonform einzusetzen?

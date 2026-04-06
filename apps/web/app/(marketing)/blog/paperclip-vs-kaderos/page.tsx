@@ -79,6 +79,16 @@ export default function BlogPost() {
           Paperclip ist ein gutes Produkt für den US-Markt. KaderOS ist für die Schweiz gebaut. Wenn du ein Schweizer Unternehmen führst, das AI Agents professionell einsetzen will — mit Compliance, in CHF, auf Deutsch — dann ist KaderOS die richtige Wahl.
         </p>
 
+
+        <div className="mt-12 p-6 rounded-2xl bg-[#F5F5F7]">
+          <h3 className="text-[16px] font-bold mb-3">Weiterlesen</h3>
+          <ul className="space-y-2">
+            <li><Link href="/blog/crewai-vs-kaderos" className="text-[14px] text-[#000088] hover:underline">CrewAI vs KaderOS: Welches AI-Framework passt zu dir?</Link></li>
+            <li><Link href="/blog/kaderos-vs-crewai-n8n" className="text-[14px] text-[#000088] hover:underline">KaderOS vs. CrewAI vs. n8n: Der ehrliche Vergleich</Link></li>
+            <li><Link href="/blog/warum-kaderos" className="text-[14px] text-[#000088] hover:underline">Warum wir KaderOS bauen</Link></li>
+          </ul>
+        </div>
+
         <div className="mt-16 p-8 rounded-2xl bg-gradient-to-br from-[#000088]/5 to-white border border-[#000088]/10">
           <h3 className="text-[20px] font-bold text-[#1D1D1F] mb-3">
             Swiss Made AI Orchestration

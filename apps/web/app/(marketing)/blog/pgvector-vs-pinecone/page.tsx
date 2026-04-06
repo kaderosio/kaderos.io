@@ -181,6 +181,16 @@ WITH (lists = 100);`}</code>
           Kein Vendor Lock-in. Keine Überraschungskosten. Keine Daten in den USA.
         </p>
 
+
+        <div className="mt-12 p-6 rounded-2xl bg-[#F5F5F7]">
+          <h3 className="text-[16px] font-bold mb-3">Weiterlesen</h3>
+          <ul className="space-y-2">
+            <li><Link href="/blog/agent-memory" className="text-[14px] text-[#000088] hover:underline">Agent Memory: Warum dein AI-Team ein Gehirn braucht</Link></li>
+            <li><Link href="/blog/open-source-ai-tools" className="text-[14px] text-[#000088] hover:underline">Die besten Open Source AI Tools 2026 für Schweizer Unternehmen</Link></li>
+            <li><Link href="/blog/ndsg-ai-schweiz" className="text-[14px] text-[#000088] hover:underline">nDSG und AI: Was Schweizer Firmen wissen müssen</Link></li>
+          </ul>
+        </div>
+
         <div className="mt-16 p-8 rounded-2xl bg-gradient-to-br from-[#000088]/5 to-white border border-[#000088]/10">
           <h3 className="text-[20px] font-bold text-[#1D1D1F] mb-3">
             Willst du sehen, wie Agent Memory in der Praxis funktioniert?

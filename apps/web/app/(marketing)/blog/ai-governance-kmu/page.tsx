@@ -205,6 +205,16 @@ export default function BlogPost() {
           Gewohnheit. Und Gewohnheiten baut man auf, indem man anfängt.
         </p>
       </div>
+
+        <div className="mt-12 p-6 rounded-2xl bg-[#F5F5F7]">
+          <h3 className="text-[16px] font-bold mb-3">Weiterlesen</h3>
+          <ul className="space-y-2">
+            <li><Link href="/blog/ndsg-ai-compliance" className="text-[14px] text-[#000088] hover:underline">nDSG und AI: Was du wissen musst</Link></li>
+            <li><Link href="/blog/ai-risiken-kmu" className="text-[14px] text-[#000088] hover:underline">AI Risiken für KMU: Was schiefgehen kann und wie du dich schützt</Link></li>
+            <li><Link href="/blog/confidence-gate-erklaert" className="text-[14px] text-[#000088] hover:underline">Confidence Gate: Wann dein Agent autonom handelt</Link></li>
+          </ul>
+        </div>
+
       <div className="mt-16 p-8 rounded-2xl bg-[#FAFAFA] border border-[#E5E5EA] text-center">
         <h3 className="text-[20px] font-bold mb-2">
           Bereit für dein AI-Team?

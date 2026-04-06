@@ -7,7 +7,14 @@
     "studio": "remotion studio src/index.tsx",
     "render": "remotion render src/index.tsx HeroVideo out/hero.mp4",
     "render:vertical": "remotion render src/index.tsx HeroVideoVertical out/hero-vertical.mp4",
-    "render:gif": "remotion render src/index.tsx HeroVideo out/hero.gif --image-format png"
+    "render:gif": "remotion render src/index.tsx HeroVideo out/hero.gif --image-format png",
+    "render:tiktok01": "remotion render src/index.tsx tiktok01-punchy-roles out/tiktok01-punchy-roles.mp4",
+    "render:tiktok02": "remotion render src/index.tsx tiktok02-before-after out/tiktok02-before-after.mp4",
+    "render:apple": "remotion render src/index.tsx apple-startup out/apple-startup.mp4",
+    "render:tiktok03": "remotion render src/index.tsx tiktok03-fuenf-ai-tools out/tiktok03-fuenf-ai-tools.mp4",
+    "render:tiktok04": "remotion render src/index.tsx tiktok04-ai-cto out/tiktok04-ai-cto.mp4",
+    "render:tiktok05": "remotion render src/index.tsx tiktok05-prompter out/tiktok05-prompter.mp4",
+    "render:tiktok06": "remotion render src/index.tsx tiktok06-swiss-made out/tiktok06-swiss-made.mp4"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +22,8 @@
   "type": "commonjs",
   "dependencies": {
     "@remotion/cli": "4.0.443",
+    "@remotion/light-leaks": "^4.0.443",
+    "@remotion/media": "4.0.443",
     "@remotion/player": "4.0.443",
     "@remotion/transitions": "4.0.443",
     "@types/react": "19.2.14",
