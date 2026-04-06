@@ -1,28 +1,15 @@
-import { getStripe, PLANS, PlanKey } from "@/lib/stripe";
+import { getStripe, PlanKey, resolvePlanFromPriceId } from "@/lib/stripe";
 import { createClient } from "@supabase/supabase-js";
 import { NextRequest, NextResponse } from "next/server";
 
 export const runtime = "nodejs";
 
-// Service-role client for webhook (no user auth)
+// Service-role client for webhook (no user auth context)
 function getServiceSupabase() {
   return createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!
   );
-}
-
-// Map Stripe price IDs back to plan keys
-function resolvePlanFromPriceId(priceId: string): PlanKey {
-  for (const [key, plan] of Object.entries(PLANS)) {
-    if (
-      plan.stripePriceMonthly === priceId ||
-      plan.stripePriceYearly === priceId
-    ) {
-      return key as PlanKey;
-    }
-  }
-  return "community";
 }
 
 async function updateCompanyPlan(
@@ -31,21 +18,38 @@ async function updateCompanyPlan(
 ) {
   const supabase = getServiceSupabase();
 
-  // Fetch existing settings first
+  // Fetch existing settings to merge non-destructively
   const { data: company } = await supabase
     .from("companies")
     .select("settings")
     .eq("id", companyId)
     .single();
 
-  const existingSettings = company?.settings ?? {};
+  const existingSettings =
+    (company?.settings as Record<string, unknown>) ?? {};
 
-  await supabase
+  const { error } = await supabase
     .from("companies")
     .update({
       settings: { ...existingSettings, ...updates },
+      updated_at: new Date().toISOString(),
     })
     .eq("id", companyId);
+
+  if (error) {
+    console.error(`Failed to update company ${companyId}:`, error);
+  }
+}
+
+async function findCompanyByCustomerId(customerId: string) {
+  const supabase = getServiceSupabase();
+  const { data: companies } = await supabase
+    .from("companies")
+    .select("id, settings")
+    .filter("settings->>stripe_customer_id", "eq", customerId)
+    .limit(1);
+
+  return companies?.[0] ?? null;
 }
 
 export async function POST(req: NextRequest) {
@@ -75,6 +79,7 @@ export async function POST(req: NextRequest) {
   }
 
   switch (event.type) {
+    /* ── Checkout completed ─────────────────────────────────────────── */
     case "checkout.session.completed": {
       const session = event.data.object;
       const companyId = session.metadata?.companyId;
@@ -85,18 +90,19 @@ export async function POST(req: NextRequest) {
         break;
       }
 
-      // Retrieve subscription to get customer ID
       const subscriptionId =
         typeof session.subscription === "string"
           ? session.subscription
           : session.subscription?.id;
 
+      const customerId =
+        typeof session.customer === "string"
+          ? session.customer
+          : session.customer?.id;
+
       await updateCompanyPlan(companyId, {
         plan,
-        stripe_customer_id:
-          typeof session.customer === "string"
-            ? session.customer
-            : session.customer?.id,
+        stripe_customer_id: customerId,
         stripe_subscription_id: subscriptionId,
       });
 
@@ -106,6 +112,7 @@ export async function POST(req: NextRequest) {
       break;
     }
 
+    /* ── Subscription updated (plan change via portal) ──────────────── */
     case "customer.subscription.updated": {
       const subscription = event.data.object;
       const priceId = subscription.items.data[0]?.price?.id;
@@ -117,16 +124,8 @@ export async function POST(req: NextRequest) {
       if (!priceId || !customerId) break;
 
       const newPlan = resolvePlanFromPriceId(priceId);
+      const company = await findCompanyByCustomerId(customerId);
 
-      // Find company by stripe_customer_id
-      const supabase = getServiceSupabase();
-      const { data: companies } = await supabase
-        .from("companies")
-        .select("id, settings")
-        .filter("settings->>stripe_customer_id", "eq", customerId)
-        .limit(1);
-
-      const company = companies?.[0];
       if (!company) {
         console.error(
           `Webhook: no company found for customer ${customerId}`
@@ -145,6 +144,7 @@ export async function POST(req: NextRequest) {
       break;
     }
 
+    /* ── Subscription deleted (cancelled) ───────────────────────────── */
     case "customer.subscription.deleted": {
       const subscription = event.data.object;
       const customerId =
@@ -154,27 +154,21 @@ export async function POST(req: NextRequest) {
 
       if (!customerId) break;
 
-      const supabase = getServiceSupabase();
-      const { data: companies } = await supabase
-        .from("companies")
-        .select("id, settings")
-        .filter("settings->>stripe_customer_id", "eq", customerId)
-        .limit(1);
-
-      const company = companies?.[0];
+      const company = await findCompanyByCustomerId(customerId);
       if (!company) break;
 
       await updateCompanyPlan(company.id, {
-        plan: "community",
+        plan: "free",
         stripe_subscription_id: null,
       });
 
       console.log(
-        `Subscription deleted: company=${company.id} downgraded to community`
+        `Subscription deleted: company=${company.id} downgraded to free`
       );
       break;
     }
 
+    /* ── Payment failed ─────────────────────────────────────────────── */
     case "invoice.payment_failed": {
       const invoice = event.data.object;
       const customerId =
@@ -185,6 +179,7 @@ export async function POST(req: NextRequest) {
       console.warn(
         `Payment failed: customer=${customerId} invoice=${invoice.id}`
       );
+      // TODO: Optional — notify user via email or in-app
       break;
     }
 

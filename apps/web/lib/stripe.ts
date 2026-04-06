@@ -8,47 +8,56 @@ export function getStripe(): Stripe {
       throw new Error("STRIPE_SECRET_KEY nicht konfiguriert");
     }
     _stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-      apiVersion: '2024-12-18.acacia',
+      apiVersion: '2026-03-25.dahlia',
     });
   }
   return _stripe;
 }
 
+/* ── Plan Configuration ─────────────────────────────────────────────── */
+
 export const PLANS = {
-  community: {
-    name: 'Community',
-    priceMonthly: 0,
-    priceYearly: 0,
+  free: {
+    name: 'Free',
+    priceMonthly: 0, // in Rappen (CHF cents)
     agents: 3,
-    stripePriceMonthly: null,
-    stripePriceYearly: null,
+    stripePriceId: null,
   },
   pro: {
     name: 'Pro',
-    priceMonthly: 4900,
-    priceYearly: 47040,
+    priceMonthly: 4900, // CHF 49.00
     agents: 10,
-    stripePriceMonthly: process.env.STRIPE_PRICE_PRO_MONTHLY,
-    stripePriceYearly: process.env.STRIPE_PRICE_PRO_YEARLY,
+    stripePriceId: process.env.STRIPE_PRO_PRICE_ID ?? null,
   },
-  team: {
-    name: 'Team',
-    priceMonthly: 14900,
-    priceYearly: 143040,
-    agents: 25,
-    stripePriceMonthly: process.env.STRIPE_PRICE_TEAM_MONTHLY,
-    stripePriceYearly: process.env.STRIPE_PRICE_TEAM_YEARLY,
-  },
-  agency: {
-    name: 'Agency',
-    priceMonthly: 34900,
-    priceYearly: 335040,
+  business: {
+    name: 'Business',
+    priceMonthly: 19900, // CHF 199.00
     agents: -1, // unlimited
-    stripePriceMonthly: process.env.STRIPE_PRICE_AGENCY_MONTHLY,
-    stripePriceYearly: process.env.STRIPE_PRICE_AGENCY_YEARLY,
+    stripePriceId: process.env.STRIPE_BUSINESS_PRICE_ID ?? null,
   },
 } as const;
 
 export type PlanKey = keyof typeof PLANS;
+export const PLAN_ORDER: PlanKey[] = ['free', 'pro', 'business'];
 
 // Prices are in Rappen (CHF cents) — Stripe uses smallest currency unit
+
+/**
+ * Resolve a Stripe price ID back to a plan key.
+ * Returns 'free' if no match is found.
+ */
+export function resolvePlanFromPriceId(priceId: string): PlanKey {
+  for (const [key, plan] of Object.entries(PLANS)) {
+    if (plan.stripePriceId === priceId) {
+      return key as PlanKey;
+    }
+  }
+  return 'free';
+}
+
+/**
+ * Format price in CHF from Rappen.
+ */
+export function formatCHF(rappen: number): string {
+  return `CHF ${(rappen / 100).toFixed(0)}`;
+}

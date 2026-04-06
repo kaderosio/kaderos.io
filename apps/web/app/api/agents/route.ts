@@ -73,11 +73,11 @@ export async function POST(req: NextRequest) {
     .eq("id", companyId)
     .single();
 
-  const plan: PlanKey = (company?.settings?.plan as PlanKey) || "community";
+  const plan: PlanKey = (company?.settings?.plan as PlanKey) || "free";
   const planConfig = PLANS[plan];
   const agentLimit = planConfig.agents;
 
-  // -1 means unlimited (agency plan)
+  // -1 means unlimited (business plan)
   if (agentLimit !== -1) {
     const { count } = await supabase
       .from("agents")
@@ -85,7 +85,7 @@ export async function POST(req: NextRequest) {
       .eq("company_id", companyId);
 
     if ((count ?? 0) >= agentLimit) {
-      const nextPlan = plan === "community" ? "Pro" : plan === "pro" ? "Team" : "Agency";
+      const nextPlan = plan === "free" ? "Pro" : "Business";
       return NextResponse.json(
         {
           error: `Agent-Limit erreicht (${agentLimit}). Upgrade auf ${nextPlan}.`,

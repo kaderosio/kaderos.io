@@ -12,23 +12,26 @@ import {
   CreditCard,
   Check,
   ArrowUpRight,
+  Zap,
+  Building2,
+  Users,
 } from "lucide-react";
 
 /* ── Plan Config (client-side mirror of lib/stripe.ts) ──────────────── */
 
 const PLANS = {
-  community: {
-    name: "Community",
-    priceMonthly: "CHF 0",
-    priceYearly: "CHF 0",
+  free: {
+    name: "Free",
+    price: "CHF 0",
     agents: 3,
+    icon: Users,
     features: ["3 Agents", "Grundfunktionen", "Community Support"],
   },
   pro: {
     name: "Pro",
-    priceMonthly: "CHF 49",
-    priceYearly: "CHF 39",
+    price: "CHF 49",
     agents: 10,
+    icon: Zap,
     features: [
       "10 Agents",
       "Alle Connectors",
@@ -36,26 +39,15 @@ const PLANS = {
       "Priority Support",
     ],
   },
-  team: {
-    name: "Team",
-    priceMonthly: "CHF 149",
-    priceYearly: "CHF 119",
-    agents: 25,
-    features: [
-      "25 Agents",
-      "Alle Connectors",
-      "Unbegrenzte Templates",
-      "Team-Features",
-    ],
-  },
-  agency: {
-    name: "Agency",
-    priceMonthly: "CHF 349",
-    priceYearly: "CHF 279",
+  business: {
+    name: "Business",
+    price: "CHF 199",
     agents: -1,
+    icon: Building2,
     features: [
       "Unbegrenzte Agents",
       "Alle Connectors",
+      "Unbegrenzte Templates",
       "White-Label",
       "Dedicated Support",
     ],
@@ -63,7 +55,7 @@ const PLANS = {
 } as const;
 
 type PlanKey = keyof typeof PLANS;
-const PLAN_ORDER: PlanKey[] = ["community", "pro", "team", "agency"];
+const PLAN_ORDER: PlanKey[] = ["free", "pro", "business"];
 
 /* ── Page ──────────────────────────────────────────────────────────── */
 
@@ -75,11 +67,8 @@ function EinstellungenContent() {
   const searchParams = useSearchParams();
 
   // Billing state
-  const [currentPlan, setCurrentPlan] = useState<PlanKey>("community");
+  const [currentPlan, setCurrentPlan] = useState<PlanKey>("free");
   const [hasStripeCustomer, setHasStripeCustomer] = useState(false);
-  const [billingInterval, setBillingInterval] = useState<
-    "monthly" | "yearly"
-  >("monthly");
   const [checkoutLoading, setCheckoutLoading] = useState<string | null>(
     null
   );
@@ -145,13 +134,13 @@ function EinstellungenContent() {
   }
 
   async function handleCheckout(plan: PlanKey) {
-    if (plan === "community") return;
+    if (plan === "free") return;
     setCheckoutLoading(plan);
     try {
       const res = await fetch("/api/billing/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ plan, interval: billingInterval }),
+        body: JSON.stringify({ plan }),
       });
       const data = await res.json();
       if (data.url) {
@@ -194,6 +183,7 @@ function EinstellungenContent() {
   }
 
   const currentPlanIndex = PLAN_ORDER.indexOf(currentPlan);
+  const CurrentIcon = PLANS[currentPlan].icon;
 
   return (
     <div className="p-4 md:p-6 space-y-6 max-w-2xl">
@@ -222,15 +212,20 @@ function EinstellungenContent() {
         {/* Current plan display */}
         <div className="rounded-lg border border-[#000088]/20 bg-[#000088]/5 p-4 space-y-3">
           <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-semibold text-gray-900">
-                Dein Plan: {PLANS[currentPlan].name}
-              </p>
-              <p className="text-xs text-gray-500 mt-0.5">
-                {currentPlan === "community"
-                  ? "Kostenlos"
-                  : `${PLANS[currentPlan].priceMonthly}/Monat`}
-              </p>
+            <div className="flex items-center gap-3">
+              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#000088]/10">
+                <CurrentIcon className="h-4 w-4 text-[#000088]" />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-gray-900">
+                  {PLANS[currentPlan].name}
+                </p>
+                <p className="text-xs text-gray-500 mt-0.5">
+                  {currentPlan === "free"
+                    ? "Kostenlos"
+                    : `${PLANS[currentPlan].price}/Monat`}
+                </p>
+              </div>
             </div>
             {hasStripeCustomer && (
               <button
@@ -256,75 +251,46 @@ function EinstellungenContent() {
           </ul>
         </div>
 
-        {/* Interval toggle */}
-        {currentPlan !== "agency" && (
-          <>
-            <div className="flex items-center gap-2 justify-center">
-              <button
-                onClick={() => setBillingInterval("monthly")}
-                className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
-                  billingInterval === "monthly"
-                    ? "bg-[#000088] text-white"
-                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                }`}
-              >
-                Monatlich
-              </button>
-              <button
-                onClick={() => setBillingInterval("yearly")}
-                className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
-                  billingInterval === "yearly"
-                    ? "bg-[#000088] text-white"
-                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                }`}
-              >
-                Jährlich
-                <span className="ml-1 text-[10px] opacity-80">
-                  -20%
-                </span>
-              </button>
-            </div>
-
-            {/* Upgrade options */}
-            <div className="grid gap-3">
-              {PLAN_ORDER.filter(
-                (_, i) => i > currentPlanIndex
-              ).map((planKey) => {
+        {/* Upgrade options */}
+        {currentPlan !== "business" && (
+          <div className="grid gap-3">
+            {PLAN_ORDER.filter((_, i) => i > currentPlanIndex).map(
+              (planKey) => {
                 const plan = PLANS[planKey];
-                const price =
-                  billingInterval === "yearly"
-                    ? plan.priceYearly
-                    : plan.priceMonthly;
+                const PlanIcon = plan.icon;
                 return (
                   <div
                     key={planKey}
-                    className="flex items-center justify-between rounded-lg border border-gray-200 p-3"
+                    className="flex items-center justify-between rounded-lg border border-gray-200 p-4 hover:border-[#000088]/30 transition-colors"
                   >
-                    <div>
-                      <p className="text-sm font-medium text-gray-900">
-                        {plan.name}
-                      </p>
-                      <p className="text-xs text-gray-500">
-                        {price}/Monat{" "}
-                        {plan.agents === -1
-                          ? "- Unbegrenzte Agents"
-                          : `- ${plan.agents} Agents`}
-                      </p>
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-100">
+                        <PlanIcon className="h-4 w-4 text-gray-600" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-gray-900">
+                          {plan.name}
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          {plan.price}/Monat{" "}
+                          {plan.agents === -1
+                            ? "— Unbegrenzte Agents"
+                            : `— ${plan.agents} Agents`}
+                        </p>
+                      </div>
                     </div>
                     <button
                       onClick={() => handleCheckout(planKey)}
                       disabled={checkoutLoading === planKey}
                       className="rounded-lg bg-[#000088] px-4 py-2 text-xs font-medium text-white hover:bg-[#000066] disabled:opacity-50 transition-colors"
                     >
-                      {checkoutLoading === planKey
-                        ? "..."
-                        : "Upgrade"}
+                      {checkoutLoading === planKey ? "..." : "Upgrade"}
                     </button>
                   </div>
                 );
-              })}
-            </div>
-          </>
+              }
+            )}
+          </div>
         )}
       </div>
 
@@ -409,7 +375,13 @@ function EinstellungenContent() {
 
 export default function EinstellungenPage() {
   return (
-    <Suspense fallback={<div className="flex h-full items-center justify-center"><span className="text-gray-400">Laden...</span></div>}>
+    <Suspense
+      fallback={
+        <div className="flex h-full items-center justify-center">
+          <span className="text-gray-400">Laden...</span>
+        </div>
+      }
+    >
       <EinstellungenContent />
     </Suspense>
   );

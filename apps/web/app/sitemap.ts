@@ -8,6 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/features",
     "/pricing",
     "/templates",
+    "/enterprise",
     "/blog",
     "/changelog",
     "/impressum",
@@ -16,6 +17,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   const blogPosts: { slug: string; date: string }[] = [
+    // Original posts
+    { slug: "warum-kaderos", date: "2026-04-02" },
+    { slug: "paperclip-vs-kaderos", date: "2026-04-03" },
+    { slug: "ai-agents-schweiz-2026", date: "2026-04-04" },
+    { slug: "ndsg-ai-compliance", date: "2026-04-05" },
+    { slug: "solo-founder-ai-team", date: "2026-04-07" },
+    { slug: "confidence-gate-erklaert", date: "2026-04-08" },
+    // Atlas batch
     { slug: "ai-agents-schweiz", date: "2026-03-28" },
     { slug: "ai-team-aufbauen", date: "2026-03-28" },
     { slug: "ndsg-ai-konform", date: "2026-03-29" },
@@ -34,6 +43,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { slug: "ai-risiken-kmu", date: "2026-04-02" },
     { slug: "produktivitaet-ai-tools", date: "2026-04-02" },
     { slug: "ai-mitarbeiter-zukunft", date: "2026-04-03" },
+    // Leyla SEO batch
+    { slug: "ai-fuer-kmu-schweiz", date: "2026-04-06" },
+    { slug: "agent-memory", date: "2026-04-06" },
+    { slug: "ndsg-ai-schweiz", date: "2026-04-06" },
+    { slug: "ai-agent-kosten", date: "2026-04-06" },
+    { slug: "open-source-ai-schweiz", date: "2026-04-06" },
+    { slug: "bexio-ai-automatisierung", date: "2026-04-06" },
+    { slug: "pgvector-vs-pinecone", date: "2026-04-06" },
+    { slug: "kaderos-vs-crewai-n8n", date: "2026-04-06" },
   ];
 
   return [

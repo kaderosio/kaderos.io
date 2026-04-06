@@ -1,9 +1,17 @@
 import { createClient } from "@/utils/supabase/server";
 import { getStripe, PLANS, PlanKey } from "@/lib/stripe";
 import { NextRequest, NextResponse } from "next/server";
+import { headers } from "next/headers";
+
+function getBaseUrl(reqHeaders: Headers): string {
+  const host = reqHeaders.get("host") ?? "localhost:3000";
+  const proto = reqHeaders.get("x-forwarded-proto") ?? "http";
+  return `${proto}://${host}`;
+}
 
 export async function POST(req: NextRequest) {
   const supabase = await createClient();
+  const reqHeaders = await headers();
 
   const {
     data: { user },
@@ -14,27 +22,21 @@ export async function POST(req: NextRequest) {
   }
 
   const body = await req.json();
-  const { plan, interval } = body as {
-    plan: "pro" | "team" | "agency";
-    interval: "monthly" | "yearly";
-  };
+  const { plan } = body as { plan: PlanKey };
 
-  if (!plan || !interval || !PLANS[plan]) {
+  if (!plan || plan === "free" || !PLANS[plan]) {
     return NextResponse.json(
-      { error: "Invalid plan or interval" },
+      { error: "Ungültiger Plan" },
       { status: 400 }
     );
   }
 
   const planConfig = PLANS[plan];
-  const priceId =
-    interval === "yearly"
-      ? planConfig.stripePriceYearly
-      : planConfig.stripePriceMonthly;
+  const priceId = planConfig.stripePriceId;
 
   if (!priceId) {
     return NextResponse.json(
-      { error: "Stripe price not configured for this plan" },
+      { error: "Stripe Price ID nicht konfiguriert für diesen Plan" },
       { status: 500 }
     );
   }
@@ -49,27 +51,27 @@ export async function POST(req: NextRequest) {
   const company = companies?.[0];
   if (!company) {
     return NextResponse.json(
-      { error: "No company found" },
+      { error: "Kein Unternehmen gefunden" },
       { status: 404 }
     );
   }
 
+  const baseUrl = getBaseUrl(reqHeaders);
+
   // If company already has a Stripe customer, reuse it
   const existingCustomerId = company.settings?.stripe_customer_id;
 
-  const sessionParams: Record<string, unknown> = {
-    mode: "subscription" as const,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const sessionParams: any = {
+    mode: "subscription",
     line_items: [{ price: priceId, quantity: 1 }],
     currency: "chf",
-    success_url:
-      "https://kaderos.io/dashboard/einstellungen?billing=success",
-    cancel_url:
-      "https://kaderos.io/dashboard/einstellungen?billing=cancelled",
+    success_url: `${baseUrl}/dashboard/einstellungen?billing=success`,
+    cancel_url: `${baseUrl}/dashboard/einstellungen?billing=cancelled`,
     metadata: {
       companyId: company.id,
       userId: user.id,
       plan,
-      interval,
     },
     client_reference_id: company.id,
   };
@@ -80,7 +82,14 @@ export async function POST(req: NextRequest) {
     sessionParams.customer_email = user.email;
   }
 
-  const session = await getStripe().checkout.sessions.create(sessionParams as any);
-
-  return NextResponse.json({ url: session.url });
+  try {
+    const session = await getStripe().checkout.sessions.create(sessionParams);
+    return NextResponse.json({ url: session.url });
+  } catch (err) {
+    console.error("Stripe checkout error:", err);
+    return NextResponse.json(
+      { error: "Checkout konnte nicht erstellt werden" },
+      { status: 500 }
+    );
+  }
 }

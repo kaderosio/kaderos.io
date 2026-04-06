@@ -1,4 +1,5 @@
 import { createClient } from "@/utils/supabase/server";
+import { verifyCompanyOwnership } from "@/lib/auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
@@ -19,6 +20,10 @@ export async function GET(req: NextRequest) {
       { error: "companyId is required" },
       { status: 400 }
     );
+  }
+
+  if (!(await verifyCompanyOwnership(supabase, companyId, user.id))) {
+    return NextResponse.json({ error: "Zugriff verweigert" }, { status: 403 });
   }
 
   const { data, error } = await supabase

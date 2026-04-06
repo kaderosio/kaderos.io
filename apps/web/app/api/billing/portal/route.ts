@@ -1,9 +1,17 @@
 import { createClient } from "@/utils/supabase/server";
 import { getStripe } from "@/lib/stripe";
 import { NextResponse } from "next/server";
+import { headers } from "next/headers";
+
+function getBaseUrl(reqHeaders: Headers): string {
+  const host = reqHeaders.get("host") ?? "localhost:3000";
+  const proto = reqHeaders.get("x-forwarded-proto") ?? "http";
+  return `${proto}://${host}`;
+}
 
 export async function POST() {
   const supabase = await createClient();
+  const reqHeaders = await headers();
 
   const {
     data: { user },
@@ -23,7 +31,7 @@ export async function POST() {
   const company = companies?.[0];
   if (!company) {
     return NextResponse.json(
-      { error: "No company found" },
+      { error: "Kein Unternehmen gefunden" },
       { status: 404 }
     );
   }
@@ -36,10 +44,20 @@ export async function POST() {
     );
   }
 
-  const session = await getStripe().billingPortal.sessions.create({
-    customer: customerId,
-    return_url: "https://kaderos.io/dashboard/einstellungen",
-  });
+  const baseUrl = getBaseUrl(reqHeaders);
 
-  return NextResponse.json({ url: session.url });
+  try {
+    const session = await getStripe().billingPortal.sessions.create({
+      customer: customerId,
+      return_url: `${baseUrl}/dashboard/einstellungen`,
+    });
+
+    return NextResponse.json({ url: session.url });
+  } catch (err) {
+    console.error("Stripe portal error:", err);
+    return NextResponse.json(
+      { error: "Portal konnte nicht geöffnet werden" },
+      { status: 500 }
+    );
+  }
 }

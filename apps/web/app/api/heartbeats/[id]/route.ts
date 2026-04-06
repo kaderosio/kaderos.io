@@ -1,4 +1,5 @@
 import { createClient } from "@/utils/supabase/server";
+import { verifyCompanyOwnership } from "@/lib/auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function PUT(
@@ -14,6 +15,17 @@ export async function PUT(
 
   if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  // Verify ownership: get heartbeat's company_id first
+  const { data: heartbeat } = await supabase
+    .from("heartbeats")
+    .select("company_id")
+    .eq("id", id)
+    .single();
+
+  if (!heartbeat || !(await verifyCompanyOwnership(supabase, heartbeat.company_id, user.id))) {
+    return NextResponse.json({ error: "Zugriff verweigert" }, { status: 403 });
   }
 
   const body = await req.json();
