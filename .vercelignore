@@ -1,0 +1,14 @@
+apps/video/out/
+apps/video/public/audio/
+apps/video/public/footage/
+apps/video/public/voiceover/
+voicebox/
+e2e/
+docs/
+.claude/
+.agents/
+.remember/
+.playwright-mcp/
+*.mp4
+*.mp3
+*.wav

@@ -9,3 +9,5 @@ dist/
 .DS_Store
 *.swp
 .vercel
+vercel-env-import.txt
+voicebox/
