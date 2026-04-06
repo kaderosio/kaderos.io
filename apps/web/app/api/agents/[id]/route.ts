@@ -77,6 +77,8 @@ export async function PUT(
     focus: "focus",
     accentColor: "accent_color",
     departmentId: "department_id",
+    parameters: "parameters",
+    reportsToId: "reports_to_id",
   };
 
   const updates: Record<string, unknown> = {};
