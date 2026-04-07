@@ -59,23 +59,21 @@ export async function POST(req: NextRequest) {
 
     // Referral Count beim Referrer erhöhen
     if (referred_by) {
-      await supabase.rpc("increment_referral_count", { ref_code: referred_by }).catch(() => {
+      const { error: rpcError } = await supabase.rpc("increment_referral_count", { ref_code: referred_by });
+      if (rpcError) {
         // Fallback: manuelles Update
-        supabase
+        const { data: referrer } = await supabase
           .from("waitlist")
           .select("id, referral_count")
           .eq("referral_code", referred_by)
-          .single()
-          .then(({ data: referrer }) => {
-            if (referrer) {
-              supabase
-                .from("waitlist")
-                .update({ referral_count: (referrer.referral_count || 0) + 1 })
-                .eq("id", referrer.id)
-                .then(() => {});
-            }
-          });
-      });
+          .single();
+        if (referrer) {
+          await supabase
+            .from("waitlist")
+            .update({ referral_count: (referrer.referral_count || 0) + 1 })
+            .eq("id", referrer.id);
+        }
+      }
     }
 
     return NextResponse.json({
