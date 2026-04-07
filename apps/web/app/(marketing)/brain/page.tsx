@@ -1,56 +1,94 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "Agent Brain — 7-Schichten Gedächtnis | KaderOS",
+  title: "Agent Brain — KI-Gedächtnis für CHF 5/Monat | KaderOS",
   description:
-    "Kein LLM. Reine Mathematik. 7 Schichten Gedächtnis für AI Agents die sich erinnern, vernetzen, lernen und vorhersagen. Der Kern von KaderOS.",
+    "7-Schichten Memory-System für KI-Agenten. Perception Gate, Knowledge Graph, Dream Cycle. Für Schweizer KMU. Kein LLM, kein Code nötig. Ab CHF 5/Monat.",
   other: {
-    "script:ld+json": JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      mainEntity: [
-        {
-          "@type": "Question",
-          name: "Was ist der Agent Brain?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Der Agent Brain ist ein 7-Schichten Gedächtnis-Layer für AI Agents. Er speichert, verbindet und erinnert — damit jeder Agent ein permanentes Gedächtnis hat. Kein LLM. Reine Mathematik: pgvector, spaCy NER, Graph Traversal.",
+    "script:ld+json": JSON.stringify([
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "Was ist der Agent Brain?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Der Agent Brain ist ein 7-Schichten Gedächtnis-Layer für AI Agents. Er speichert, verbindet und erinnert — damit jeder Agent ein permanentes Gedächtnis hat. Kein LLM. Reine Mathematik: pgvector, spaCy NER, Graph Traversal.",
+            },
           },
-        },
-        {
-          "@type": "Question",
-          name: "Welche 7 Schichten hat der Agent Brain?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "1. Perception Gate (bewertet Emotion, Neuheit, Dringlichkeit), 2. Working Memory (7-Item Buffer), 3. Episodisches Gedächtnis (mit Reconsolidation), 4. Knowledge Graph (Entitäten + Beziehungen), 5. Prozedurales Gedächtnis (Muster ab 3x Wiederholung), 6. Predictive Engine (proaktive Alerts alle 60 Min), 7. Dream Cycle (Nacht-Job um 02:00 — vergessen, verdichten, kreativ verbinden).",
+          {
+            "@type": "Question",
+            name: "Welche 7 Schichten hat der Agent Brain?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "1. Perception Gate (bewertet Emotion, Neuheit, Dringlichkeit), 2. Working Memory (7-Item Buffer), 3. Episodisches Gedächtnis (mit Reconsolidation), 4. Knowledge Graph (Entitäten + Beziehungen), 5. Prozedurales Gedächtnis (Muster ab 3x Wiederholung), 6. Predictive Engine (proaktive Alerts alle 60 Min), 7. Dream Cycle (Nacht-Job um 02:00 — vergessen, verdichten, kreativ verbinden).",
+            },
           },
-        },
-        {
-          "@type": "Question",
-          name: "Braucht der Agent Brain ein LLM?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Nein. Der Agent Brain braucht kein Sprachmodell. Er nutzt sentence-transformers für Embeddings (384 Dimensionen, multilingual), spaCy für Entity Extraction und PostgreSQL/pgvector für Vektor-Suche. Alles lokal, kein API-Call zu OpenAI oder Anthropic.",
+          {
+            "@type": "Question",
+            name: "Braucht das GPT-4 oder OpenAI?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Nein. Der Agent Brain braucht kein Sprachmodell. Alles ist reine Datenbankarbeit und Mathematik — sentence-transformers für Embeddings, spaCy für Entity Extraction, PostgreSQL/pgvector für Vektor-Suche. Kein API-Call nach aussen.",
+            },
           },
-        },
-        {
-          "@type": "Question",
-          name: "Was kostet der Agent Brain?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Der Agent Brain kostet ca. CHF 5 pro Monat im Betrieb. Supabase Free Tier (CHF 0), Neo4j Aura Free Tier (CHF 0), Railway Starter (~CHF 5/Monat). Kein GPU nötig.",
+          {
+            "@type": "Question",
+            name: "Was passiert mit meinen Daten?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Swiss Hosting. Alle Daten bleiben in der Schweiz. Kein API-Call nach aussen. Kein OpenAI, kein Anthropic, kein Drittanbieter. Volle Kontrolle über deine Daten.",
+            },
           },
-        },
-        {
-          "@type": "Question",
-          name: "Was ist der Dream Cycle?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Der Dream Cycle läuft jede Nacht um 02:00 Uhr. Er macht vier Dinge: 1. Ebbinghaus Decay (Unwichtiges verblasst), 2. Consolidation (ähnliche Erinnerungen zusammenführen), 3. Kreative Verbindungssuche (unverbundene Entitäten prüfen), 4. Neue Regeln ableiten. Das Äquivalent des menschlichen REM-Schlafs.",
+          {
+            "@type": "Question",
+            name: "Wie schnell lernt der Agent?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "3x Wiederholung = Regel. Das prozedurale Gedächtnis erkennt Muster automatisch. Nach 30 Tagen hat dein Agent 500+ Verbindungen im Knowledge Graph aufgebaut.",
+            },
           },
+          {
+            "@type": "Question",
+            name: "Was ist der Dream Cycle?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Um 02:00 nachts laufen drei Prozesse: Unwichtiges vergessen (Ebbinghaus Decay), Ähnliches verdichten (Consolidation), und kreative Verbindungen zwischen unverbundenen Entitäten entdecken. Das Äquivalent des menschlichen REM-Schlafs.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Was ist der Unterschied zu ChatGPT Memory?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "ChatGPT speichert Notizen — flache Liste, kein Kontext. Der Agent Brain baut ein lebendes Wissensnetz: Entities, Beziehungen, Muster, Vorhersagen. 7 Schichten statt einer Textdatei.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Was kostet der Agent Brain?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "CHF 5 pro Monat. Zum Vergleich: Mem0 Pro kostet $249/Monat, Zep Pro $50/Monat. KaderOS Brain ist das günstigste produktionsreife AI-Gedächtnis auf dem Markt.",
+            },
+          },
+        ],
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        name: "KaderOS Agent Brain",
+        description: "7-Schichten Memory-System für KI-Agenten",
+        offers: {
+          "@type": "Offer",
+          price: "5",
+          priceCurrency: "CHF",
+          availability: "https://schema.org/InStock",
         },
-      ],
-    }),
+      },
+    ]),
   },
 };
 
@@ -114,6 +152,36 @@ const COMPARISONS = [
   { tool: "KaderOS", memory: "7 Schichten", sessions: "Permanent", graph: "Ja", learning: "Ja (ab 3x)", prediction: "Ja (60min)" },
 ];
 
+const COST_COMPARISON = [
+  { name: "KaderOS Brain", price: "CHF 5", period: "/Monat", note: "Alles inklusive. Swiss Hosting.", highlight: true },
+  { name: "Mem0 Pro", price: "$249", period: "/Monat", note: "US-Hosting. Vendor Lock-in.", highlight: false },
+  { name: "Zep Pro", price: "$50", period: "/Monat", note: "Nur episodisches Memory.", highlight: false },
+  { name: "MemGPT", price: "$100+", period: "/Monat", note: "Eigene Infra nötig. GPU-Kosten.", highlight: false },
+];
+
+const FAQS = [
+  {
+    q: "Braucht das GPT-4 oder OpenAI?",
+    a: "Nein. Reine Datenbankarbeit und Mathematik. sentence-transformers für Embeddings, spaCy für Entity Extraction, PostgreSQL für alles andere. Kein API-Call nach aussen.",
+  },
+  {
+    q: "Was passiert mit meinen Daten?",
+    a: "Swiss Hosting. Kein API-Call nach aussen. Keine Daten bei OpenAI, Anthropic oder sonstigen Drittanbietern. Du hast volle Kontrolle.",
+  },
+  {
+    q: "Wie schnell lernt der Agent?",
+    a: "3x Wiederholung = Regel. Das prozedurale Gedächtnis erkennt Muster automatisch. Nach 30 Tagen: 500+ Verbindungen im Knowledge Graph.",
+  },
+  {
+    q: "Was ist der Dream Cycle?",
+    a: "Um 02:00 nachts: vergessen, verdichten, kreative Verbindungen entdecken. Ebbinghaus Decay räumt Unwichtiges ab. Consolidation führt Ähnliches zusammen. Und die kreative Suche findet Verbindungen zwischen Dingen, die noch nie zusammen aufgetaucht sind.",
+  },
+  {
+    q: "Was ist der Unterschied zu ChatGPT Memory?",
+    a: "ChatGPT speichert Notizen — eine flache Liste ohne Kontext. Der Agent Brain baut ein lebendes Wissensnetz mit Entities, Beziehungen, Mustern und Vorhersagen. 7 Schichten statt einer Textdatei.",
+  },
+];
+
 export default function BrainPage() {
   return (
     <div className="py-20 px-6">
@@ -122,20 +190,32 @@ export default function BrainPage() {
         <div className="text-[12px] font-semibold text-[#000088] uppercase tracking-widest mb-4">
           Agent Brain
         </div>
-        <h1 className="text-[48px] sm:text-[64px] font-extrabold tracking-tight mb-6">
-          Dein Kader vergisst nichts.
+        <h1 className="text-[48px] sm:text-[64px] font-extrabold tracking-tight mb-6" style={{ color: "#1D1D1F" }}>
+          Dein AI-Agent vergisst nichts.
+          <br />
+          <span className="text-[#6E6E73]">Aber er weiss, was wichtig ist.</span>
         </h1>
         <p className="text-[18px] text-[#6E6E73] max-w-2xl mx-auto mb-4">
-          7 Schichten Gedächtnis. Kein LLM. Reine Mathematik.
-          Deine Agents erinnern sich, vernetzen Wissen, lernen Muster und sagen voraus.
+          7 Schichten Gedächtnis. CHF 5 im Monat. Null OpenAI.
         </p>
-        <p className="text-[14px] text-[#86868B]">
-          CHF 5/Monat Betriebskosten. Kein GPU nötig. Open Source.
-        </p>
+        <div className="flex gap-4 justify-center mt-8">
+          <Link
+            href="/signup"
+            className="px-8 py-3 bg-[#000088] text-white rounded-xl font-semibold text-[14px] hover:bg-[#000088]/90 transition"
+          >
+            Gratis starten
+          </Link>
+          <Link
+            href="#layers"
+            className="px-8 py-3 border border-[#E5E5EA] text-[#1D1D1F] rounded-xl font-semibold text-[14px] hover:border-[#000088]/30 transition"
+          >
+            Wie es funktioniert
+          </Link>
+        </div>
       </div>
 
       {/* 7 Layers */}
-      <div className="max-w-4xl mx-auto mb-24">
+      <div id="layers" className="max-w-4xl mx-auto mb-24">
         <div className="space-y-6">
           {LAYERS.map((layer) => (
             <div
@@ -157,6 +237,42 @@ export default function BrainPage() {
                   {layer.detail}
                 </p>
               </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Cost Comparison */}
+      <div className="max-w-4xl mx-auto mb-24">
+        <h2 className="text-[32px] font-bold text-center mb-4" style={{ color: "#1D1D1F" }}>
+          Was AI-Gedächtnis wirklich kostet.
+        </h2>
+        <p className="text-[16px] text-[#6E6E73] text-center mb-10 max-w-2xl mx-auto">
+          Die meisten AI-Memory-Lösungen kosten ein Vermögen — oder du brauchst eigene Infrastruktur. Der Agent Brain nicht.
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {COST_COMPARISON.map((item) => (
+            <div
+              key={item.name}
+              className={`p-6 rounded-2xl border-2 transition-all ${
+                item.highlight
+                  ? "border-[#000088] bg-[#000088]/5 shadow-lg"
+                  : "border-[#E5E5EA] bg-white"
+              }`}
+            >
+              {item.highlight && (
+                <div className="text-[11px] font-semibold text-[#000088] uppercase tracking-widest mb-3">
+                  Empfohlen
+                </div>
+              )}
+              <div className="text-[14px] text-[#6E6E73] mb-2">{item.name}</div>
+              <div className="flex items-baseline gap-1 mb-3">
+                <span className={`text-[36px] font-extrabold ${item.highlight ? "text-[#000088]" : "text-[#1D1D1F]"}`}>
+                  {item.price}
+                </span>
+                <span className="text-[14px] text-[#86868B]">{item.period}</span>
+              </div>
+              <p className="text-[13px] text-[#6E6E73]">{item.note}</p>
             </div>
           ))}
         </div>
@@ -250,7 +366,7 @@ export default function BrainPage() {
             { label: "Knowledge Graph", tech: "PostgreSQL" },
             { label: "Scheduling", tech: "APScheduler" },
             { label: "API", tech: "FastAPI" },
-            { label: "Hosting", tech: "Railway" },
+            { label: "Hosting", tech: "Swiss (Railway)" },
             { label: "Kosten", tech: "CHF 5/Monat" },
           ].map((item) => (
             <div key={item.label} className="p-4 rounded-xl border border-[#E5E5EA]">
@@ -261,23 +377,42 @@ export default function BrainPage() {
         </div>
       </div>
 
+      {/* FAQ */}
+      <div className="max-w-3xl mx-auto mb-24">
+        <h2 className="text-[32px] font-bold text-center mb-10">
+          Häufige Fragen
+        </h2>
+        <div className="space-y-6">
+          {FAQS.map((faq) => (
+            <div key={faq.q} className="p-6 rounded-2xl border border-[#E5E5EA]">
+              <h3 className="text-[16px] font-bold mb-2" style={{ color: "#1D1D1F" }}>
+                {faq.q}
+              </h3>
+              <p className="text-[15px] text-[#6E6E73] leading-relaxed">
+                {faq.a}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* CTA */}
       <div className="max-w-3xl mx-auto text-center">
         <div className="bg-gradient-to-br from-[#000088] to-[#3333aa] rounded-3xl p-12 text-white">
           <h2 className="text-[32px] font-bold mb-4">
-            Dein Kader wartet.
+            Gib deinem AI-Agent ein Gehirn.
           </h2>
-          <p className="text-[16px] text-white/70 mb-8">
-            4 Agents. 7 Schichten Gedächtnis. CHF 79 pro Monat.
+          <p className="text-[18px] text-white/70 mb-8">
+            Starte gratis. 7 Schichten Gedächtnis. CHF 5 im Monat.
             <br />
-            Swiss Made. Open Source.
+            Swiss Hosting. Kein OpenAI nötig.
           </p>
           <div className="flex gap-4 justify-center">
             <Link
               href="/signup"
               className="px-8 py-3 bg-white text-[#000088] rounded-xl font-semibold text-[14px] hover:bg-white/90 transition"
             >
-              Platz sichern
+              Gratis starten
             </Link>
             <Link
               href="https://github.com/kaderosio/kaderos.io"
