@@ -57,6 +57,27 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Server error" }, { status: 500 });
     }
 
+    // Referral Count beim Referrer erhöhen
+    if (referred_by) {
+      await supabase.rpc("increment_referral_count", { ref_code: referred_by }).catch(() => {
+        // Fallback: manuelles Update
+        supabase
+          .from("waitlist")
+          .select("id, referral_count")
+          .eq("referral_code", referred_by)
+          .single()
+          .then(({ data: referrer }) => {
+            if (referrer) {
+              supabase
+                .from("waitlist")
+                .update({ referral_count: (referrer.referral_count || 0) + 1 })
+                .eq("id", referrer.id)
+                .then(() => {});
+            }
+          });
+      });
+    }
+
     return NextResponse.json({
       success: true,
       position: data.position,

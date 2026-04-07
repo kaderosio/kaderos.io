@@ -41,6 +41,88 @@ function WaitlistCount() {
   return <>{count > 0 ? count : "..."}</>;
 }
 
+// -- REFERRAL PROGRESS BAR --
+function ReferralProgress({ count, goal }: { count: number; goal: number }) {
+  const clamped = Math.min(count, goal);
+  const pct = (clamped / goal) * 100;
+  const remaining = goal - clamped;
+
+  return (
+    <div className="max-w-md mx-auto">
+      <div className="flex items-center justify-between mb-2">
+        <span className="text-[12px] font-semibold text-[#1D1D1F]">
+          {clamped} von {goal} Freunden eingeladen
+        </span>
+        {remaining > 0 ? (
+          <span className="text-[11px] text-[#86868B]">noch {remaining}!</span>
+        ) : (
+          <span className="text-[11px] font-semibold text-[#059669]">Ziel erreicht!</span>
+        )}
+      </div>
+      <div className="w-full h-2.5 bg-[#F5F5F7] rounded-full overflow-hidden">
+        <div
+          className="h-full rounded-full transition-all duration-700 ease-out"
+          style={{
+            width: `${pct}%`,
+            background: pct >= 100
+              ? "linear-gradient(90deg, #059669, #10B981)"
+              : "linear-gradient(90deg, #000088, #3739C1)",
+          }}
+        />
+      </div>
+      {remaining > 0 && (
+        <p className="text-[11px] text-[#86868B] mt-1.5">
+          Lade {remaining} {remaining === 1 ? "Freund" : "Freunde"} ein und springe 50 Plätze nach vorne
+        </p>
+      )}
+    </div>
+  );
+}
+
+// -- REFERRAL LEADERBOARD --
+function ReferralLeaderboard() {
+  const [leaders, setLeaders] = useState<{ name: string; referral_count: number }[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("/api/referral")
+      .then((r) => r.json())
+      .then((d) => {
+        if (d.leaderboard) setLeaders(d.leaderboard);
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, []);
+
+  if (loading || leaders.length === 0) return null;
+
+  return (
+    <div className="max-w-md mx-auto mt-6">
+      <div className="text-[12px] font-semibold text-[#86868B] uppercase tracking-widest mb-3 text-center">
+        Top Referrer
+      </div>
+      <div className="bg-[#F5F5F7] rounded-xl p-3 space-y-1.5">
+        {leaders.slice(0, 5).map((entry, i) => (
+          <div
+            key={i}
+            className="flex items-center justify-between px-3 py-2 rounded-lg bg-white"
+          >
+            <div className="flex items-center gap-2.5">
+              <span className="text-[11px] font-bold text-[#86868B] w-5 text-center">
+                {i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : `${i + 1}.`}
+              </span>
+              <span className="text-[13px] font-medium text-[#1D1D1F]">{entry.name}</span>
+            </div>
+            <span className="text-[12px] font-semibold text-[#000088]">
+              {entry.referral_count} {entry.referral_count === 1 ? "Einladung" : "Einladungen"}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // -- WAITLIST FORM (secondary) --
 function WaitlistForm({ variant = "default" }: { variant?: "default" | "hero" }) {
   const [email, setEmail] = useState("");
@@ -49,6 +131,22 @@ function WaitlistForm({ variant = "default" }: { variant?: "default" | "hero" })
   const [pos, setPos] = useState(0);
   const [refCode, setRefCode] = useState("");
   const [error, setError] = useState("");
+  const [referralCount, setReferralCount] = useState(0);
+
+  const REFERRAL_GOAL = 3;
+
+  // Nach Signup: Referral Stats laden
+  useEffect(() => {
+    if (refCode) {
+      fetch(`/api/referral?code=${refCode}`)
+        .then((r) => r.json())
+        .then((d) => {
+          if (d.referral_count !== undefined) setReferralCount(d.referral_count);
+          if (d.effective_position) setPos(d.effective_position);
+        })
+        .catch(() => {});
+    }
+  }, [refCode]);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,14 +155,29 @@ function WaitlistForm({ variant = "default" }: { variant?: "default" | "hero" })
     setError("");
     try {
       const params = new URLSearchParams(window.location.search);
+      const referredBy = params.get("ref") || null;
       const res = await fetch("/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, source: "landing", referred_by: params.get("ref") || null }),
+        body: JSON.stringify({ email, source: "landing", referred_by: referredBy }),
       });
       const data = await res.json();
-      if (data.success) { setPos(data.position); setRefCode(data.referral_code); setDone(true); }
-      else { setError(data.error === "Already registered" ? "Du bist bereits auf der Waitlist!" : "Etwas ist schiefgelaufen."); }
+      if (data.success) {
+        setPos(data.position);
+        setRefCode(data.referral_code);
+        setDone(true);
+
+        // Referral Count beim Referrer erhöhen
+        if (referredBy && !data.already_registered) {
+          fetch("/api/referral", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ referred_by: referredBy }),
+          }).catch(() => {});
+        }
+      } else {
+        setError(data.error === "Already registered" ? "Du bist bereits auf der Waitlist!" : "Etwas ist schiefgelaufen.");
+      }
     } catch { setError("Verbindungsfehler. Bitte nochmal versuchen."); }
     setLoading(false);
   };
@@ -90,17 +203,26 @@ function WaitlistForm({ variant = "default" }: { variant?: "default" | "hero" })
     window.open(`https://x.com/intent/tweet?text=${encodeURIComponent(`KaderOS bringt AI-Agenten in Schweizer KMUs. Ich bin auf der Waitlist – sei dabei:`)}&url=${encodeURIComponent(referralLink)}`, "_blank");
   };
 
+  const shareEmail = () => {
+    const subject = encodeURIComponent("KaderOS – AI-Team für dein Unternehmen");
+    const body = encodeURIComponent(`Hey,\n\nich bin auf der Waitlist von KaderOS – eine AI-Plattform speziell für Schweizer KMUs. 4 AI-Agents für CHF 49/Monat.\n\nSichere dir deinen Platz: ${referralLink}\n\nGruss`);
+    window.open(`mailto:?subject=${subject}&body=${body}`, "_blank");
+  };
+
   if (done) return (
-    <div className="text-center py-6 space-y-4">
+    <div className="text-center py-6 space-y-5">
       <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#059669]/10 border border-[#059669]/20 rounded-full">
         <Check size={16} className="text-[#059669]" />
         <span className="text-[14px] font-medium text-[#059669]">Du bist #{pos} auf der Waitlist</span>
       </div>
 
       {refCode && (
-        <div className="space-y-4">
+        <div className="space-y-5">
+          {/* Progress Bar */}
+          <ReferralProgress count={referralCount} goal={REFERRAL_GOAL} />
+
           <p className="text-[13px] text-[#1D1D1F] font-medium leading-relaxed">
-            Teile KaderOS. Jeder Referral = 10 Plätze nach vorne auf der Waitlist.
+            Lade 3 Freunde ein = springe 50 Plätze nach vorne
           </p>
 
           {/* Referral Link Display */}
@@ -119,7 +241,7 @@ function WaitlistForm({ variant = "default" }: { variant?: "default" | "hero" })
           </div>
 
           {/* Share Buttons */}
-          <div className="flex items-center justify-center gap-3">
+          <div className="flex items-center justify-center gap-2 flex-wrap">
             <button onClick={shareWhatsApp}
               className="flex items-center gap-1.5 px-4 py-2 bg-[#25D366]/10 text-[#25D366] rounded-lg text-[12px] font-medium hover:bg-[#25D366]/20 transition-colors"
               aria-label="Auf WhatsApp teilen">
@@ -138,7 +260,16 @@ function WaitlistForm({ variant = "default" }: { variant?: "default" | "hero" })
               <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
               X
             </button>
+            <button onClick={shareEmail}
+              className="flex items-center gap-1.5 px-4 py-2 bg-[#6E6E73]/5 text-[#6E6E73] rounded-lg text-[12px] font-medium hover:bg-[#6E6E73]/10 transition-colors"
+              aria-label="Per Email teilen">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              Email
+            </button>
           </div>
+
+          {/* Leaderboard */}
+          <ReferralLeaderboard />
         </div>
       )}
     </div>
