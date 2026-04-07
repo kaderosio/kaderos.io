@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Human AI Brain — 7-Schichten-Gedächtnis nach dem Vorbild des menschlichen Gehirns | KaderOS",
+  title: "Agent Brain — 7-Schichten-Gedächtnis für AI-Agents | KaderOS",
   description:
-    "Wie KaderOS das menschliche Gehirn in ein AI-Gedächtnis übersetzt. 7 Schichten: Perception Gate, Working Memory, Episodisches Gedächtnis, Knowledge Graph, Prozedurales Lernen, Predictive Engine, Dream Cycle. Keine LLMs. Reine Neurowissenschaft.",
+    "Dein AI Agent vergisst alles. Jedes. Einzelne. Mal. Der Agent Brain gibt deinem Agent ein Gedächtnis mit 7 Schichten — gebaut wie ein echtes Gehirn. CHF 5/Monat. Kein LLM. Swiss Hosted. Open Source.",
   openGraph: {
-    title: "Human AI Brain — Das Gedächtnis, das AI-Agents gefehlt hat",
-    description: "7 Schichten. Inspiriert vom menschlichen Gehirn. Gebaut für AI-Agents. CHF 5/Monat.",
+    title: "Agent Brain — Das Gedächtnis, das AI-Agents gefehlt hat",
+    description:
+      "7 Schichten. Inspiriert vom menschlichen Gehirn. Gebaut für AI-Agents. CHF 5/Monat. Kein LLM. Swiss Hosted.",
     url: "https://kaderos.io/humanaibrain",
   },
   alternates: {
@@ -20,34 +21,58 @@ export const metadata: Metadata = {
         mainEntity: [
           {
             "@type": "Question",
-            name: "Was ist der Human AI Brain?",
+            name: "Brauche ich Programmierkenntnisse?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Der Human AI Brain ist ein 7-Schichten Gedächtnissystem für AI-Agents, das nach dem Vorbild des menschlichen Gehirns gebaut wurde. Er nutzt keine LLMs, sondern reine Mathematik: Vektorsuche, Graphen und neurowissenschaftliche Prinzipien.",
+              text: "Nein. Du verbindest deinen Agent per API. Ein Endpoint rein, ein Endpoint raus. Dokumentation ist da, Beispiele sind da.",
             },
           },
           {
             "@type": "Question",
-            name: "Warum 7 Schichten?",
+            name: "Funktioniert das mit meinem bestehenden Agent?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Das menschliche Gedächtnis arbeitet in Schichten: sensorisch, kurzzeitig, episodisch, semantisch, prozedural, prädiktiv, konsolidierend. Der Human AI Brain bildet jede dieser Funktionen als technische Schicht ab.",
+              text: "Ja. Der Brain ist agent-agnostisch. Egal ob du GPT-4, Claude, Mistral, Llama oder deinen eigenen Agent nutzt — der Brain liefert das Gedächtnis. Der Agent liefert das Denken.",
             },
           },
           {
             "@type": "Question",
-            name: "Braucht der Human AI Brain ein LLM wie GPT-4?",
+            name: "Braucht der Agent Brain ein LLM wie GPT-4?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Nein. Der Brain nutzt kein Sprachmodell. Alles basiert auf sentence-transformers (384d Embeddings), spaCy für Entity Extraction, PostgreSQL/pgvector für Vektorsuche und Graph-Algorithmen. Kein API-Call nach aussen.",
+              text: "Nein. Der Brain nutzt kein Sprachmodell. Alles basiert auf sentence-transformers, spaCy für Entity Extraction, PostgreSQL/pgvector für Vektorsuche und Graph-Algorithmen. Kein API-Call nach aussen.",
             },
           },
           {
             "@type": "Question",
-            name: "Was kostet der Human AI Brain?",
+            name: "Was kostet der Agent Brain?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "CHF 5 pro Monat. Zum Vergleich: Mem0 Pro kostet $249/Monat, Zep Pro $50/Monat. Swiss Hosting inklusive.",
+              text: "CHF 5 pro Monat. Zum Vergleich: Mem0 Pro kostet $249/Monat, Cognee On-Prem EUR 1970/Monat. Swiss Hosting inklusive.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Ist das wirklich nDSG-konform?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Ja. Swiss Hosting. Keine API-Calls nach aussen. Keine Daten bei US-Anbietern. Kein LLM verarbeitet deine Erinnerungen. Reine Datenbankoperationen in der Schweiz.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Was passiert, wenn ich kündige?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Deine Daten gehören dir. Export jederzeit möglich. Kein Lock-in. Du nimmst dein Gedächtnis mit.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Was, wenn der Brain etwas Falsches lernt?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Jede Regel, jede Verbindung, jede Vorhersage ist sichtbar und überschreibbar. Du korrigierst es direkt. Der Brain lernt aus der Korrektur.",
             },
           },
         ],
@@ -55,8 +80,9 @@ export const metadata: Metadata = {
       {
         "@context": "https://schema.org",
         "@type": "Product",
-        name: "KaderOS Human AI Brain",
-        description: "7-Schichten Gedächtnissystem für AI-Agents nach dem Vorbild des menschlichen Gehirns",
+        name: "KaderOS Agent Brain",
+        description:
+          "7-Schichten Gedächtnissystem für AI-Agents nach dem Vorbild des menschlichen Gehirns. Kein LLM. Swiss Hosted. Open Source.",
         offers: {
           "@type": "Offer",
           price: "5",
@@ -68,6 +94,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function HumanAIBrainLayout({ children }: { children: React.ReactNode }) {
+export default function HumanAIBrainLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return <>{children}</>;
 }
