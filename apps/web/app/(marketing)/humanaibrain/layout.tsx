@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Agent Brain — 7-Schichten-Gedächtnis für AI-Agents | KaderOS",
+  title: "Agent Brain — Permanentes Gedächtnis für AI Agents | KaderOS",
   description:
-    "Dein AI Agent vergisst alles. Jedes. Einzelne. Mal. Der Agent Brain gibt deinem Agent ein Gedächtnis mit 7 Schichten — gebaut wie ein echtes Gehirn. CHF 5/Monat. Kein LLM. Swiss Hosted. Open Source.",
+    "Eine API. Dein Agent erinnert sich an alles — über Sessions, Tools und Workflows hinweg. Free Tier verfügbar. Pro ab CHF 29/Monat. Kein LLM. Swiss Hosted. Open Source.",
   openGraph: {
-    title: "Agent Brain — Das Gedächtnis, das AI-Agents gefehlt hat",
+    title: "Agent Brain — Permanentes Gedächtnis für AI Agents",
     description:
-      "7 Schichten. Inspiriert vom menschlichen Gehirn. Gebaut für AI-Agents. CHF 5/Monat. Kein LLM. Swiss Hosted.",
+      "Eine API. Dein Agent erinnert sich an alles. Free Tier verfügbar. Pro ab CHF 29/Monat. Kein LLM. Swiss Hosted.",
     url: "https://kaderos.io/humanaibrain",
   },
   alternates: {
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
             name: "Was kostet der Agent Brain?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "CHF 5 pro Monat. Zum Vergleich: Mem0 Pro kostet $249/Monat, Cognee On-Prem EUR 1970/Monat. Swiss Hosting inklusive.",
+              text: "Free Tier mit 1'000 Memories/Monat kostenlos. Pro ab CHF 29/Monat mit Unlimited Memories, Unlimited Agents und Priority Support. Swiss Hosting inklusive.",
             },
           },
           {
@@ -82,10 +82,10 @@ export const metadata: Metadata = {
         "@type": "Product",
         name: "KaderOS Agent Brain",
         description:
-          "7-Schichten Gedächtnissystem für AI-Agents nach dem Vorbild des menschlichen Gehirns. Kein LLM. Swiss Hosted. Open Source.",
+          "Permanentes Gedächtnis für AI Agents. Eine API für Store und Recall. 7 Memory Layers. Kein LLM. Swiss Hosted. Open Source.",
         offers: {
           "@type": "Offer",
-          price: "5",
+          price: "29",
           priceCurrency: "CHF",
           availability: "https://schema.org/InStock",
         },
