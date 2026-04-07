@@ -25,16 +25,21 @@ export const cityPages: RelatedLink[] = [
 ];
 
 export const branchenPages: RelatedLink[] = [
-  { label: "CTO für Treuhand", href: "/ai-team/cto-fuer-treuhand" },
-  { label: "CTO für Startup", href: "/ai-team/cto-fuer-startup" },
-  { label: "CTO für Agentur", href: "/ai-team/cto-fuer-agentur" },
-  { label: "CTO für E-Commerce", href: "/ai-team/cto-fuer-ecommerce" },
-  { label: "CTO für Immobilien", href: "/ai-team/cto-fuer-immobilien" },
-  { label: "Marketing für KMU", href: "/ai-team/marketing-fuer-kmu" },
-  { label: "HR für KMU", href: "/ai-team/hr-fuer-kmu" },
-  { label: "Buchhaltung für Treuhand", href: "/ai-team/buchhaltung-fuer-treuhand" },
-  { label: "Support für E-Commerce", href: "/ai-team/support-fuer-ecommerce" },
-  { label: "Operations für Agentur", href: "/ai-team/operations-fuer-agentur" },
+  // CTO highlights
+  { label: "AI CTO für Treuhand", href: "/ai-team/cto-fuer-treuhand" },
+  { label: "AI CTO für Immobilien", href: "/ai-team/cto-fuer-immobilien" },
+  { label: "AI CTO für IT", href: "/ai-team/cto-fuer-it" },
+  // CMO highlights
+  { label: "AI CMO für Handel", href: "/ai-team/cmo-fuer-handel" },
+  { label: "AI CMO für Gastronomie", href: "/ai-team/cmo-fuer-gastronomie" },
+  // CFO highlights
+  { label: "AI CFO für Handwerk", href: "/ai-team/cfo-fuer-handwerk" },
+  { label: "AI CFO für Pharma", href: "/ai-team/cfo-fuer-pharma" },
+  // Sales Lead highlights
+  { label: "AI Sales Lead für Beratung", href: "/ai-team/sales-lead-fuer-beratung" },
+  { label: "AI Sales Lead für Logistik", href: "/ai-team/sales-lead-fuer-logistik" },
+  // Content Lead highlights
+  { label: "AI Content Lead für Bildung", href: "/ai-team/content-lead-fuer-bildung" },
 ];
 
 export function getRelatedCityLinks(currentSlug: string): RelatedLink[] {
