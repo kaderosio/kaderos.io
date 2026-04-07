@@ -1,72 +1,7 @@
-import Link from "next/link";
+"use client";
 
-export const metadata = {
-  title: "Human AI Brain — 7-Schichten-Gedächtnis nach dem Vorbild des menschlichen Gehirns | KaderOS",
-  description:
-    "Wie KaderOS das menschliche Gehirn in ein AI-Gedächtnis übersetzt. 7 Schichten: Perception Gate, Working Memory, Episodisches Gedächtnis, Knowledge Graph, Prozedurales Lernen, Predictive Engine, Dream Cycle. Keine LLMs. Reine Neurowissenschaft.",
-  openGraph: {
-    title: "Human AI Brain — Das Gedächtnis, das AI-Agents gefehlt hat",
-    description: "7 Schichten. Inspiriert vom menschlichen Gehirn. Gebaut für AI-Agents. CHF 5/Monat.",
-    url: "https://kaderos.io/humanaibrain",
-  },
-  alternates: {
-    canonical: "https://kaderos.io/humanaibrain",
-  },
-  other: {
-    "script:ld+json": JSON.stringify([
-      {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        mainEntity: [
-          {
-            "@type": "Question",
-            name: "Was ist der Human AI Brain?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Der Human AI Brain ist ein 7-Schichten Gedächtnissystem für AI-Agents, das nach dem Vorbild des menschlichen Gehirns gebaut wurde. Er nutzt keine LLMs, sondern reine Mathematik: Vektorsuche, Graphen und neurowissenschaftliche Prinzipien.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "Warum 7 Schichten?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Das menschliche Gedächtnis arbeitet in Schichten: sensorisch, kurzzeitig, episodisch, semantisch, prozedural, prädiktiv, konsolidierend. Der Human AI Brain bildet jede dieser Funktionen als technische Schicht ab.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "Braucht der Human AI Brain ein LLM wie GPT-4?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Nein. Der Brain nutzt kein Sprachmodell. Alles basiert auf sentence-transformers (384d Embeddings), spaCy für Entity Extraction, PostgreSQL/pgvector für Vektorsuche und Graph-Algorithmen. Kein API-Call nach aussen.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "Was kostet der Human AI Brain?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "CHF 5 pro Monat. Zum Vergleich: Mem0 Pro kostet $249/Monat, Zep Pro $50/Monat. Swiss Hosting inklusive.",
-            },
-          },
-        ],
-      },
-      {
-        "@context": "https://schema.org",
-        "@type": "Product",
-        name: "KaderOS Human AI Brain",
-        description: "7-Schichten Gedächtnissystem für AI-Agents nach dem Vorbild des menschlichen Gehirns",
-        offers: {
-          "@type": "Offer",
-          price: "5",
-          priceCurrency: "CHF",
-          availability: "https://schema.org/InStock",
-        },
-      },
-    ]),
-  },
-};
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 
 /* ── Data ───────────────────────────────────────────────────── */
 
@@ -200,478 +135,753 @@ const PRINCIPLES = [
   },
 ];
 
-/* ── Component ──────────────────────────────────────────────── */
+/* ── Scroll Reveal Hook ───────────────────────────────────── */
+
+function useReveal<T extends HTMLElement>() {
+  const ref = useRef<T>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      { threshold: 0.12 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  return { ref, visible };
+}
+
+/* ── Layer Card Component ─────────────────────────────────── */
+
+function LayerCard({ layer, index }: { layer: typeof LAYERS[number]; index: number }) {
+  const { ref, visible } = useReveal<HTMLDivElement>();
+  const [tab, setTab] = useState<"brain" | "tech">("brain");
+
+  return (
+    <div
+      ref={ref}
+      className="relative transition-all duration-700 ease-out"
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible
+          ? "perspective(800px) rotateX(0deg) translateY(0)"
+          : "perspective(800px) rotateX(3deg) translateY(40px)",
+        transitionDelay: `${index * 80}ms`,
+        marginTop: index > 0 ? "-12px" : "0",
+        zIndex: index + 1,
+      }}
+    >
+      <div
+        className="relative rounded-2xl lg:rounded-3xl bg-white border border-gray-200/80 overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-500"
+        style={{
+          transform: "perspective(800px) rotateX(1deg)",
+        }}
+      >
+        {/* Left color stripe */}
+        <div
+          className="absolute left-0 top-0 bottom-0 w-1.5 lg:w-2"
+          style={{ background: `linear-gradient(to bottom, ${layer.color}, ${layer.color}88)` }}
+        />
+
+        {/* Giant background layer number */}
+        <div
+          className="absolute right-4 lg:right-8 top-1/2 -translate-y-1/2 text-[80px] sm:text-[100px] lg:text-[140px] font-black leading-none select-none pointer-events-none"
+          style={{ color: `${layer.color}08` }}
+        >
+          {layer.num}
+        </div>
+
+        <div className="relative pl-6 lg:pl-8 pr-4 lg:pr-8 py-6 lg:py-8">
+          {/* Header */}
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5 mb-5">
+            <div
+              className="flex items-center justify-center w-10 h-10 lg:w-12 lg:h-12 rounded-xl text-white text-sm lg:text-base font-extrabold shrink-0"
+              style={{ backgroundColor: layer.color }}
+            >
+              {layer.num}
+            </div>
+            <div>
+              <div className="text-[11px] text-gray-400 uppercase tracking-[0.15em] font-semibold">
+                {layer.brain}
+              </div>
+              <h3 className="text-xl lg:text-2xl font-bold text-gray-900 tracking-tight">
+                {layer.ai}
+              </h3>
+            </div>
+          </div>
+
+          {/* Tab switcher */}
+          <div className="flex gap-1 mb-5 bg-gray-100 rounded-lg p-1 w-fit">
+            <button
+              onClick={() => setTab("brain")}
+              className={`px-4 py-2 rounded-md text-[13px] font-semibold transition-all duration-200 ${
+                tab === "brain"
+                  ? "bg-white text-gray-900 shadow-sm"
+                  : "text-gray-500 hover:text-gray-700"
+              }`}
+            >
+              🧠 Gehirn
+            </button>
+            <button
+              onClick={() => setTab("tech")}
+              className={`px-4 py-2 rounded-md text-[13px] font-semibold transition-all duration-200 ${
+                tab === "tech"
+                  ? "bg-white text-gray-900 shadow-sm"
+                  : "text-gray-500 hover:text-gray-700"
+              }`}
+            >
+              ⚙️ Technik
+            </button>
+          </div>
+
+          {/* Content */}
+          <div className="min-h-[100px]">
+            {tab === "brain" ? (
+              <p className="text-[15px] lg:text-base text-gray-600 leading-relaxed max-w-2xl">
+                {layer.humanDesc}
+              </p>
+            ) : (
+              <div>
+                <p className="text-[15px] lg:text-base text-gray-600 leading-relaxed mb-4 max-w-2xl">
+                  {layer.techDesc}
+                </p>
+                <div className="inline-block text-[12px] text-gray-500 font-mono bg-gray-50 rounded-lg px-3 py-2 border border-gray-100">
+                  {layer.techStack}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── Main Page Component ──────────────────────────────────── */
 
 export default function HumanAIBrainPage() {
+  const heroRef = useRef<HTMLDivElement>(null);
+  const problemReveal = useReveal<HTMLDivElement>();
+  const solutionReveal = useReveal<HTMLDivElement>();
+  const dreamReveal = useReveal<HTMLDivElement>();
+  const timelineReveal = useReveal<HTMLDivElement>();
+  const comparisonReveal = useReveal<HTMLDivElement>();
+  const battleReveal = useReveal<HTMLDivElement>();
+  const principlesReveal = useReveal<HTMLDivElement>();
+  const techReveal = useReveal<HTMLDivElement>();
+  const faqReveal = useReveal<HTMLDivElement>();
+  const ctaReveal = useReveal<HTMLDivElement>();
+
   return (
-    <div className="py-20 px-6">
-      {/* Hero */}
-      <div className="max-w-4xl mx-auto text-center mb-24">
-        <div className="text-[12px] font-semibold text-[#000088] uppercase tracking-widest mb-4">
-          Human AI Brain
-        </div>
-        <h1
-          className="text-[40px] sm:text-[56px] md:text-[64px] font-extrabold tracking-tight mb-6 leading-[1.05]"
-          style={{ color: "#1D1D1F" }}
-        >
-          Was, wenn AI-Agents<br />
-          <span className="text-[#6E6E73]">ein menschliches Gedächtnis hätten?</span>
-        </h1>
-        <p className="text-[18px] sm:text-[20px] text-[#6E6E73] max-w-2xl mx-auto mb-4 leading-relaxed">
-          7 Schichten. Inspiriert von Neurowissenschaft. Gebaut für Maschinen.
-          <br />
-          <span className="text-[#1D1D1F] font-semibold">Kein LLM. Reine Mathematik. CHF 5/Monat.</span>
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
-          <Link
-            href="/signup"
-            className="px-8 py-4 bg-[#000088] text-white rounded-xl font-semibold text-[15px] hover:bg-[#000066] hover:shadow-xl transition-all"
-          >
-            Gratis starten
-          </Link>
-          <Link
-            href="#layers"
-            className="px-8 py-4 border-2 border-[#E5E5EA] text-[#1D1D1F] rounded-xl font-semibold text-[15px] hover:border-[#000088]/30 transition-all"
-          >
-            Die 7 Schichten entdecken
-          </Link>
-        </div>
-      </div>
+    <>
+      <style>{`
+        @keyframes brainPulse {
+          0%, 100% { transform: scale(1); opacity: 0.4; }
+          50% { transform: scale(1.15); opacity: 0.15; }
+        }
+        @keyframes brainPulse2 {
+          0%, 100% { transform: scale(1); opacity: 0.25; }
+          50% { transform: scale(1.25); opacity: 0.08; }
+        }
+        @keyframes brainPulse3 {
+          0%, 100% { transform: scale(1); opacity: 0.15; }
+          50% { transform: scale(1.35); opacity: 0.04; }
+        }
+        @keyframes float {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-6px); }
+        }
+        @keyframes dreamGlow {
+          0%, 100% { box-shadow: 0 0 20px rgba(153, 153, 238, 0.15); }
+          50% { box-shadow: 0 0 40px rgba(153, 153, 238, 0.3); }
+        }
+        .reveal-up {
+          opacity: 0;
+          transform: translateY(32px);
+          transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-up.is-visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      `}</style>
 
-      {/* The Problem */}
-      <div className="max-w-3xl mx-auto mb-24">
-        <div className="bg-[#FEF2F2] border border-[#FECACA] rounded-2xl p-8 sm:p-10">
-          <h2 className="text-[24px] sm:text-[28px] font-bold mb-4 text-[#1D1D1F]">
-            Das Problem: AI-Agents haben Amnesie.
-          </h2>
-          <p className="text-[16px] text-[#6E6E73] leading-relaxed mb-4">
-            Jede Session bei null. Kein Kontext. Kein Lernen. Kein Wachstum.
-            ChatGPT speichert eine flache Notiz-Liste. CrewAI hat kein Memory.
-            AutoGen vergisst nach jedem Run. n8n ist komplett stateless.
-          </p>
-          <p className="text-[16px] text-[#1D1D1F] font-semibold">
-            Stell dir vor, du stellst einen Mitarbeiter ein — und jeden Morgen hat er alles vergessen.
-          </p>
-        </div>
-      </div>
-
-      {/* The Solution */}
-      <div className="max-w-3xl mx-auto text-center mb-16">
-        <h2 className="text-[32px] sm:text-[40px] font-bold mb-4 text-[#1D1D1F]">
-          Die Lösung: Ein Gedächtnis wie deins.
-        </h2>
-        <p className="text-[17px] text-[#6E6E73] leading-relaxed max-w-2xl mx-auto">
-          Wir haben studiert, wie das menschliche Gehirn Informationen verarbeitet, speichert,
-          abruft, verknüpft und vergisst — und jede Funktion als technische Schicht abgebildet.
-        </p>
-      </div>
-
-      {/* 7 Layers — Deep Dive */}
-      <div id="layers" className="max-w-4xl mx-auto mb-24">
-        <div className="space-y-10">
-          {LAYERS.map((layer) => (
-            <div
-              key={layer.num}
-              className="rounded-3xl border border-[#E5E5EA] overflow-hidden hover:shadow-xl transition-all"
-            >
-              {/* Header */}
+      <div className="bg-white">
+        {/* ─── HERO ─── */}
+        <section ref={heroRef} className="relative overflow-hidden">
+          <div className="max-w-5xl mx-auto px-6 pt-24 sm:pt-32 lg:pt-40 pb-24 sm:pb-32 lg:pb-40 text-center">
+            {/* Brain pulse rings */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
               <div
-                className={`bg-gradient-to-r ${layer.gradient} px-6 sm:px-8 py-5 flex items-center gap-4`}
-              >
-                <span className="text-[28px] font-extrabold text-white/40">{layer.num}</span>
-                <div>
-                  <div className="text-[11px] text-white/60 uppercase tracking-widest font-semibold">
-                    {layer.brain}
-                  </div>
-                  <div className="text-[20px] sm:text-[22px] font-bold text-white">
-                    {layer.ai}
-                  </div>
-                </div>
-              </div>
-
-              {/* Content */}
-              <div className="p-6 sm:p-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Human */}
-                <div>
-                  <div className="text-[11px] font-semibold text-[#86868B] uppercase tracking-widest mb-2">
-                    Menschliches Gehirn
-                  </div>
-                  <p className="text-[15px] text-[#6E6E73] leading-relaxed">
-                    {layer.humanDesc}
-                  </p>
-                </div>
-                {/* AI */}
-                <div>
-                  <div className="text-[11px] font-semibold text-[#000088] uppercase tracking-widest mb-2">
-                    KaderOS Implementierung
-                  </div>
-                  <p className="text-[15px] text-[#6E6E73] leading-relaxed mb-3">
-                    {layer.techDesc}
-                  </p>
-                  <div className="text-[12px] text-[#86868B] font-mono bg-[#F5F5F7] rounded-lg px-3 py-2">
-                    {layer.techStack}
-                  </div>
-                </div>
-              </div>
+                className="w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] lg:w-[500px] lg:h-[500px] rounded-full border-2 border-indigo-200"
+                style={{ animation: "brainPulse 4s ease-in-out infinite" }}
+              />
+              <div
+                className="absolute w-[400px] h-[400px] sm:w-[550px] sm:h-[550px] lg:w-[680px] lg:h-[680px] rounded-full border border-indigo-100"
+                style={{ animation: "brainPulse2 4s ease-in-out infinite 0.5s" }}
+              />
+              <div
+                className="absolute w-[500px] h-[500px] sm:w-[700px] sm:h-[700px] lg:w-[860px] lg:h-[860px] rounded-full border border-indigo-50"
+                style={{ animation: "brainPulse3 4s ease-in-out infinite 1s" }}
+              />
             </div>
-          ))}
-        </div>
-      </div>
 
-      {/* Principles */}
-      <div className="max-w-4xl mx-auto mb-24">
-        <h2 className="text-[32px] font-bold text-center mb-10 text-[#1D1D1F]">
-          Design-Prinzipien
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {PRINCIPLES.map((p) => (
-            <div
-              key={p.title}
-              className="p-6 rounded-2xl border border-[#E5E5EA] hover:border-[#000088]/20 transition-all"
-            >
-              <div className="text-[28px] mb-3">{p.icon}</div>
-              <h3 className="text-[17px] font-bold mb-2 text-[#1D1D1F]">{p.title}</h3>
-              <p className="text-[14px] text-[#6E6E73] leading-relaxed">{p.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Dream Cycle Deep Dive */}
-      <div className="max-w-4xl mx-auto mb-24">
-        <div className="bg-gradient-to-br from-[#000088]/5 to-white rounded-3xl p-8 sm:p-12 border border-[#000088]/10">
-          <div className="text-[12px] font-semibold text-[#000088] uppercase tracking-widest mb-3">
-            Deep Dive
-          </div>
-          <h2 className="text-[32px] sm:text-[36px] font-bold mb-6 text-[#1D1D1F]">
-            Der Dream Cycle — was um 02:00 nachts passiert
-          </h2>
-          <p className="text-[16px] text-[#6E6E73] leading-relaxed mb-8">
-            Im REM-Schlaf konsolidiert dein Gehirn das Gelernte. Unwichtiges wird abgebaut (synaptische Homöostase),
-            ähnliche Erinnerungen werden verdichtet, und zufällige Neukombinationen erzeugen kreative Einsichten.
-            Der Dream Cycle macht exakt das — jede Nacht, automatisch.
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div className="p-6 bg-white rounded-xl border border-[#E5E5EA]">
-              <div className="text-[11px] font-semibold text-[#86868B] uppercase tracking-widest mb-3">
-                Phase 1 — 02:00
+            <div className="relative">
+              <div className="text-[11px] sm:text-[12px] font-semibold text-indigo-600 uppercase tracking-[0.2em] mb-6">
+                Human AI Brain
               </div>
-              <h4 className="text-[18px] font-bold mb-2">Vergessen</h4>
-              <p className="text-[14px] text-[#6E6E73] leading-relaxed">
-                Ebbinghaus Decay-Kurve. Erinnerungen die selten abgerufen werden, verlieren Gewicht.
-                Unter dem Schwellenwert: entfernt. Genau wie synaptische Verbindungen die im Schlaf abgebaut werden.
-              </p>
-              <div className="text-[12px] text-[#86868B] font-mono mt-3">
-                R(t) = e^(-t/S) · w
-              </div>
-            </div>
-            <div className="p-6 bg-white rounded-xl border border-[#E5E5EA]">
-              <div className="text-[11px] font-semibold text-[#86868B] uppercase tracking-widest mb-3">
-                Phase 2 — 02:15
-              </div>
-              <h4 className="text-[18px] font-bold mb-2">Verdichten</h4>
-              <p className="text-[14px] text-[#6E6E73] leading-relaxed">
-                Erinnerungen mit &gt;92% Cosine-Ähnlichkeit werden zusammengeführt.
-                Die stärkere bleibt, die schwächere wird absorbiert.
-                Das Gedächtnis wird kompakter, aber nicht ärmer.
-              </p>
-              <div className="text-[12px] text-[#86868B] font-mono mt-3">
-                cos(a,b) &gt; 0.92 → merge
-              </div>
-            </div>
-            <div className="p-6 bg-white rounded-xl border border-[#E5E5EA]">
-              <div className="text-[11px] font-semibold text-[#86868B] uppercase tracking-widest mb-3">
-                Phase 3 — 02:30
-              </div>
-              <h4 className="text-[18px] font-bold mb-2">Entdecken</h4>
-              <p className="text-[14px] text-[#6E6E73] leading-relaxed">
-                Zufällige Paare unverbundener Entities werden auf versteckte Verbindungen geprüft.
-                «Max hat dasselbe Problem wie das Projekt vor 3 Monaten» — diese Einsichten entstehen hier.
-              </p>
-              <div className="text-[12px] text-[#86868B] font-mono mt-3">
-                random_pairs(unconnected) → check
-              </div>
-            </div>
-          </div>
-
-          <p className="text-[14px] text-[#86868B] text-center">
-            Morgens um 06:00 hat dein Agent ein saubereres, kompakteres und kreativeres Gedächtnis als am Vorabend.
-          </p>
-        </div>
-      </div>
-
-      {/* Growth Timeline */}
-      <div className="max-w-3xl mx-auto mb-24">
-        <h2 className="text-[32px] font-bold text-center mb-10 text-[#1D1D1F]">
-          Wie der Brain wächst
-        </h2>
-        <div className="relative">
-          {/* Vertical line */}
-          <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#000088] to-[#9999ee]" />
-
-          <div className="space-y-8">
-            {TIMELINE.map((t, i) => (
-              <div key={t.time} className="flex gap-6 relative">
-                <div
-                  className="flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center text-white text-[11px] font-bold z-10"
-                  style={{ background: LAYERS[Math.min(i, 6)].color }}
+              <h1 className="text-[36px] sm:text-[56px] md:text-[68px] lg:text-[80px] font-extrabold tracking-tight leading-[1.05] mb-8">
+                <span className="text-gray-900">Was, wenn AI-Agents</span>
+                <br />
+                <span
+                  className="bg-clip-text text-transparent"
+                  style={{
+                    backgroundImage: "linear-gradient(135deg, #4338ca 0%, #6366f1 40%, #818cf8 100%)",
+                  }}
                 >
-                  {t.time.split(" ")[1]}
-                </div>
-                <div className="pt-1">
-                  <div className="text-[14px] font-bold text-[#1D1D1F] mb-1">{t.time}</div>
-                  <p className="text-[14px] text-[#6E6E73] leading-relaxed">{t.event}</p>
-                  <span className="text-[12px] text-[#86868B] font-mono">{t.nodes}</span>
+                  ein menschliches Gedächtnis
+                </span>
+                <br />
+                <span className="text-gray-900">hätten?</span>
+              </h1>
+              <p className="text-lg sm:text-xl text-gray-500 max-w-2xl mx-auto mb-4 leading-relaxed">
+                7 Schichten. Inspiriert von Neurowissenschaft. Gebaut für Maschinen.
+              </p>
+              <p className="text-base sm:text-lg text-gray-900 font-semibold mb-12">
+                Kein LLM. Reine Mathematik. CHF 5/Monat.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link
+                  href="/signup"
+                  className="px-10 py-4 bg-[#000088] text-white rounded-2xl font-semibold text-[15px] hover:bg-[#000066] hover:shadow-2xl hover:shadow-indigo-500/20 transition-all duration-300"
+                >
+                  Gratis starten
+                </Link>
+                <Link
+                  href="#layers"
+                  className="px-10 py-4 border-2 border-gray-200 text-gray-900 rounded-2xl font-semibold text-[15px] hover:border-indigo-300 hover:bg-gray-50 transition-all duration-300"
+                >
+                  Die 7 Schichten entdecken
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ─── PROBLEM ─── */}
+        <section className="px-6 mb-32 sm:mb-40">
+          <div
+            ref={problemReveal.ref}
+            className={`max-w-4xl mx-auto reveal-up ${problemReveal.visible ? "is-visible" : ""}`}
+          >
+            <div className="flex flex-col md:flex-row gap-8 items-start bg-red-50/60 border border-red-100 rounded-3xl p-8 sm:p-12">
+              <div className="flex-shrink-0">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-red-100 flex items-center justify-center">
+                  <span className="text-red-500 text-4xl sm:text-5xl font-black">!</span>
                 </div>
               </div>
-            ))}
+              <div>
+                <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-gray-900 tracking-tight">
+                  Das Problem: AI-Agents haben Amnesie.
+                </h2>
+                <p className="text-base text-gray-500 leading-relaxed mb-4">
+                  Jede Session bei null. Kein Kontext. Kein Lernen. Kein Wachstum.
+                  ChatGPT speichert eine flache Notiz-Liste. CrewAI hat kein Memory.
+                  AutoGen vergisst nach jedem Run. n8n ist komplett stateless.
+                </p>
+                <p className="text-base text-gray-900 font-semibold">
+                  Stell dir vor, du stellst einen Mitarbeiter ein — und jeden Morgen hat er alles vergessen.
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </section>
 
-      {/* Comparison Table */}
-      <div className="max-w-5xl mx-auto mb-24">
-        <h2 className="text-[32px] font-bold text-center mb-4 text-[#1D1D1F]">
-          Wie der Human AI Brain sich unterscheidet
-        </h2>
-        <p className="text-[16px] text-[#6E6E73] text-center mb-10 max-w-2xl mx-auto">
-          Kein anderes Tool auf dem Markt hat 7 Schichten, einen Knowledge Graph,
-          prozedurales Lernen und einen Dream Cycle — für CHF 5/Monat.
-        </p>
-        <div className="overflow-x-auto">
-          <table className="w-full text-[13px]">
-            <thead>
-              <tr className="border-b-2 border-[#000088]">
-                <th className="text-left py-3 px-4 font-semibold">Tool</th>
-                <th className="text-left py-3 px-4 font-semibold">Schichten</th>
-                <th className="text-left py-3 px-4 font-semibold">Typ</th>
-                <th className="text-left py-3 px-4 font-semibold">Graph</th>
-                <th className="text-left py-3 px-4 font-semibold">Lernen</th>
-                <th className="text-left py-3 px-4 font-semibold">Dream</th>
-                <th className="text-left py-3 px-4 font-semibold">Benchmark</th>
-                <th className="text-left py-3 px-4 font-semibold">Preis</th>
-              </tr>
-            </thead>
-            <tbody>
-              {COMPARISON.map((row) => (
-                <tr
-                  key={row.tool}
-                  className={`border-b border-[#E5E5EA] ${
-                    row.tool === "KaderOS Brain"
-                      ? "bg-[#000088]/5 font-semibold"
-                      : ""
-                  }`}
-                >
-                  <td className="py-3 px-4">{row.tool}</td>
-                  <td className="py-3 px-4">{row.layers}</td>
-                  <td className="py-3 px-4">{row.type}</td>
-                  <td className="py-3 px-4">{row.graph}</td>
-                  <td className="py-3 px-4">{row.learning}</td>
-                  <td className="py-3 px-4">{row.dream}</td>
-                  <td className="py-3 px-4">{row.benchmark}</td>
-                  <td className="py-3 px-4">{row.price}</td>
-                </tr>
+        {/* ─── SOLUTION ─── */}
+        <section className="px-6 mb-16 sm:mb-20">
+          <div
+            ref={solutionReveal.ref}
+            className={`max-w-3xl mx-auto text-center reveal-up ${solutionReveal.visible ? "is-visible" : ""}`}
+          >
+            <h2 className="text-3xl sm:text-[44px] font-bold mb-5 text-gray-900 tracking-tight leading-tight">
+              Die Lösung: Ein Gedächtnis wie deins.
+            </h2>
+            <p className="text-lg text-gray-500 leading-relaxed max-w-2xl mx-auto">
+              Wir haben studiert, wie das menschliche Gehirn Informationen verarbeitet, speichert,
+              abruft, verknüpft und vergisst — und jede Funktion als technische Schicht abgebildet.
+            </p>
+          </div>
+        </section>
+
+        {/* ─── 7 LAYERS ─── */}
+        <section id="layers" className="px-6 mb-32 sm:mb-40">
+          <div className="max-w-4xl mx-auto">
+            <div className="space-y-0">
+              {LAYERS.map((layer, i) => (
+                <LayerCard key={layer.num} layer={layer} index={i} />
               ))}
-            </tbody>
-          </table>
-        </div>
-        <p className="text-[11px] text-[#86868B] mt-4 text-center">
-          * KaderOS Brain wird derzeit nicht auf LongMemEval benchmarked — unser Fokus liegt auf realem Business-Impact, nicht akademischen Metriken.
-          Benchmark-Quellen: <a href="https://vectorize.io/articles/best-ai-agent-memory-systems" className="underline hover:text-[#000088]" target="_blank" rel="noopener noreferrer">Vectorize.io 2026</a>, <a href="https://dev.to/varun_pratapbhardwaj_b13/5-ai-agent-memory-systems-compared-mem0-zep-letta-supermemory-superlocalmemory-2026-benchmark-59p3" className="underline hover:text-[#000088]" target="_blank" rel="noopener noreferrer">DEV.to Benchmark</a>.
-        </p>
-      </div>
-
-      {/* Warum nicht die Anderen? */}
-      <div className="max-w-4xl mx-auto mb-24">
-        <h2 className="text-[32px] font-bold text-center mb-4 text-[#1D1D1F]">
-          Warum nicht die Anderen?
-        </h2>
-        <p className="text-[16px] text-[#6E6E73] text-center mb-10 max-w-2xl mx-auto">
-          Jedes Tool löst einen Teil. Keines löst das ganze Problem.
-        </p>
-        <div className="grid md:grid-cols-2 gap-6">
-          {[
-            {
-              name: "Mem0",
-              stars: "48K GitHub Stars",
-              problem: "Graph nur im $249/Mo Pro-Tier. 49% LongMemEval — schlechtester Benchmark aller getesteten Systeme. Kein Vergessen, keine Konsolidierung, kein prozedurales Lernen.",
-              vs: "KaderOS Brain hat Graph, Dream Cycle und Procedural Memory ab CHF 5/Mo.",
-            },
-            {
-              name: "Zep / Graphiti",
-              stars: "Temporal Knowledge Graph",
-              problem: "Self-Hosting wurde eingestellt. Credit-basiertes Pricing schwer kalkulierbar. Kein prozedurales Lernen, kein Dream Cycle, keine Predictive Engine.",
-              vs: "KaderOS Brain ist Open Source, self-hostbar, und hat 4 Schichten mehr.",
-            },
-            {
-              name: "Letta (MemGPT)",
-              stars: "$10M Funding",
-              problem: "LLM entscheidet was erinnert wird — teuer, langsam, unvorhersehbar. Kein Graph, kein temporales Tracking. Du kaufst ein Agent-Runtime, nicht nur Memory.",
-              vs: "KaderOS Brain nutzt kein LLM für Memory. Reine Mathematik = 50x günstiger.",
-            },
-            {
-              name: "Hindsight",
-              stars: "91.4% LongMemEval",
-              problem: "Bester Benchmark-Score — aber: kein Dream Cycle, kein prozedurales Lernen, keine Predictive Engine. Synthese-Schritt braucht Cloud-LLM. Neueres Projekt mit kleiner Community (~4K Stars).",
-              vs: "KaderOS Brain ist das einzige System das lernt, vergisst UND vorhersagt.",
-            },
-            {
-              name: "Cognee",
-              stars: "€7.5M Funding",
-              problem: "On-prem kostet €1'970/Monat. Kein Dream Cycle, keine Predictive Engine, kein prozedurales Lernen. Python-only. Kleinere Community.",
-              vs: "KaderOS Brain: CHF 5/Mo. 7 Schichten. Swiss Hosting. Open Source.",
-            },
-            {
-              name: "SuperMemory",
-              stars: "Closed Source",
-              problem: "Nicht Open Source. Self-Hosting braucht Enterprise Agreement. Kein prozedurales Lernen, kein Dream Cycle. Usage-based Pricing = unberechenbare Kosten.",
-              vs: "KaderOS Brain ist AGPLv3 Open Source. Fixpreis. Volle Transparenz.",
-            },
-          ].map((c) => (
-            <div key={c.name} className="bg-[#F5F5F7] rounded-2xl p-6 border border-[#E5E5EA]">
-              <div className="flex items-center justify-between mb-3">
-                <h3 className="text-[17px] font-bold text-[#1D1D1F]">{c.name}</h3>
-                <span className="text-[11px] text-[#86868B] bg-white px-2 py-1 rounded-full">{c.stars}</span>
-              </div>
-              <p className="text-[13px] text-[#6E6E73] leading-relaxed mb-3">{c.problem}</p>
-              <p className="text-[13px] text-[#000088] font-semibold leading-relaxed">→ {c.vs}</p>
             </div>
-          ))}
-        </div>
-
-        {/* USP Summary */}
-        <div className="mt-12 bg-gradient-to-r from-[#000088]/5 to-[#3739C1]/5 rounded-2xl p-8 border border-[#000088]/10">
-          <h3 className="text-[20px] font-bold text-[#1D1D1F] text-center mb-6">
-            Was nur der KaderOS Brain kann:
-          </h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-            {[
-              { icon: "🧠", label: "7 Schichten", sub: "Statt 1-3" },
-              { icon: "🌙", label: "Dream Cycle", sub: "Vergessen + Verdichten" },
-              { icon: "⚡", label: "Prozedurales Lernen", sub: "Automatische Regeln" },
-              { icon: "🔮", label: "Predictive Engine", sub: "Proaktive Alerts" },
-            ].map((u) => (
-              <div key={u.label} className="bg-white rounded-xl p-4 border border-[#E5E5EA]">
-                <div className="text-2xl mb-2">{u.icon}</div>
-                <div className="text-[14px] font-bold text-[#1D1D1F]">{u.label}</div>
-                <div className="text-[12px] text-[#86868B]">{u.sub}</div>
-              </div>
-            ))}
           </div>
-          <p className="text-[13px] text-[#6E6E73] text-center mt-6">
-            Kein anderes System auf dem Markt kombiniert Knowledge Graph + Prozedurales Lernen + Dream Cycle + Predictive Engine.
-            <br />Und keines macht es für <span className="font-bold text-[#000088]">CHF 5 pro Monat</span>.
-          </p>
-        </div>
-      </div>
+        </section>
 
-      {/* Tech Stack */}
-      <div className="max-w-4xl mx-auto mb-24">
-        <h2 className="text-[32px] font-bold text-center mb-4 text-[#1D1D1F]">
-          Tech Stack — keine Black Box
-        </h2>
-        <p className="text-[16px] text-[#6E6E73] text-center mb-10 max-w-2xl mx-auto">
-          Jede Komponente ist auditierbar, erklärbar und austauschbar.
-        </p>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {[
-            { label: "Vektor-Datenbank", tech: "pgvector (PostgreSQL)", detail: "Cosine, L2, Inner Product" },
-            { label: "Embeddings", tech: "sentence-transformers", detail: "384d multilingual, lokal" },
-            { label: "Entity Extraction", tech: "spaCy de_core_news_lg", detail: "PER, ORG, LOC, MISC" },
-            { label: "Knowledge Graph", tech: "PostgreSQL + Graph Queries", detail: "Entities → Edges → Traversal" },
-            { label: "Scheduling", tech: "APScheduler", detail: "Dream Cycle, Predictive Scan" },
-            { label: "API", tech: "FastAPI", detail: "REST + WebSocket" },
-            { label: "Hosting", tech: "Railway EU (Schweiz)", detail: "Swiss Data Residency" },
-            { label: "Monitoring", tech: "Audit Trail", detail: "Jede Änderung geloggt" },
-          ].map((item) => (
-            <div key={item.label} className="p-5 rounded-xl border border-[#E5E5EA] hover:border-[#000088]/20 transition-all">
-              <div className="text-[11px] text-[#86868B] uppercase tracking-wider font-semibold mb-1.5">
-                {item.label}
-              </div>
-              <div className="text-[14px] font-bold text-[#1D1D1F] mb-1">{item.tech}</div>
-              <div className="text-[12px] text-[#86868B]">{item.detail}</div>
+        {/* ─── PRINCIPLES ─── */}
+        <section className="px-6 mb-32 sm:mb-40">
+          <div
+            ref={principlesReveal.ref}
+            className={`max-w-4xl mx-auto reveal-up ${principlesReveal.visible ? "is-visible" : ""}`}
+          >
+            <h2 className="text-3xl sm:text-[40px] font-bold text-center mb-12 text-gray-900 tracking-tight">
+              Design-Prinzipien
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {PRINCIPLES.map((p) => (
+                <div
+                  key={p.title}
+                  className="group p-7 rounded-2xl border border-gray-100 bg-white hover:border-indigo-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+                >
+                  <div className="text-3xl mb-4">{p.icon}</div>
+                  <h3 className="text-lg font-bold mb-2 text-gray-900">{p.title}</h3>
+                  <p className="text-sm text-gray-500 leading-relaxed">{p.desc}</p>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
-
-      {/* FAQ */}
-      <div className="max-w-3xl mx-auto mb-24">
-        <h2 className="text-[32px] font-bold text-center mb-10 text-[#1D1D1F]">
-          Häufige Fragen
-        </h2>
-        <div className="space-y-6">
-          {[
-            {
-              q: "Warum 7 Schichten und nicht 3 oder 10?",
-              a: "Weil das menschliche Gedächtnis in 7 funktionalen Ebenen arbeitet: sensorischer Filter, Arbeitsgedächtnis, episodisches Gedächtnis, semantisches Netzwerk, prozedurales Lernen, Antizipation und Schlaf-Konsolidation. Wir haben jede Funktion 1:1 als technische Schicht abgebildet — nicht mehr, nicht weniger.",
-            },
-            {
-              q: "Braucht der Brain ein LLM wie GPT-4 oder Claude?",
-              a: "Nein. Der Brain nutzt kein Sprachmodell für die Gedächtnisarbeit. Embeddings kommen von sentence-transformers (lokal), Entity Extraction von spaCy (lokal), Vektorsuche von pgvector (PostgreSQL). Kein API-Call nach aussen. Das macht den Brain 50x günstiger als LLM-basierte Memory-Lösungen.",
-            },
-            {
-              q: "Wo liegen meine Daten?",
-              a: "Swiss Hosting auf Railway EU. Alle Daten bleiben in der Schweiz. Kein OpenAI, kein Anthropic, kein US-Cloud-Provider im Speicherpfad. nDSG-konform.",
-            },
-            {
-              q: "Wie schnell lernt der Agent?",
-              a: "Tag 1: Erste Erinnerungen. Tag 7: Knowledge Graph mit ~100 Entities. Tag 14: Erste Vorhersagen. Tag 30: 500+ Entities, prozedurale Regeln, proaktive Alerts. Tag 90: Tiefes Unternehmensverständnis mit kreativen Verbindungen.",
-            },
-            {
-              q: "Kann ich Erinnerungen korrigieren oder löschen?",
-              a: "Ja. Jede Erinnerung, jede Entity, jede Regel ist transparent und manuell überschreibbar. Du hast volle Kontrolle. Der Agent lernt — aber du bestimmst was er behalten darf.",
-            },
-            {
-              q: "Was kostet das?",
-              a: "CHF 5 pro Monat. Alles inklusive. Zum Vergleich: Mem0 Pro kostet $249/Monat (Graph erst ab Pro), Zep/Graphiti ab $25/Monat (kein Self-Hosting mehr), Letta $20-200/Monat (LLM-abhängig), Cognee On-Prem €1'970/Monat. Der KaderOS Brain ist das einzige 7-Schichten-System — und das günstigste produktionsreife AI-Gedächtnis auf dem Markt.",
-            },
-            {
-              q: "Ist der Code Open Source?",
-              a: "Ja. KaderOS ist Open Source unter AGPLv3. Du kannst den gesamten Brain-Code auf GitHub einsehen, auditieren und selbst hosten.",
-            },
-          ].map((faq) => (
-            <div key={faq.q} className="p-6 rounded-2xl border border-[#E5E5EA]">
-              <h3 className="text-[16px] font-bold mb-2 text-[#1D1D1F]">{faq.q}</h3>
-              <p className="text-[15px] text-[#6E6E73] leading-relaxed">{faq.a}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* CTA */}
-      <div className="max-w-3xl mx-auto text-center">
-        <div className="bg-gradient-to-br from-[#000088] to-[#3333aa] rounded-3xl p-10 sm:p-12 text-white">
-          <h2 className="text-[28px] sm:text-[36px] font-bold mb-4">
-            Gib deinen AI-Agents ein Gehirn.
-          </h2>
-          <p className="text-[17px] text-white/70 mb-8 max-w-lg mx-auto">
-            7 Schichten Gedächtnis. Inspiriert vom menschlichen Gehirn.
-            <br />
-            CHF 5/Monat. Swiss Hosting. Open Source.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/signup"
-              className="px-8 py-4 bg-white text-[#000088] rounded-xl font-semibold text-[15px] hover:bg-white/90 transition"
-            >
-              Gratis starten
-            </Link>
-            <Link
-              href="/brain"
-              className="px-8 py-4 border border-white/30 text-white rounded-xl font-semibold text-[15px] hover:bg-white/10 transition"
-            >
-              Kurzversion ansehen
-            </Link>
-            <Link
-              href="https://github.com/kaderosio/kaderos.io"
-              className="px-8 py-4 border border-white/30 text-white rounded-xl font-semibold text-[15px] hover:bg-white/10 transition"
-            >
-              GitHub
-            </Link>
           </div>
-        </div>
+        </section>
+
+        {/* ─── DREAM CYCLE ─── */}
+        <section className="mb-32 sm:mb-40">
+          <div
+            ref={dreamReveal.ref}
+            className={`reveal-up ${dreamReveal.visible ? "is-visible" : ""}`}
+          >
+            <div className="bg-[#0a0a1a] py-20 sm:py-28 px-6">
+              <div className="max-w-5xl mx-auto">
+                <div className="text-center mb-14">
+                  <div className="text-[11px] font-semibold text-indigo-400 uppercase tracking-[0.2em] mb-4">
+                    Deep Dive
+                  </div>
+                  <h2 className="text-3xl sm:text-[40px] font-bold mb-6 text-white tracking-tight leading-tight">
+                    Der Dream Cycle — was um 02:00 nachts passiert
+                  </h2>
+                  <p className="text-base text-gray-400 leading-relaxed max-w-2xl mx-auto">
+                    Im REM-Schlaf konsolidiert dein Gehirn das Gelernte. Unwichtiges wird abgebaut (synaptische Homöostase),
+                    ähnliche Erinnerungen werden verdichtet, und zufällige Neukombinationen erzeugen kreative Einsichten.
+                    Der Dream Cycle macht exakt das — jede Nacht, automatisch.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                  {[
+                    {
+                      phase: "Phase 1 — 02:00",
+                      title: "Vergessen",
+                      desc: "Ebbinghaus Decay-Kurve. Erinnerungen die selten abgerufen werden, verlieren Gewicht. Unter dem Schwellenwert: entfernt. Genau wie synaptische Verbindungen die im Schlaf abgebaut werden.",
+                      formula: "R(t) = e^(-t/S) · w",
+                    },
+                    {
+                      phase: "Phase 2 — 02:15",
+                      title: "Verdichten",
+                      desc: "Erinnerungen mit >92% Cosine-Ähnlichkeit werden zusammengeführt. Die stärkere bleibt, die schwächere wird absorbiert. Das Gedächtnis wird kompakter, aber nicht ärmer.",
+                      formula: "cos(a,b) > 0.92 → merge",
+                    },
+                    {
+                      phase: "Phase 3 — 02:30",
+                      title: "Entdecken",
+                      desc: "Zufällige Paare unverbundener Entities werden auf versteckte Verbindungen geprüft. «Max hat dasselbe Problem wie das Projekt vor 3 Monaten» — diese Einsichten entstehen hier.",
+                      formula: "random_pairs(unconnected) → check",
+                    },
+                  ].map((phase) => (
+                    <div
+                      key={phase.title}
+                      className="relative rounded-2xl bg-white/[0.04] border border-white/[0.08] p-7 backdrop-blur-sm hover:bg-white/[0.07] transition-all duration-500"
+                      style={{ animation: "dreamGlow 4s ease-in-out infinite" }}
+                    >
+                      <div className="text-[11px] font-semibold text-indigo-400/70 uppercase tracking-[0.15em] mb-3">
+                        {phase.phase}
+                      </div>
+                      <h4 className="text-xl font-bold mb-3 text-white">{phase.title}</h4>
+                      <p className="text-sm text-gray-400 leading-relaxed mb-4">
+                        {phase.desc}
+                      </p>
+                      <div className="text-xs text-indigo-300/60 font-mono bg-white/[0.04] rounded-lg px-3 py-2 inline-block">
+                        {phase.formula}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <p className="text-sm text-gray-500 text-center">
+                  Morgens um 06:00 hat dein Agent ein saubereres, kompakteres und kreativeres Gedächtnis als am Vorabend.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ─── GROWTH TIMELINE ─── */}
+        <section className="px-6 mb-32 sm:mb-40">
+          <div
+            ref={timelineReveal.ref}
+            className={`max-w-3xl mx-auto reveal-up ${timelineReveal.visible ? "is-visible" : ""}`}
+          >
+            <h2 className="text-3xl sm:text-[40px] font-bold text-center mb-14 text-gray-900 tracking-tight">
+              Wie der Brain wächst
+            </h2>
+            <div className="relative">
+              <div className="absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-[#000088] to-[#b3b3ff]" aria-hidden="true" />
+              <div className="space-y-10">
+                {TIMELINE.map((t, i) => (
+                  <div key={t.time} className="flex gap-6 relative">
+                    <div
+                      className="flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center text-white text-[11px] font-bold z-10 shadow-lg"
+                      style={{ background: LAYERS[Math.min(i, 6)].color }}
+                    >
+                      {t.time.split(" ")[1]}
+                    </div>
+                    <div className="pt-1">
+                      <div className="text-sm font-bold text-gray-900 mb-1">{t.time}</div>
+                      <p className="text-sm text-gray-500 leading-relaxed">{t.event}</p>
+                      <span className="text-xs text-gray-400 font-mono">{t.nodes}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ─── COMPARISON TABLE ─── */}
+        <section className="px-6 mb-32 sm:mb-40">
+          <div
+            ref={comparisonReveal.ref}
+            className={`max-w-5xl mx-auto reveal-up ${comparisonReveal.visible ? "is-visible" : ""}`}
+          >
+            <h2 className="text-3xl sm:text-[40px] font-bold text-center mb-4 text-gray-900 tracking-tight">
+              Wie der Human AI Brain sich unterscheidet
+            </h2>
+            <p className="text-base text-gray-500 text-center mb-12 max-w-2xl mx-auto">
+              Kein anderes Tool auf dem Markt hat 7 Schichten, einen Knowledge Graph,
+              prozedurales Lernen und einen Dream Cycle — für CHF 5/Monat.
+            </p>
+            <div className="overflow-x-auto rounded-2xl border border-gray-100 shadow-sm">
+              <table className="w-full text-[13px]">
+                <thead>
+                  <tr className="bg-gray-50/80 border-b border-gray-200">
+                    <th className="text-left py-4 px-5 font-semibold text-gray-900 sticky left-0 bg-gray-50/80 z-10">Tool</th>
+                    <th className="text-left py-4 px-5 font-semibold text-gray-900">Schichten</th>
+                    <th className="text-left py-4 px-5 font-semibold text-gray-900">Typ</th>
+                    <th className="text-left py-4 px-5 font-semibold text-gray-900">Graph</th>
+                    <th className="text-left py-4 px-5 font-semibold text-gray-900">Lernen</th>
+                    <th className="text-left py-4 px-5 font-semibold text-gray-900">Dream</th>
+                    <th className="text-left py-4 px-5 font-semibold text-gray-900">Benchmark</th>
+                    <th className="text-left py-4 px-5 font-semibold text-gray-900">Preis</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {COMPARISON.map((row) => {
+                    const isKaderos = row.tool === "KaderOS Brain";
+                    return (
+                      <tr
+                        key={row.tool}
+                        className={`border-b border-gray-100 transition-colors duration-200 ${
+                          isKaderos
+                            ? "bg-gradient-to-r from-indigo-50 to-purple-50/50 font-semibold"
+                            : "hover:bg-gray-50/50"
+                        }`}
+                      >
+                        <td className={`py-3.5 px-5 sticky left-0 z-10 ${isKaderos ? "bg-gradient-to-r from-indigo-50 to-purple-50/50 text-[#000088]" : "bg-white"}`}>
+                          {row.tool}
+                        </td>
+                        <td className="py-3.5 px-5">{row.layers}</td>
+                        <td className="py-3.5 px-5">{row.type}</td>
+                        <td className="py-3.5 px-5">{row.graph}</td>
+                        <td className="py-3.5 px-5">{row.learning}</td>
+                        <td className="py-3.5 px-5">{row.dream}</td>
+                        <td className="py-3.5 px-5">{row.benchmark}</td>
+                        <td className="py-3.5 px-5">{row.price}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+            <p className="text-[11px] text-gray-400 mt-4 text-center">
+              * KaderOS Brain wird derzeit nicht auf LongMemEval benchmarked — unser Fokus liegt auf realem Business-Impact, nicht akademischen Metriken.
+              Benchmark-Quellen: <a href="https://vectorize.io/articles/best-ai-agent-memory-systems" className="underline hover:text-[#000088] transition-colors" target="_blank" rel="noopener noreferrer">Vectorize.io 2026</a>, <a href="https://dev.to/varun_pratapbhardwaj_b13/5-ai-agent-memory-systems-compared-mem0-zep-letta-supermemory-superlocalmemory-2026-benchmark-59p3" className="underline hover:text-[#000088] transition-colors" target="_blank" rel="noopener noreferrer">DEV.to Benchmark</a>.
+            </p>
+          </div>
+        </section>
+
+        {/* ─── BATTLECARDS ─── */}
+        <section className="px-6 mb-32 sm:mb-40">
+          <div
+            ref={battleReveal.ref}
+            className={`max-w-4xl mx-auto reveal-up ${battleReveal.visible ? "is-visible" : ""}`}
+          >
+            <h2 className="text-3xl sm:text-[40px] font-bold text-center mb-4 text-gray-900 tracking-tight">
+              Warum nicht die Anderen?
+            </h2>
+            <p className="text-base text-gray-500 text-center mb-12 max-w-2xl mx-auto">
+              Jedes Tool löst einen Teil. Keines löst das ganze Problem.
+            </p>
+            <div className="grid md:grid-cols-2 gap-5">
+              {[
+                {
+                  name: "Mem0",
+                  stars: "48K GitHub Stars",
+                  problem: "Graph nur im $249/Mo Pro-Tier. 49% LongMemEval — schlechtester Benchmark aller getesteten Systeme. Kein Vergessen, keine Konsolidierung, kein prozedurales Lernen.",
+                  vs: "KaderOS Brain hat Graph, Dream Cycle und Procedural Memory ab CHF 5/Mo.",
+                },
+                {
+                  name: "Zep / Graphiti",
+                  stars: "Temporal Knowledge Graph",
+                  problem: "Self-Hosting wurde eingestellt. Credit-basiertes Pricing schwer kalkulierbar. Kein prozedurales Lernen, kein Dream Cycle, keine Predictive Engine.",
+                  vs: "KaderOS Brain ist Open Source, self-hostbar, und hat 4 Schichten mehr.",
+                },
+                {
+                  name: "Letta (MemGPT)",
+                  stars: "$10M Funding",
+                  problem: "LLM entscheidet was erinnert wird — teuer, langsam, unvorhersehbar. Kein Graph, kein temporales Tracking. Du kaufst ein Agent-Runtime, nicht nur Memory.",
+                  vs: "KaderOS Brain nutzt kein LLM für Memory. Reine Mathematik = 50x günstiger.",
+                },
+                {
+                  name: "Hindsight",
+                  stars: "91.4% LongMemEval",
+                  problem: "Bester Benchmark-Score — aber: kein Dream Cycle, kein prozedurales Lernen, keine Predictive Engine. Synthese-Schritt braucht Cloud-LLM. Neueres Projekt mit kleiner Community (~4K Stars).",
+                  vs: "KaderOS Brain ist das einzige System das lernt, vergisst UND vorhersagt.",
+                },
+                {
+                  name: "Cognee",
+                  stars: "€7.5M Funding",
+                  problem: "On-prem kostet €1'970/Monat. Kein Dream Cycle, keine Predictive Engine, kein prozedurales Lernen. Python-only. Kleinere Community.",
+                  vs: "KaderOS Brain: CHF 5/Mo. 7 Schichten. Swiss Hosting. Open Source.",
+                },
+                {
+                  name: "SuperMemory",
+                  stars: "Closed Source",
+                  problem: "Nicht Open Source. Self-Hosting braucht Enterprise Agreement. Kein prozedurales Lernen, kein Dream Cycle. Usage-based Pricing = unberechenbare Kosten.",
+                  vs: "KaderOS Brain ist AGPLv3 Open Source. Fixpreis. Volle Transparenz.",
+                },
+              ].map((c) => (
+                <div
+                  key={c.name}
+                  className="group bg-gray-50/50 rounded-2xl p-6 border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+                >
+                  <div className="flex items-center justify-between mb-3">
+                    <h3 className="text-lg font-bold text-gray-900">{c.name}</h3>
+                    <span className="text-[11px] text-gray-400 bg-white px-2.5 py-1 rounded-full border border-gray-100">
+                      {c.stars}
+                    </span>
+                  </div>
+                  <p className="text-[13px] text-gray-500 leading-relaxed mb-3">{c.problem}</p>
+                  <p className="text-[13px] text-[#000088] font-semibold leading-relaxed">→ {c.vs}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* USP Summary */}
+            <div className="mt-14 bg-gradient-to-br from-indigo-50/80 to-purple-50/40 rounded-3xl p-8 sm:p-10 border border-indigo-100/50">
+              <h3 className="text-xl font-bold text-gray-900 text-center mb-8">
+                Was nur der KaderOS Brain kann:
+              </h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                {[
+                  { icon: "🧠", label: "7 Schichten", sub: "Statt 1-3" },
+                  { icon: "🌙", label: "Dream Cycle", sub: "Vergessen + Verdichten" },
+                  { icon: "⚡", label: "Prozedurales Lernen", sub: "Automatische Regeln" },
+                  { icon: "🔮", label: "Predictive Engine", sub: "Proaktive Alerts" },
+                ].map((u) => (
+                  <div key={u.label} className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
+                    <div className="text-2xl mb-2">{u.icon}</div>
+                    <div className="text-sm font-bold text-gray-900">{u.label}</div>
+                    <div className="text-xs text-gray-400 mt-0.5">{u.sub}</div>
+                  </div>
+                ))}
+              </div>
+              <p className="text-[13px] text-gray-500 text-center mt-8">
+                Kein anderes System auf dem Markt kombiniert Knowledge Graph + Prozedurales Lernen + Dream Cycle + Predictive Engine.
+                <br />Und keines macht es für <span className="font-bold text-[#000088]">CHF 5 pro Monat</span>.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* ─── TECH STACK ─── */}
+        <section className="px-6 mb-32 sm:mb-40">
+          <div
+            ref={techReveal.ref}
+            className={`max-w-4xl mx-auto reveal-up ${techReveal.visible ? "is-visible" : ""}`}
+          >
+            <h2 className="text-3xl sm:text-[40px] font-bold text-center mb-4 text-gray-900 tracking-tight">
+              Tech Stack — keine Black Box
+            </h2>
+            <p className="text-base text-gray-500 text-center mb-12 max-w-2xl mx-auto">
+              Jede Komponente ist auditierbar, erklärbar und austauschbar.
+            </p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {[
+                { label: "Vektor-Datenbank", tech: "pgvector (PostgreSQL)", detail: "Cosine, L2, Inner Product" },
+                { label: "Embeddings", tech: "sentence-transformers", detail: "384d multilingual, lokal" },
+                { label: "Entity Extraction", tech: "spaCy de_core_news_lg", detail: "PER, ORG, LOC, MISC" },
+                { label: "Knowledge Graph", tech: "PostgreSQL + Graph Queries", detail: "Entities → Edges → Traversal" },
+                { label: "Scheduling", tech: "APScheduler", detail: "Dream Cycle, Predictive Scan" },
+                { label: "API", tech: "FastAPI", detail: "REST + WebSocket" },
+                { label: "Hosting", tech: "Railway EU (Schweiz)", detail: "Swiss Data Residency" },
+                { label: "Monitoring", tech: "Audit Trail", detail: "Jede Änderung geloggt" },
+              ].map((item) => (
+                <div
+                  key={item.label}
+                  className="group p-5 rounded-xl border border-gray-100 bg-white hover:border-indigo-200 hover:shadow-md transition-all duration-300"
+                >
+                  <div className="text-[11px] text-gray-400 uppercase tracking-wider font-semibold mb-1.5">
+                    {item.label}
+                  </div>
+                  <div className="text-sm font-bold text-gray-900 mb-1">{item.tech}</div>
+                  <div className="text-xs text-gray-400">{item.detail}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ─── FAQ ─── */}
+        <section className="px-6 mb-32 sm:mb-40">
+          <div
+            ref={faqReveal.ref}
+            className={`max-w-3xl mx-auto reveal-up ${faqReveal.visible ? "is-visible" : ""}`}
+          >
+            <h2 className="text-3xl sm:text-[40px] font-bold text-center mb-12 text-gray-900 tracking-tight">
+              Häufige Fragen
+            </h2>
+            <div className="space-y-4">
+              {[
+                {
+                  q: "Warum 7 Schichten und nicht 3 oder 10?",
+                  a: "Weil das menschliche Gedächtnis in 7 funktionalen Ebenen arbeitet: sensorischer Filter, Arbeitsgedächtnis, episodisches Gedächtnis, semantisches Netzwerk, prozedurales Lernen, Antizipation und Schlaf-Konsolidation. Wir haben jede Funktion 1:1 als technische Schicht abgebildet — nicht mehr, nicht weniger.",
+                },
+                {
+                  q: "Braucht der Brain ein LLM wie GPT-4 oder Claude?",
+                  a: "Nein. Der Brain nutzt kein Sprachmodell für die Gedächtnisarbeit. Embeddings kommen von sentence-transformers (lokal), Entity Extraction von spaCy (lokal), Vektorsuche von pgvector (PostgreSQL). Kein API-Call nach aussen. Das macht den Brain 50x günstiger als LLM-basierte Memory-Lösungen.",
+                },
+                {
+                  q: "Wo liegen meine Daten?",
+                  a: "Swiss Hosting auf Railway EU. Alle Daten bleiben in der Schweiz. Kein OpenAI, kein Anthropic, kein US-Cloud-Provider im Speicherpfad. nDSG-konform.",
+                },
+                {
+                  q: "Wie schnell lernt der Agent?",
+                  a: "Tag 1: Erste Erinnerungen. Tag 7: Knowledge Graph mit ~100 Entities. Tag 14: Erste Vorhersagen. Tag 30: 500+ Entities, prozedurale Regeln, proaktive Alerts. Tag 90: Tiefes Unternehmensverständnis mit kreativen Verbindungen.",
+                },
+                {
+                  q: "Kann ich Erinnerungen korrigieren oder löschen?",
+                  a: "Ja. Jede Erinnerung, jede Entity, jede Regel ist transparent und manuell überschreibbar. Du hast volle Kontrolle. Der Agent lernt — aber du bestimmst was er behalten darf.",
+                },
+                {
+                  q: "Was kostet das?",
+                  a: "CHF 5 pro Monat. Alles inklusive. Zum Vergleich: Mem0 Pro kostet $249/Monat (Graph erst ab Pro), Zep/Graphiti ab $25/Monat (kein Self-Hosting mehr), Letta $20-200/Monat (LLM-abhängig), Cognee On-Prem €1'970/Monat. Der KaderOS Brain ist das einzige 7-Schichten-System — und das günstigste produktionsreife AI-Gedächtnis auf dem Markt.",
+                },
+                {
+                  q: "Ist der Code Open Source?",
+                  a: "Ja. KaderOS ist Open Source unter AGPLv3. Du kannst den gesamten Brain-Code auf GitHub einsehen, auditieren und selbst hosten.",
+                },
+              ].map((faq) => (
+                <FaqItem key={faq.q} question={faq.q} answer={faq.a} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ─── CTA ─── */}
+        <section className="px-6 mb-20 sm:mb-28">
+          <div
+            ref={ctaReveal.ref}
+            className={`max-w-4xl mx-auto reveal-up ${ctaReveal.visible ? "is-visible" : ""}`}
+          >
+            <div
+              className="relative overflow-hidden rounded-3xl p-10 sm:p-16 text-center"
+              style={{
+                background: "linear-gradient(135deg, #1e1b4b 0%, #312e81 40%, #3730a3 100%)",
+              }}
+            >
+              {/* Subtle grid pattern */}
+              <div
+                className="absolute inset-0 opacity-[0.04]"
+                style={{
+                  backgroundImage: "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)",
+                  backgroundSize: "40px 40px",
+                }}
+                aria-hidden="true"
+              />
+
+              <div className="relative">
+                <h2 className="text-3xl sm:text-[44px] font-bold mb-5 text-white tracking-tight leading-tight">
+                  Gib deinen AI-Agents ein Gehirn.
+                </h2>
+                <p className="text-lg text-indigo-200/70 mb-10 max-w-lg mx-auto leading-relaxed">
+                  7 Schichten Gedächtnis. Inspiriert vom menschlichen Gehirn.
+                  <br />
+                  CHF 5/Monat. Swiss Hosting. Open Source.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Link
+                    href="/signup"
+                    className="px-10 py-4 bg-white text-[#000088] rounded-2xl font-semibold text-[15px] hover:bg-white/90 hover:shadow-2xl hover:shadow-white/10 transition-all duration-300"
+                    style={{ animation: "float 3s ease-in-out infinite" }}
+                  >
+                    Gratis starten
+                  </Link>
+                  <Link
+                    href="/brain"
+                    className="px-10 py-4 border border-white/20 text-white rounded-2xl font-semibold text-[15px] hover:bg-white/10 transition-all duration-300"
+                  >
+                    Kurzversion ansehen
+                  </Link>
+                  <Link
+                    href="https://github.com/kaderosio/kaderos.io"
+                    className="px-10 py-4 border border-white/20 text-white rounded-2xl font-semibold text-[15px] hover:bg-white/10 transition-all duration-300"
+                  >
+                    GitHub
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </>
+  );
+}
+
+/* ── FAQ Accordion Item ───────────────────────────────────── */
+
+function FaqItem({ question, answer }: { question: string; answer: string }) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="border border-gray-100 rounded-2xl overflow-hidden transition-all duration-300 hover:border-gray-200">
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full flex items-center justify-between p-6 text-left"
+      >
+        <h3 className="text-base font-bold text-gray-900 pr-4">{question}</h3>
+        <span
+          className="text-gray-400 text-xl font-light shrink-0 transition-transform duration-300"
+          style={{ transform: open ? "rotate(45deg)" : "rotate(0)" }}
+        >
+          +
+        </span>
+      </button>
+      <div
+        className="overflow-hidden transition-all duration-300"
+        style={{
+          maxHeight: open ? "300px" : "0",
+          opacity: open ? 1 : 0,
+        }}
+      >
+        <p className="px-6 pb-6 text-[15px] text-gray-500 leading-relaxed">{answer}</p>
       </div>
     </div>
   );
