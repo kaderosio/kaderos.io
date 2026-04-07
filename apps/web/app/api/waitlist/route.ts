@@ -1,10 +1,12 @@
 import { createClient } from "@supabase/supabase-js";
 import { NextRequest, NextResponse } from "next/server";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!
-);
+function getSupabase() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!
+  );
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -15,7 +17,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Check if already exists
-    const { data: existing } = await supabase
+    const { data: existing } = await getSupabase()
       .from("waitlist")
       .select("position, referral_code")
       .eq("email", email.toLowerCase().trim())
@@ -31,14 +33,14 @@ export async function POST(req: NextRequest) {
     }
 
     // Get current count for position
-    const { count } = await supabase
+    const { count } = await getSupabase()
       .from("waitlist")
       .select("*", { count: "exact", head: true });
 
     const position = (count || 0) + 1;
 
     // Insert
-    const { data, error } = await supabase
+    const { data, error } = await getSupabase()
       .from("waitlist")
       .insert({
         email: email.toLowerCase().trim(),
@@ -59,16 +61,16 @@ export async function POST(req: NextRequest) {
 
     // Referral Count beim Referrer erhöhen
     if (referred_by) {
-      const { error: rpcError } = await supabase.rpc("increment_referral_count", { ref_code: referred_by });
+      const { error: rpcError } = await getSupabase().rpc("increment_referral_count", { ref_code: referred_by });
       if (rpcError) {
         // Fallback: manuelles Update
-        const { data: referrer } = await supabase
+        const { data: referrer } = await getSupabase()
           .from("waitlist")
           .select("id, referral_count")
           .eq("referral_code", referred_by)
           .single();
         if (referrer) {
-          await supabase
+          await getSupabase()
             .from("waitlist")
             .update({ referral_count: (referrer.referral_count || 0) + 1 })
             .eq("id", referrer.id);
@@ -89,7 +91,7 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET() {
-  const { count } = await supabase
+  const { count } = await getSupabase()
     .from("waitlist")
     .select("*", { count: "exact", head: true });
 

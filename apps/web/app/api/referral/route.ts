@@ -28,10 +28,12 @@ import { NextRequest, NextResponse } from "next/server";
  * CREATE INDEX IF NOT EXISTS idx_waitlist_referred_by ON waitlist(referred_by);
  */
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!
-);
+function getSupabase() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!
+  );
+}
 
 const POSITIONS_PER_REFERRAL = 50;
 const REFERRALS_NEEDED = 3;
@@ -45,14 +47,14 @@ export async function GET(req: NextRequest) {
 
   if (!code) {
     // Leaderboard: Top 10 Referrer (anonymisiert)
-    const { data: leaderboard } = await supabase
+    const { data: leaderboard } = await getSupabase()
       .from("waitlist")
       .select("email, referral_count, created_at")
       .gt("referral_count", 0)
       .order("referral_count", { ascending: false })
       .limit(10);
 
-    const { count: totalCount } = await supabase
+    const { count: totalCount } = await getSupabase()
       .from("waitlist")
       .select("*", { count: "exact", head: true });
 
@@ -67,7 +69,7 @@ export async function GET(req: NextRequest) {
   }
 
   // Stats für spezifischen Referral Code
-  const { data: user } = await supabase
+  const { data: user } = await getSupabase()
     .from("waitlist")
     .select("position, referral_count, referral_code, email")
     .eq("referral_code", code)
@@ -109,7 +111,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Referrer finden und Count erhöhen
-    const { data: referrer, error: findError } = await supabase
+    const { data: referrer, error: findError } = await getSupabase()
       .from("waitlist")
       .select("id, referral_count")
       .eq("referral_code", referred_by)
@@ -119,7 +121,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Referrer nicht gefunden" }, { status: 404 });
     }
 
-    const { error: updateError } = await supabase
+    const { error: updateError } = await getSupabase()
       .from("waitlist")
       .update({ referral_count: (referrer.referral_count || 0) + 1 })
       .eq("id", referrer.id);
