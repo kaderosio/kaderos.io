@@ -416,9 +416,23 @@ export default function LandingPage() {
             </Link>
           </div>
 
-          <p className="s4 text-[12px] text-[#86868B] mb-0">
+          <p className="s4 text-[12px] text-[#86868B] mb-8">
             Demo-Login: demo@kaderos.io / Demo2026!
           </p>
+
+          {/* Hero Video */}
+          <div className="s4 relative max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-2xl border border-[#E5E5EA]">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-auto"
+              poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1920' height='1080'%3E%3Crect fill='%23FAFBFF' width='1920' height='1080'/%3E%3C/svg%3E"
+            >
+              <source src="https://ivihifwhfxxqnoznuumm.supabase.co/storage/v1/object/public/kaderos-videos/hero-promo.mp4" type="video/mp4" />
+            </video>
+          </div>
         </div>
       </section>
 
