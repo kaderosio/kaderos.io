@@ -166,12 +166,15 @@ const TIMELINE = [
 ];
 
 const COMPARISON = [
-  { tool: "ChatGPT Memory", layers: "1", type: "Notiz-Liste", graph: "Nein", learning: "Nein", dream: "Nein", price: "$20/Mo" },
-  { tool: "Mem0 Pro", layers: "2", type: "Key-Value + Vektor", graph: "Nein", learning: "Nein", dream: "Nein", price: "$249/Mo" },
-  { tool: "Zep", layers: "2", type: "Episodisch + Summary", graph: "Nein", learning: "Nein", dream: "Nein", price: "$50/Mo" },
-  { tool: "MemGPT/Letta", layers: "3", type: "Hierarchisch", graph: "Nein", learning: "Nein", dream: "Nein", price: "$100+/Mo" },
-  { tool: "LangMem", layers: "2", type: "Semantic + Procedural", graph: "Nein", learning: "Teilweise", dream: "Nein", price: "Open Source" },
-  { tool: "KaderOS Brain", layers: "7", type: "Human-inspired", graph: "Ja", learning: "Ja", dream: "Ja", price: "CHF 5/Mo" },
+  { tool: "ChatGPT Memory", layers: "1", type: "Notiz-Liste", graph: "Nein", learning: "Nein", dream: "Nein", price: "$20/Mo", benchmark: "—" },
+  { tool: "Mem0 Pro", layers: "2", type: "Vektor + Graph", graph: "Nur Pro ($249)", learning: "Nein", dream: "Nein", price: "$249/Mo", benchmark: "49.0%" },
+  { tool: "Zep/Graphiti", layers: "2", type: "Temporal Graph", graph: "Ja", learning: "Nein", dream: "Nein", price: "$25/Mo", benchmark: "63.8%" },
+  { tool: "Letta (MemGPT)", layers: "3", type: "OS-Hierarchie", graph: "Nein", learning: "Nein", dream: "Nein", price: "$20-200/Mo", benchmark: "~83%" },
+  { tool: "Hindsight", layers: "3", type: "Multi-Strategy", graph: "Ja", learning: "Teilweise", dream: "Nein", price: "Self-hosted", benchmark: "91.4%" },
+  { tool: "Cognee", layers: "2", type: "Graph + Vektor", graph: "Ja", learning: "Nein", dream: "Nein", price: "€1970/Mo", benchmark: "—" },
+  { tool: "SuperMemory", layers: "2", type: "Graph + RAG", graph: "Ja", learning: "Nein", dream: "Nein", price: "Usage-based", benchmark: "81.6%" },
+  { tool: "LangMem", layers: "2", type: "Semantic + KV", graph: "Nein", learning: "Teilweise", dream: "Nein", price: "Open Source", benchmark: "—" },
+  { tool: "KaderOS Brain", layers: "7", type: "Human-inspired", graph: "Ja", learning: "Ja", dream: "Ja", price: "CHF 5/Mo", benchmark: "—*" },
 ];
 
 const PRINCIPLES = [
@@ -446,6 +449,7 @@ export default function HumanAIBrainPage() {
                 <th className="text-left py-3 px-4 font-semibold">Graph</th>
                 <th className="text-left py-3 px-4 font-semibold">Lernen</th>
                 <th className="text-left py-3 px-4 font-semibold">Dream</th>
+                <th className="text-left py-3 px-4 font-semibold">Benchmark</th>
                 <th className="text-left py-3 px-4 font-semibold">Preis</th>
               </tr>
             </thead>
@@ -465,11 +469,100 @@ export default function HumanAIBrainPage() {
                   <td className="py-3 px-4">{row.graph}</td>
                   <td className="py-3 px-4">{row.learning}</td>
                   <td className="py-3 px-4">{row.dream}</td>
+                  <td className="py-3 px-4">{row.benchmark}</td>
                   <td className="py-3 px-4">{row.price}</td>
                 </tr>
               ))}
             </tbody>
           </table>
+        </div>
+        <p className="text-[11px] text-[#86868B] mt-4 text-center">
+          * KaderOS Brain wird derzeit nicht auf LongMemEval benchmarked — unser Fokus liegt auf realem Business-Impact, nicht akademischen Metriken.
+          Benchmark-Quellen: <a href="https://vectorize.io/articles/best-ai-agent-memory-systems" className="underline hover:text-[#000088]" target="_blank" rel="noopener noreferrer">Vectorize.io 2026</a>, <a href="https://dev.to/varun_pratapbhardwaj_b13/5-ai-agent-memory-systems-compared-mem0-zep-letta-supermemory-superlocalmemory-2026-benchmark-59p3" className="underline hover:text-[#000088]" target="_blank" rel="noopener noreferrer">DEV.to Benchmark</a>.
+        </p>
+      </div>
+
+      {/* Warum nicht die Anderen? */}
+      <div className="max-w-4xl mx-auto mb-24">
+        <h2 className="text-[32px] font-bold text-center mb-4 text-[#1D1D1F]">
+          Warum nicht die Anderen?
+        </h2>
+        <p className="text-[16px] text-[#6E6E73] text-center mb-10 max-w-2xl mx-auto">
+          Jedes Tool löst einen Teil. Keines löst das ganze Problem.
+        </p>
+        <div className="grid md:grid-cols-2 gap-6">
+          {[
+            {
+              name: "Mem0",
+              stars: "48K GitHub Stars",
+              problem: "Graph nur im $249/Mo Pro-Tier. 49% LongMemEval — schlechtester Benchmark aller getesteten Systeme. Kein Vergessen, keine Konsolidierung, kein prozedurales Lernen.",
+              vs: "KaderOS Brain hat Graph, Dream Cycle und Procedural Memory ab CHF 5/Mo.",
+            },
+            {
+              name: "Zep / Graphiti",
+              stars: "Temporal Knowledge Graph",
+              problem: "Self-Hosting wurde eingestellt. Credit-basiertes Pricing schwer kalkulierbar. Kein prozedurales Lernen, kein Dream Cycle, keine Predictive Engine.",
+              vs: "KaderOS Brain ist Open Source, self-hostbar, und hat 4 Schichten mehr.",
+            },
+            {
+              name: "Letta (MemGPT)",
+              stars: "$10M Funding",
+              problem: "LLM entscheidet was erinnert wird — teuer, langsam, unvorhersehbar. Kein Graph, kein temporales Tracking. Du kaufst ein Agent-Runtime, nicht nur Memory.",
+              vs: "KaderOS Brain nutzt kein LLM für Memory. Reine Mathematik = 50x günstiger.",
+            },
+            {
+              name: "Hindsight",
+              stars: "91.4% LongMemEval",
+              problem: "Bester Benchmark-Score — aber: kein Dream Cycle, kein prozedurales Lernen, keine Predictive Engine. Synthese-Schritt braucht Cloud-LLM. Neueres Projekt mit kleiner Community (~4K Stars).",
+              vs: "KaderOS Brain ist das einzige System das lernt, vergisst UND vorhersagt.",
+            },
+            {
+              name: "Cognee",
+              stars: "€7.5M Funding",
+              problem: "On-prem kostet €1'970/Monat. Kein Dream Cycle, keine Predictive Engine, kein prozedurales Lernen. Python-only. Kleinere Community.",
+              vs: "KaderOS Brain: CHF 5/Mo. 7 Schichten. Swiss Hosting. Open Source.",
+            },
+            {
+              name: "SuperMemory",
+              stars: "Closed Source",
+              problem: "Nicht Open Source. Self-Hosting braucht Enterprise Agreement. Kein prozedurales Lernen, kein Dream Cycle. Usage-based Pricing = unberechenbare Kosten.",
+              vs: "KaderOS Brain ist AGPLv3 Open Source. Fixpreis. Volle Transparenz.",
+            },
+          ].map((c) => (
+            <div key={c.name} className="bg-[#F5F5F7] rounded-2xl p-6 border border-[#E5E5EA]">
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-[17px] font-bold text-[#1D1D1F]">{c.name}</h3>
+                <span className="text-[11px] text-[#86868B] bg-white px-2 py-1 rounded-full">{c.stars}</span>
+              </div>
+              <p className="text-[13px] text-[#6E6E73] leading-relaxed mb-3">{c.problem}</p>
+              <p className="text-[13px] text-[#000088] font-semibold leading-relaxed">→ {c.vs}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* USP Summary */}
+        <div className="mt-12 bg-gradient-to-r from-[#000088]/5 to-[#3739C1]/5 rounded-2xl p-8 border border-[#000088]/10">
+          <h3 className="text-[20px] font-bold text-[#1D1D1F] text-center mb-6">
+            Was nur der KaderOS Brain kann:
+          </h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+            {[
+              { icon: "🧠", label: "7 Schichten", sub: "Statt 1-3" },
+              { icon: "🌙", label: "Dream Cycle", sub: "Vergessen + Verdichten" },
+              { icon: "⚡", label: "Prozedurales Lernen", sub: "Automatische Regeln" },
+              { icon: "🔮", label: "Predictive Engine", sub: "Proaktive Alerts" },
+            ].map((u) => (
+              <div key={u.label} className="bg-white rounded-xl p-4 border border-[#E5E5EA]">
+                <div className="text-2xl mb-2">{u.icon}</div>
+                <div className="text-[14px] font-bold text-[#1D1D1F]">{u.label}</div>
+                <div className="text-[12px] text-[#86868B]">{u.sub}</div>
+              </div>
+            ))}
+          </div>
+          <p className="text-[13px] text-[#6E6E73] text-center mt-6">
+            Kein anderes System auf dem Markt kombiniert Knowledge Graph + Prozedurales Lernen + Dream Cycle + Predictive Engine.
+            <br />Und keines macht es für <span className="font-bold text-[#000088]">CHF 5 pro Monat</span>.
+          </p>
         </div>
       </div>
 
@@ -532,7 +625,7 @@ export default function HumanAIBrainPage() {
             },
             {
               q: "Was kostet das?",
-              a: "CHF 5 pro Monat. Alles inklusive. Zum Vergleich: Mem0 Pro kostet $249/Monat, Zep Pro $50/Monat, MemGPT braucht eigene GPU-Infrastruktur für $100+/Monat. Der KaderOS Brain ist das günstigste produktionsreife AI-Gedächtnis auf dem Markt.",
+              a: "CHF 5 pro Monat. Alles inklusive. Zum Vergleich: Mem0 Pro kostet $249/Monat (Graph erst ab Pro), Zep/Graphiti ab $25/Monat (kein Self-Hosting mehr), Letta $20-200/Monat (LLM-abhängig), Cognee On-Prem €1'970/Monat. Der KaderOS Brain ist das einzige 7-Schichten-System — und das günstigste produktionsreife AI-Gedächtnis auf dem Markt.",
             },
             {
               q: "Ist der Code Open Source?",
