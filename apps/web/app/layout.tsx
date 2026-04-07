@@ -27,7 +27,6 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "de_CH",
-    url: "https://kaderos.io",
     siteName: "KaderOS",
     title: "KaderOS — Dein AI-Team. Für dein Unternehmen.",
     description: "4 Kader-Mitglieder. CHF 49/Monat. Arbeiten während du schläfst. Mit 7-Schichten-Gedächtnis. Swiss Made. Open Source.",
@@ -42,7 +41,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   alternates: {
-    canonical: "https://kaderos.io",
+    canonical: "/",
   },
   icons: {
     icon: "/favicon.svg",
