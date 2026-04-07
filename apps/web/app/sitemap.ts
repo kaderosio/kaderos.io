@@ -111,12 +111,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "content-lead-fuer-it", "content-lead-fuer-pharma", "content-lead-fuer-logistik", "content-lead-fuer-bildung",
   ];
 
+  // Multilingual landing pages
+  const langPages = [
+    { path: "/en", lang: "en" },
+    { path: "/fr", lang: "fr" },
+    { path: "/it", lang: "it" },
+  ];
+
   return [
     ...pages.map((p) => ({
       url: `${base}${p}`,
       lastModified: new Date("2026-04-03"),
       changeFrequency: "weekly" as const,
       priority: p === "" ? 1 : p === "/pricing" ? 0.9 : 0.7,
+    })),
+    ...langPages.map(({ path }) => ({
+      url: `${base}${path}`,
+      lastModified: new Date("2026-04-07"),
+      changeFrequency: "weekly" as const,
+      priority: 0.9,
     })),
     ...blogPosts.map(({ slug, date }) => ({
       url: `${base}/blog/${slug}`,

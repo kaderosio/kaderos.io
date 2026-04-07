@@ -42,6 +42,12 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "/",
+    languages: {
+      "de-CH": "/",
+      "en": "/en",
+      "fr": "/fr",
+      "it": "/it",
+    },
   },
   icons: {
     icon: "/favicon.svg",
