@@ -32,6 +32,11 @@ const competitors = [
     name: "LangChain",
     tagline: "Das populärste LLM-Framework",
   },
+  {
+    slug: "mem0",
+    name: "Mem0",
+    tagline: "AI Memory Service aus den USA",
+  },
 ];
 
 export default function ComparePage() {

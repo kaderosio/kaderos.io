@@ -243,6 +243,16 @@ const POSTS = [
     tagColor: "#059669",
     featured: false,
   },
+  {
+    slug: "warum-ki-assistent-alles-vergisst",
+    title: "Warum dein KI-Assistent alles vergisst — und was du dagegen tun kannst",
+    excerpt: "Jeder kennt es: Du erklärst ChatGPT zum fünften Mal dasselbe. Warum AI vergisst und was du dagegen tun kannst.",
+    date: "7. April 2026",
+    readTime: "8 min",
+    tag: "Deep Dive",
+    tagColor: "#7C3AED",
+    featured: false,
+  },
   // --- Leyla SEO-Artikel (April 2026) ---
   {
     slug: "ai-fuer-kmu-schweiz",
@@ -322,6 +332,26 @@ const POSTS = [
     readTime: "8 min",
     tag: "Vergleich",
     tagColor: "#000088",
+    featured: false,
+  },
+  {
+    slug: "ai-agent-memory-price-comparison-2026",
+    title: "AI Agent Memory 2026: The Honest Price Comparison",
+    excerpt: "Mem0 costs $249/month. Zep starts at $25. KaderOS: CHF 5. Here's what you actually get for your money.",
+    date: "7. April 2026",
+    readTime: "10 min",
+    tag: "Vergleich",
+    tagColor: "#000088",
+    featured: false,
+  },
+  {
+    slug: "ki-automatisierung-schweizer-kmu-2026",
+    title: "KI-Automatisierung für Schweizer KMU: Was wirklich funktioniert (2026)",
+    excerpt: "34% der Schweizer KMU nutzen KI. Aber nur 9% systematisch. Was läuft schief — und was funktioniert wirklich.",
+    date: "7. April 2026",
+    readTime: "9 min",
+    tag: "Guide",
+    tagColor: "#059669",
     featured: false,
   },
 ];

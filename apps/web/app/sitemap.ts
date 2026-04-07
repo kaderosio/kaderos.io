@@ -43,6 +43,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { slug: "ai-risiken-kmu", date: "2026-04-02" },
     { slug: "produktivitaet-ai-tools", date: "2026-04-02" },
     { slug: "ai-mitarbeiter-zukunft", date: "2026-04-03" },
+    { slug: "warum-ki-assistent-alles-vergisst", date: "2026-04-07" },
     // Leyla SEO batch
     { slug: "ai-fuer-kmu-schweiz", date: "2026-04-06" },
     { slug: "agent-memory", date: "2026-04-06" },
@@ -52,6 +53,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { slug: "bexio-ai-automatisierung", date: "2026-04-06" },
     { slug: "pgvector-vs-pinecone", date: "2026-04-06" },
     { slug: "kaderos-vs-crewai-n8n", date: "2026-04-06" },
+    { slug: "ai-agent-memory-price-comparison-2026", date: "2026-04-07" },
+    { slug: "ki-automatisierung-schweizer-kmu-2026", date: "2026-04-07" },
   ];
 
   const useCasePages = [
@@ -68,6 +71,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "n8n",
     "relevance-ai",
     "langchain",
+    "mem0",
   ];
 
   const aiTeamCityPages = [
