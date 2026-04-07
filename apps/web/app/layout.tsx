@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     default: "KaderOS — Dein AI-Team. Für dein Unternehmen.",
     template: "%s | KaderOS",
   },
-  description: "Das AI-Betriebssystem für Schweizer Unternehmen. 4 Kader-Mitglieder. CHF 49/Monat. Arbeiten während du schläfst. Open Source. Swiss Made.",
+  description: "Das AI-Betriebssystem für Schweizer Unternehmen. 4 Kader-Mitglieder. CHF 79/Monat. Arbeiten während du schläfst. Open Source. Swiss Made.",
   metadataBase: new URL("https://kaderos.io"),
   keywords: ["AI Betriebssystem", "KI für KMU", "AI Team", "Swiss Made AI", "KaderOS", "AI Agents Schweiz", "nDSG AI", "Open Source AI"],
   openGraph: {
@@ -29,12 +29,12 @@ export const metadata: Metadata = {
     locale: "de_CH",
     siteName: "KaderOS",
     title: "KaderOS — Dein AI-Team. Für dein Unternehmen.",
-    description: "4 Kader-Mitglieder. CHF 49/Monat. Arbeiten während du schläfst. Mit 7-Schichten-Gedächtnis. Swiss Made. Open Source.",
+    description: "4 Kader-Mitglieder. CHF 79/Monat. Arbeiten während du schläfst. Mit 7-Schichten-Gedächtnis. Swiss Made. Open Source.",
   },
   twitter: {
     card: "summary_large_image",
     title: "KaderOS — Dein AI-Team. Für dein Unternehmen.",
-    description: "4 Kader-Mitglieder. CHF 49/Monat. Arbeiten während du schläfst. Swiss Made. Open Source.",
+    description: "4 Kader-Mitglieder. CHF 79/Monat. Arbeiten während du schläfst. Swiss Made. Open Source.",
   },
   robots: {
     index: true,
@@ -119,7 +119,7 @@ export default function RootLayout({
                       "@type": "Offer",
                       name: "Pro",
                       description: "5 Agents, 1000 Runs/Monat, Brain Memory",
-                      price: "49",
+                      price: "79",
                       priceCurrency: "CHF",
                       billingIncrement: "P1M",
                       priceValidUntil: "2027-12-31",

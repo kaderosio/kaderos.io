@@ -205,7 +205,7 @@ function WaitlistForm({ variant = "default" }: { variant?: "default" | "hero" })
 
   const shareEmail = () => {
     const subject = encodeURIComponent("KaderOS – AI-Team für dein Unternehmen");
-    const body = encodeURIComponent(`Hey,\n\nich bin auf der Waitlist von KaderOS – eine AI-Plattform speziell für Schweizer KMUs. 4 AI-Agents für CHF 49/Monat.\n\nSichere dir deinen Platz: ${referralLink}\n\nGruss`);
+    const body = encodeURIComponent(`Hey,\n\nich bin auf der Waitlist von KaderOS – eine AI-Plattform speziell für Schweizer KMUs. 4 AI-Agents für CHF 79/Monat.\n\nSichere dir deinen Platz: ${referralLink}\n\nGruss`);
     window.open(`mailto:?subject=${subject}&body=${body}`, "_blank");
   };
 
@@ -401,7 +401,7 @@ export default function LandingPage() {
           </h1>
 
           <p className="s3 text-[18px] sm:text-[24px] text-[#6E6E73] max-w-2xl mx-auto mb-10 leading-snug font-semibold tracking-tight">
-            4 Agents. CHF 49 pro Monat. Arbeiten während du schläfst.
+            4 Agents. CHF 79 pro Monat. Arbeiten während du schläfst.
           </p>
 
           {/* CTAs */}
@@ -823,7 +823,7 @@ export default function LandingPage() {
                 pop: false,
               },
               {
-                name: "Pro", price: 49, annual: 39, per: "/Monat", agents: "10 Agents",
+                name: "Pro", price: 79, annual: 63, per: "/Monat", agents: "10 Agents",
                 feats: ["Alles aus Community", "Budget-Tracking in CHF", "Audit Trail", "5 Swiss Templates", "Email Support innert 24h"],
                 pop: true,
               },

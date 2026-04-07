@@ -116,7 +116,7 @@ export default function ReferPage() {
           </h1>
 
           <p className="text-[17px] sm:text-[20px] text-[#6E6E73] max-w-lg mx-auto mb-4 leading-snug">
-            KaderOS bringt AI-Agenten in Schweizer KMUs. 4 Agents. CHF 49/Monat. Arbeiten während du schläfst.
+            KaderOS bringt AI-Agenten in Schweizer KMUs. 4 Agents. CHF 79/Monat. Arbeiten während du schläfst.
           </p>
 
           {/* Social Proof */}

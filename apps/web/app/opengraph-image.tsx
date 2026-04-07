@@ -89,7 +89,7 @@ export default async function Image() {
             fontWeight: 500,
           }}
         >
-          4 Kader-Mitglieder. CHF 49/Monat. Arbeiten während du schläfst.
+          4 Kader-Mitglieder. CHF 79/Monat. Arbeiten während du schläfst.
         </p>
 
         {/* Badges */}

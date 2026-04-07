@@ -7,7 +7,7 @@ export const metadata = {
 };
 
 const rows = [
-  { feature: "Pricing", kaderos: "Free Tier + ab CHF 49/Mt.", competitor: "Open Source (kostenlos)" },
+  { feature: "Pricing", kaderos: "Free Tier + ab CHF 79/Mt.", competitor: "Open Source (kostenlos)" },
   { feature: "Open Source", kaderos: "Ja (MIT)", competitor: "Ja (MIT)" },
   { feature: "Swiss/DACH-Fokus", kaderos: "Ja — gebaut für die Schweiz", competitor: "Nein — Microsoft/US-Ökosystem" },
   { feature: "Memory System", kaderos: "3-Layer Memory (Short/Long/Entity)", competitor: "Teachable Agents (begrenzt)" },

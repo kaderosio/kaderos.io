@@ -25,7 +25,7 @@ export const PLANS = {
   },
   pro: {
     name: 'Pro',
-    priceMonthly: 4900, // CHF 49.00
+    priceMonthly: 7900, // CHF 79.00
     agents: 10,
     stripePriceId: process.env.STRIPE_PRO_PRICE_ID ?? null,
   },

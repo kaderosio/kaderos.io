@@ -7,7 +7,7 @@ export const metadata = {
 };
 
 const rows = [
-  { feature: "Pricing", kaderos: "Free Tier + ab CHF 49/Mt.", competitor: "Open Source + Cloud ab $29/Mt." },
+  { feature: "Pricing", kaderos: "Free Tier + ab CHF 79/Mt.", competitor: "Open Source + Cloud ab $29/Mt." },
   { feature: "Open Source", kaderos: "Ja (MIT)", competitor: "Ja (MIT)" },
   { feature: "Swiss/DACH-Fokus", kaderos: "Ja — gebaut für die Schweiz", competitor: "Nein — US-fokussiert" },
   { feature: "Memory System", kaderos: "3-Layer Memory (Short/Long/Entity)", competitor: "Basic Memory via Tools" },

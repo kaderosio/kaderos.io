@@ -31,7 +31,7 @@ const PLANS = {
   },
   pro: {
     name: "Pro",
-    price: "CHF 49",
+    price: "CHF 79",
     agents: 10,
     icon: Zap,
     features: [

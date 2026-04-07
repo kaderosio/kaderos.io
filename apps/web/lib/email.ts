@@ -190,7 +190,7 @@ export function emailUpgrade(data: OnboardingData & { taskCount: number }): Send
         Dein Kader hat in 14 Tagen ${data.taskCount} Tasks erledigt. Mit 3 Agents. Stell dir vor was 10 könnten.
       </p>
       <div style="background:#F5F5F7;border-radius:12px;padding:24px;margin:24px 0;">
-        <p style="font-weight:700;font-size:18px;margin-bottom:12px;">Pro: CHF 49/Monat</p>
+        <p style="font-weight:700;font-size:18px;margin-bottom:12px;">Pro: CHF 79/Monat</p>
         <ul style="color:#6E6E73;line-height:1.8;padding-left:20px;">
           <li>10 Agents statt 3</li>
           <li>Budget-Tracking in CHF</li>

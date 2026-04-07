@@ -23,7 +23,7 @@ const PLANS = [
   },
   {
     name: "Pro",
-    price: 49,
+    price: 79,
     per: "/Monat",
     agents: "10 Agents",
     desc: "Für Solo-Founders die ernst machen. Dein komplettes AI-Team.",

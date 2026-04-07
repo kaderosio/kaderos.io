@@ -7,7 +7,7 @@ export const metadata = {
 };
 
 const rows = [
-  { feature: "Pricing", kaderos: "Free Tier + ab CHF 49/Mt.", competitor: "Free Tier + ab $19/Mt." },
+  { feature: "Pricing", kaderos: "Free Tier + ab CHF 79/Mt.", competitor: "Free Tier + ab $19/Mt." },
   { feature: "Open Source", kaderos: "Ja (MIT)", competitor: "Nein — Closed Source" },
   { feature: "Swiss/DACH-Fokus", kaderos: "Ja — gebaut für die Schweiz", competitor: "Nein — Australien/Global" },
   { feature: "Memory System", kaderos: "3-Layer Memory (Short/Long/Entity)", competitor: "Basic Knowledge Base" },

@@ -7,7 +7,7 @@ export const metadata = {
 };
 
 const rows = [
-  { feature: "Pricing", kaderos: "Free Tier + ab CHF 49/Mt.", competitor: "Free (Self-Host) + Cloud ab EUR 24/Mt." },
+  { feature: "Pricing", kaderos: "Free Tier + ab CHF 79/Mt.", competitor: "Free (Self-Host) + Cloud ab EUR 24/Mt." },
   { feature: "Open Source", kaderos: "Ja (MIT)", competitor: "Ja (Sustainable Use License)" },
   { feature: "Swiss/DACH-Fokus", kaderos: "Ja — gebaut für die Schweiz", competitor: "Teilweise — Firma in Berlin" },
   { feature: "Memory System", kaderos: "3-Layer Memory (Short/Long/Entity)", competitor: "Kein Agent Memory" },

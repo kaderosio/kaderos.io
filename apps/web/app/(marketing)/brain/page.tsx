@@ -268,7 +268,7 @@ export default function BrainPage() {
             Dein Kader wartet.
           </h2>
           <p className="text-[16px] text-white/70 mb-8">
-            4 Agents. 7 Schichten Gedächtnis. CHF 49 pro Monat.
+            4 Agents. 7 Schichten Gedächtnis. CHF 79 pro Monat.
             <br />
             Swiss Made. Open Source.
           </p>

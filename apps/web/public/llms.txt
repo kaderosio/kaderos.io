@@ -12,7 +12,7 @@ KaderOS ist eine Open-Source-Plattform (AGPLv3) mit der Unternehmen ein AI-Team 
 
 ## Pricing
 - Free: CHF 0/Monat, 1 Agent, 100 Runs
-- Pro: CHF 49/Monat, 5 Agents, 1000 Runs, Brain Memory
+- Pro: CHF 79/Monat, 5 Agents, 1000 Runs, Brain Memory
 - Business: CHF 199/Monat, Unlimited
 
 ## Links
