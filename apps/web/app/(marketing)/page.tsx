@@ -420,6 +420,13 @@ export default function LandingPage() {
             Demo-Login: demo@kaderos.io / Demo2026!
           </p>
 
+          {/* Product Hunt Badge */}
+          <div className="s4 mb-10">
+            <a href="https://www.producthunt.com/products/kaderos?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-kaderos" target="_blank" rel="noopener noreferrer">
+              <img alt="KaderOS - Hire an AI team. Run it like a CEO. | Product Hunt" width="250" height="54" src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1117355&theme=light&t=1775528008705" className="mx-auto" />
+            </a>
+          </div>
+
           {/* Hero Video */}
           <div className="s4 relative max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-2xl border border-[#E5E5EA]">
             <video
