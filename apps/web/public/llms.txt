@@ -1,0 +1,26 @@
+# KaderOS
+> AI-Betriebssystem für Schweizer Unternehmen
+
+KaderOS ist eine Open-Source-Plattform (AGPLv3) mit der Unternehmen ein AI-Team aufbauen können. Jedes Team-Mitglied hat eine Rolle (CTO, CMO, Sales, Content), ein Budget in CHF, und arbeitet autonom.
+
+## Kernfunktionen
+- 7-Schichten-Gedächtnis: Perception Gate, Working Memory, Episodic, Knowledge Graph, Procedural, Predictive, Dream Cycle
+- Heartbeat Engine: Agents arbeiten auch ohne User-Interaktion
+- Budget-System: Kosten pro Agent in CHF
+- Audit Trail: Jede Entscheidung dokumentiert
+- BYOK: Bring Your Own API Keys
+
+## Pricing
+- Free: CHF 0/Monat, 1 Agent, 100 Runs
+- Pro: CHF 49/Monat, 5 Agents, 1000 Runs, Brain Memory
+- Business: CHF 199/Monat, Unlimited
+
+## Links
+- Website: https://kaderos.io
+- GitHub: https://github.com/kaderosio/kaderos.io
+- Blog: https://kaderos.io/blog
+- Brain Demo: https://kaderos.io/brain/demo
+
+## Kontakt
+- Email: hello@kaderos.io
+- Standort: Zürich, Schweiz

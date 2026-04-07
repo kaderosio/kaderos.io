@@ -1,4 +1,14 @@
 import Link from "next/link";
+import { generateArticleSchema } from "@/lib/schema";
+
+const articleSchema = generateArticleSchema({
+  title: "AI für KMU Schweiz: Was funktioniert 2026",
+  description:
+    "624'219 KMUs in der Schweiz. Die meisten nutzen AI falsch. Was 2026 wirklich funktioniert — und wie dein Betrieb sofort profitiert.",
+  slug: "ai-fuer-kmu-schweiz",
+  datePublished: "2026-04-06",
+  readingTimeMinutes: 8,
+});
 
 export const metadata = {
   title: "AI für KMU Schweiz: Was funktioniert 2026 | KaderOS",
@@ -9,6 +19,10 @@ export const metadata = {
 export default function BlogPost() {
   return (
     <article className="max-w-3xl mx-auto py-16 px-6">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
       <div className="mb-10">
         <div className="text-[12px] text-[#000088] font-semibold uppercase tracking-widest mb-3">
           Blog
