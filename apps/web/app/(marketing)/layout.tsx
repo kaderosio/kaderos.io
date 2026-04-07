@@ -129,7 +129,7 @@ function Footer() {
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-8 border-t border-[#E5E5EA]">
           <div className="text-[11px] text-[#C7C7CC]">&copy; 2026 KaderOS &middot; Swiss Made Software</div>
           <div className="flex items-center gap-5 text-[11px] text-[#C7C7CC]">
-            <span>Zuerich, Schweiz</span>
+            <span>Zürich, Schweiz</span>
           </div>
         </div>
       </div>
