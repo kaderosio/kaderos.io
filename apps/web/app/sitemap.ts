@@ -10,7 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/templates",
     "/enterprise",
     "/blog",
-    "/changelog",
+
     "/impressum",
     "/datenschutz",
     "/agb",

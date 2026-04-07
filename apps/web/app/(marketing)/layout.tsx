@@ -66,7 +66,7 @@ function Navbar() {
             <a href="https://github.com/kaderosio/kaderos.io" target="_blank" rel="noopener noreferrer" className="text-[16px] text-[#1D1D1F] font-medium py-3 border-b border-[#F5F5F7] flex items-center gap-2"><Github size={16} /> GitHub</a>
             <Link href="/login" className="text-[16px] text-[#1D1D1F] font-medium py-3 border-b border-[#F5F5F7]">Login</Link>
             <Link href="/login" className="text-[16px] text-[#6E6E73] font-medium py-3 border-b border-[#F5F5F7]">Demo</Link>
-            <Link href="/changelog" className="text-[16px] text-[#6E6E73] font-medium py-3 border-b border-[#F5F5F7]">Changelog</Link>
+
             <Link href="/impressum" className="text-[14px] text-[#86868B] py-2">Impressum</Link>
             <Link href="/datenschutz" className="text-[14px] text-[#86868B] py-2">Datenschutz</Link>
           </div>
@@ -98,7 +98,6 @@ function Footer() {
               { label: "Preise", href: "/pricing" },
               { label: "Templates", href: "/templates" },
               { label: "Enterprise", href: "/enterprise" },
-              { label: "Changelog", href: "/changelog" },
             ]},
             { title: "Community", links: [
               { label: "GitHub", href: "https://github.com/kaderosio/kaderos.io" },
