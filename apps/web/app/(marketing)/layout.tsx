@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Github, Menu, X } from "lucide-react";
+import { Github, Menu, X, Globe } from "lucide-react";
 import Link from "next/link";
 
 function Navbar() {
@@ -39,6 +39,17 @@ function Navbar() {
             ))}
             <a href="https://github.com/kaderosio/kaderos.io" target="_blank" rel="noopener noreferrer" className="text-[13px] text-[#6E6E73] hover:text-[#1D1D1F] transition-colors font-medium flex items-center gap-1.5"><Github size={14} /> GitHub</a>
             <Link href="/login" className="text-[13px] text-[#6E6E73] hover:text-[#1D1D1F] transition-colors font-medium">Login</Link>
+            {/* Language Switcher */}
+            <div className="flex items-center gap-1 text-[11px] text-[#86868B] font-medium">
+              <Globe size={12} />
+              <span className="text-[#1D1D1F] font-bold">DE</span>
+              <span>·</span>
+              <Link href="/en" className="hover:text-[#1D1D1F] transition-colors">EN</Link>
+              <span>·</span>
+              <Link href="/fr" className="hover:text-[#1D1D1F] transition-colors">FR</Link>
+              <span>·</span>
+              <Link href="/it" className="hover:text-[#1D1D1F] transition-colors">IT</Link>
+            </div>
             <Link href="/signup" className="px-4 lg:px-5 py-2 bg-[#000088] text-white text-[12px] sm:text-[13px] font-semibold rounded-xl transition-all hover:shadow-lg hover:bg-[#000066]">
               Kostenlos starten
             </Link>
@@ -66,6 +77,13 @@ function Navbar() {
             <a href="https://github.com/kaderosio/kaderos.io" target="_blank" rel="noopener noreferrer" className="text-[16px] text-[#1D1D1F] font-medium py-3 border-b border-[#F5F5F7] flex items-center gap-2"><Github size={16} /> GitHub</a>
             <Link href="/login" className="text-[16px] text-[#1D1D1F] font-medium py-3 border-b border-[#F5F5F7]">Login</Link>
             <Link href="/login" className="text-[16px] text-[#6E6E73] font-medium py-3 border-b border-[#F5F5F7]">Demo</Link>
+            <div className="flex items-center gap-3 py-3 border-b border-[#F5F5F7]">
+              <Globe size={14} className="text-[#86868B]" />
+              <span className="text-[14px] font-bold text-[#1D1D1F]">DE</span>
+              <Link href="/en" className="text-[14px] text-[#86868B] hover:text-[#1D1D1F]">EN</Link>
+              <Link href="/fr" className="text-[14px] text-[#86868B] hover:text-[#1D1D1F]">FR</Link>
+              <Link href="/it" className="text-[14px] text-[#86868B] hover:text-[#1D1D1F]">IT</Link>
+            </div>
 
             <Link href="/impressum" className="text-[14px] text-[#86868B] py-2">Impressum</Link>
             <Link href="/datenschutz" className="text-[14px] text-[#86868B] py-2">Datenschutz</Link>
