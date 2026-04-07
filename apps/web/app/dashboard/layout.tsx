@@ -31,23 +31,10 @@ import {
 import { createClient } from "@/utils/supabase/client";
 import { ToastProvider } from "./_components/toast";
 
-/* ── Company Context ──────────────────────────────────────────────────── */
+/* ── Company Context (re-exported from _components) ──────────────────── */
 
-type CompanyContextValue = {
-  companyId: string | null;
-  companyName: string | null;
-  loading: boolean;
-};
-
-const CompanyContext = createContext<CompanyContextValue>({
-  companyId: null,
-  companyName: null,
-  loading: true,
-});
-
-export function useCompany() {
-  return useContext(CompanyContext);
-}
+import { CompanyContext, useCompany } from "./_components/company-context";
+import type { CompanyContextValue } from "./_components/company-context";
 
 /* ── Nav Items ────────────────────────────────────────────────────────── */
 

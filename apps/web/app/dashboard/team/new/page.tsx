@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Loader2, Check } from "lucide-react";
-import { useCompany } from "../../layout";
+import { useCompany } from "../../_components/company-context";
 
 /* ── Model Options ───────────────────────────────────────────────────── */
 

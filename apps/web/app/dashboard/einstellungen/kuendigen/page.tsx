@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useCompany } from "../../layout";
+import { useCompany } from "../../_components/company-context";
 import {
   ArrowLeft,
   ArrowRight,

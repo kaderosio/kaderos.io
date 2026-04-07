@@ -3,7 +3,7 @@
 import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { useCompany } from "../layout";
+import { useCompany } from "../_components/company-context";
 import { useToast } from "../_components/toast";
 import {
   Settings,

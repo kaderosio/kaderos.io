@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Zap, Loader2, BarChart3, TrendingUp, Play, X } from "lucide-react";
-import { useCompany } from "../layout";
+import { useCompany } from "../_components/company-context";
 import { useToast } from "../_components/toast";
 
 interface Heartbeat {

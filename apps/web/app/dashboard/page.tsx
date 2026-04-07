@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useCompany } from "./layout";
+import { useCompany } from "./_components/company-context";
 import {
   Users,
   ClipboardList,

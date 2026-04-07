@@ -4,7 +4,7 @@ import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
 import { useEffect, useRef, useState, useMemo, useCallback, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { useCompany } from "../layout";
+import { useCompany } from "../_components/company-context";
 import {
   Send,
   Square,

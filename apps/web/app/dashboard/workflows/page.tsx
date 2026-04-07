@@ -10,7 +10,7 @@ import {
   Webhook,
   Play,
 } from "lucide-react";
-import { useCompany } from "../layout";
+import { useCompany } from "../_components/company-context";
 import { useToast } from "../_components/toast";
 
 interface Workflow {

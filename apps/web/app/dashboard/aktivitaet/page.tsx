@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import { useCompany } from "../layout";
+import { useCompany } from "../_components/company-context";
 import { Activity, RefreshCw } from "lucide-react";
 
 /* -- Types ---------------------------------------------------------------- */
