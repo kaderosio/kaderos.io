@@ -2,6 +2,7 @@
 
 import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 import { useCompany } from "../layout";
 import { useToast } from "../_components/toast";
 import {
@@ -15,6 +16,7 @@ import {
   Zap,
   Building2,
   Users,
+  XCircle,
 } from "lucide-react";
 
 /* ── Plan Config (client-side mirror of lib/stripe.ts) ──────────────── */
@@ -351,6 +353,24 @@ function EinstellungenContent() {
           </div>
         </div>
       </div>
+
+      {/* Cancel subscription */}
+      {currentPlan !== "free" && (
+        <div className="rounded-xl border border-gray-200 bg-white p-5 space-y-4">
+          <h2 className="text-sm font-semibold text-gray-900">Abo kündigen</h2>
+          <p className="text-xs text-gray-500">
+            Du kannst dein Abo jederzeit kündigen. Dein Team wird am Ende der
+            Abrechnungsperiode pausiert.
+          </p>
+          <Link
+            href="/dashboard/einstellungen/kuendigen"
+            className="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors"
+          >
+            <XCircle className="h-3.5 w-3.5" />
+            Abo kündigen
+          </Link>
+        </div>
+      )}
 
       {/* Danger zone */}
       <div className="rounded-xl border border-red-200 bg-red-50/50 p-5 space-y-4">
